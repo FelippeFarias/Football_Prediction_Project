@@ -1,1 +1,160 @@
-{"Shots on Goal":{"home":"2","away":"8"},"Shots off Goal":{"home":"2","away":"7"},"Total Shots":{"home":"6","away":"23"},"Blocked Shots":{"home":"2","away":"8"},"Shots insidebox":{"home":"5","away":"14"},"Shots outsidebox":{"home":"1","away":"9"},"Fouls":{"home":"9","away":"16"},"Corner Kicks":{"home":"6","away":"8"},"Offsides":{"home":"1","away":"1"},"Ball Possession":{"home":"42%","away":"58%"},"Yellow Cards":{"home":null,"away":null},"Red Cards":{"home":"2","away":"0"},"Goalkeeper Saves":{"home":"7","away":"2"},"Total passes":{"home":"353","away":"464"},"Passes accurate":{"home":"267","away":"403"},"Passes %":{"home":"76%","away":"87%"}}
+{
+  "get": "fixtures/statistics",
+  "parameters": {
+    "fixture": "157380"
+  },
+  "errors": [],
+  "results": 2,
+  "paging": {
+    "current": 1,
+    "total": 1
+  },
+  "response": [
+    {
+      "team": {
+        "id": 71,
+        "name": "Norwich",
+        "logo": "https://media.api-sports.io/football/teams/71.png"
+      },
+      "statistics": [
+        {
+          "type": "Shots on Goal",
+          "value": 2
+        },
+        {
+          "type": "Shots off Goal",
+          "value": 2
+        },
+        {
+          "type": "Total Shots",
+          "value": 6
+        },
+        {
+          "type": "Blocked Shots",
+          "value": 2
+        },
+        {
+          "type": "Shots insidebox",
+          "value": 5
+        },
+        {
+          "type": "Shots outsidebox",
+          "value": 1
+        },
+        {
+          "type": "Fouls",
+          "value": 9
+        },
+        {
+          "type": "Corner Kicks",
+          "value": 6
+        },
+        {
+          "type": "Offsides",
+          "value": 1
+        },
+        {
+          "type": "Ball Possession",
+          "value": "42%"
+        },
+        {
+          "type": "Yellow Cards",
+          "value": null
+        },
+        {
+          "type": "Red Cards",
+          "value": 2
+        },
+        {
+          "type": "Goalkeeper Saves",
+          "value": 7
+        },
+        {
+          "type": "Total passes",
+          "value": 354
+        },
+        {
+          "type": "Passes accurate",
+          "value": 267
+        },
+        {
+          "type": "Passes %",
+          "value": "75%"
+        }
+      ]
+    },
+    {
+      "team": {
+        "id": 44,
+        "name": "Burnley",
+        "logo": "https://media.api-sports.io/football/teams/44.png"
+      },
+      "statistics": [
+        {
+          "type": "Shots on Goal",
+          "value": 8
+        },
+        {
+          "type": "Shots off Goal",
+          "value": 7
+        },
+        {
+          "type": "Total Shots",
+          "value": 23
+        },
+        {
+          "type": "Blocked Shots",
+          "value": 8
+        },
+        {
+          "type": "Shots insidebox",
+          "value": 14
+        },
+        {
+          "type": "Shots outsidebox",
+          "value": 9
+        },
+        {
+          "type": "Fouls",
+          "value": 16
+        },
+        {
+          "type": "Corner Kicks",
+          "value": 8
+        },
+        {
+          "type": "Offsides",
+          "value": 1
+        },
+        {
+          "type": "Ball Possession",
+          "value": "58%"
+        },
+        {
+          "type": "Yellow Cards",
+          "value": null
+        },
+        {
+          "type": "Red Cards",
+          "value": 0
+        },
+        {
+          "type": "Goalkeeper Saves",
+          "value": 2
+        },
+        {
+          "type": "Total passes",
+          "value": 468
+        },
+        {
+          "type": "Passes accurate",
+          "value": 404
+        },
+        {
+          "type": "Passes %",
+          "value": "86%"
+        }
+      ]
+    }
+  ]
+}

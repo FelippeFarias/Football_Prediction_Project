@@ -10,352 +10,335 @@ Created on Sun Jun 28 12:13:02 2020
 
 import numpy as np
 import pandas as pd
+from datetime import datetime
+from typing import Dict, List, Any, Optional, Union
+import logging
 
 
 #------------------------------- DATA PROCESSING ------------------------------
 
 
 
-def running_mean(x, N):
-    '''
-    calculates sliding average of interval N, over list x,
-
-    Parameters
-    ----------
-    x : list
-        list of int or floats
-    N : int
-        sliding average interval
-
-    Returns
-    -------
-    list
-        sliding average list
-
-    '''
-    cumsum = np.cumsum(np.insert(x, 0, 0)) 
-    return (cumsum[N:] - cumsum[:-N]) / float(N)
-
-
-
-def average_stats_df(games_slide, team_list, team_fixture_id_dict, game_stats, making_predictions=False):
-    '''
-    Output is a dataframe of averaged game stats. Included is a teams average 
-    stats over 'games_slide' number of games as well as the avergae opponent stats in those games.
-
-    Parameters
-    ----------
-    games_slide : int
-        Number of games to average over.
-    team_list : list
-        list of teams ID's. For premier league there should be 20
-    team_fixture_id_dict : dict
-        key: team ID, value: list of fixture ID
-    game_stats : nested dict
-        key: team id, second-key: fixtue ID, value: stats dataframe 
-    making_predictions: bool
-        default = False. Set to true if creating a prediction dataframe
-
-    Returns
-    -------
-    df_ready_for_ml : dataframe
-        averaged game stats
-
-    '''
+def running_mean(data: Union[np.ndarray, pd.DataFrame],
+                window_size: int = 5,
+                team_col: Optional[str] = None,
+                numeric_cols: Optional[List[str]] = None) -> Union[np.ndarray, pd.DataFrame]:
+    """
+    Calcula a média móvel dos dados
     
-    if making_predictions:
-        x = games_slide
-        xx = 1
-    else:
-        x = -1
-        xx = 0
-
-  
-    #creating final features which will be appended
-    t_total_shots = []
-    t_shots_inside_box = []     
-    t_fouls = []
-    t_corners = []
-    t_posession = []
-    t_pass_accuracy = []
-    t_goals = []
-    t_goals_target = []
-    o_total_shots = []
-    o_shots_inside_box = []     
-    o_fouls = []
-    o_corners = []
-    o_posession = []
-    o_pass_accuracy = []
-    o_goals = []
-    o_goals_target = []
-    fix_id = []
-    result_indicator = []
-    o_team_ID = []
+    Args:
+        data: Array ou DataFrame com os dados
+        window_size: Tamanho da janela
+        team_col: Coluna com identificador do time (opcional)
+        numeric_cols: Lista de colunas numéricas (opcional)
     
-    for team_id in team_list[:]:
-        team = game_stats[team_id] #team dictionary
-        
-        #skipping over teams which have less games played that the 'games_slide'
-        if len(team_fixture_id_dict[team_id]) < games_slide:
-            continue
-        
-        #creating the initial features - it is important these get overwritten with each iteration
-        team_total_shots = []
-        team_shots_inside_box = []     
-        team_fouls = []
-        team_corners = []
-        team_posession = []
-        team_pass_accuracy = []
-        team_goals = []
-        opponent_total_shots = []
-        opponent_shots_inside_box = []     
-        opponent_fouls = []
-        opponent_corners = []
-        opponent_posession = []
-        opponent_pass_accuracy = []
-        opponent_goals = []
-        result_indicator_raw = []
-        
-        
-        #iterating over the fixture id to create feature lists
-        for game_id in team_fixture_id_dict[team_id]:
-            game = team[game_id] #game df
-            temp_index = pd.Index(game['Team Identifier'])
-            team_ind = temp_index.get_loc(1)
-            opponent_ind = temp_index.get_loc(2)
+    Returns:
+        Array ou DataFrame com médias móveis
+    """
+    if isinstance(data, pd.DataFrame):
+        if numeric_cols is None:
+            numeric_cols = data.select_dtypes(include=[np.number]).columns.tolist()
             
-            #team and opponent pseudo features: list of raw feature data for each game
-            team_total_shots.append(game['Total Shots'][team_ind])
-            team_shots_inside_box.append(game['Shots insidebox'][team_ind])
-            team_fouls.append(game['Fouls'][team_ind])
-            team_corners.append(game['Corner Kicks'][team_ind])
-            team_posession.append(game['Ball Possession'][team_ind])
-            team_pass_accuracy.append(game['Passes %'][team_ind])
-            team_goals.append(game['Goals'][team_ind])     
-            opponent_total_shots.append(game['Total Shots'][opponent_ind])
-            opponent_shots_inside_box.append(game['Shots insidebox'][opponent_ind])
-            opponent_fouls.append(game['Fouls'][opponent_ind])
-            opponent_corners.append(game['Corner Kicks'][opponent_ind])
-            opponent_posession.append(game['Ball Possession'][opponent_ind])
-            opponent_pass_accuracy.append(game['Passes %'][opponent_ind])
-            opponent_goals.append(game['Goals'][opponent_ind])
-            result_indicator_raw.append(game['Points'][team_ind])
-             
+        result = data.copy()
         
-        #sliding average of the raw feature lists above to create the final features
-        team_total_shots_slide = running_mean(team_total_shots, games_slide)[:x]
-        team_shots_inside_box_slide = running_mean(team_shots_inside_box, games_slide)[:x]
-        team_fouls_slide = running_mean(team_fouls, games_slide)[:x]
-        team_corners_slide = running_mean(team_corners, games_slide)[:x]
-        team_posession_slide = running_mean(team_posession, games_slide)[:x]
-        team_pass_accuracy_slide = running_mean(team_pass_accuracy, games_slide)[:x]
-        team_goals_slide = running_mean(team_goals, games_slide)[:x]
-        team_goals_target = team_goals[games_slide-xx:]
-        opponent_total_shots_slide = running_mean(opponent_total_shots, games_slide)[:x]
-        opponent_shots_inside_box_slide = running_mean( opponent_shots_inside_box, games_slide)[:x]
-        opponent_fouls_slide = running_mean(opponent_fouls, games_slide)[:x]
-        opponent_corners_slide = running_mean(opponent_corners, games_slide)[:x]
-        opponent_posession_slide = running_mean(opponent_posession, games_slide)[:x]
-        opponent_pass_accuracy_slide = running_mean(opponent_pass_accuracy, games_slide)[:x]
-        opponent_goals_slide = running_mean(opponent_goals, games_slide)[:x]
-        opponent_goals_target = opponent_goals[games_slide-xx:]
-        fix_id_slide = team_fixture_id_dict[team_id][games_slide-xx:]
-        result_indicator_slide = result_indicator_raw[games_slide-xx:]
-
-    
-        #appending over the iterables, the above variables will be overwritten with each iteration
-        t_total_shots.extend(team_total_shots_slide)
-        t_shots_inside_box.extend(team_shots_inside_box_slide)
-        t_fouls.extend(team_fouls_slide)
-        t_corners.extend(team_corners_slide)
-        t_posession.extend(team_posession_slide)
-        t_pass_accuracy.extend(team_pass_accuracy_slide)
-        t_goals.extend(team_goals_slide)
-        t_goals_target.extend(team_goals_target)
-        o_total_shots.extend(opponent_total_shots_slide)
-        o_shots_inside_box.extend(opponent_shots_inside_box_slide)
-        o_fouls.extend(opponent_fouls_slide)
-        o_corners.extend(opponent_corners_slide)
-        o_posession.extend(opponent_posession_slide)
-        o_pass_accuracy.extend(opponent_pass_accuracy_slide)
-        o_goals.extend(opponent_goals_slide)
-        o_goals_target.extend(opponent_goals_target)
-        fix_id.extend(fix_id_slide)
-        result_indicator.extend(result_indicator_slide)
-        o_team_ID.append(team_id)
-
-    
-    #piecing together the results into a dataframe   
-    df_ready_for_ml = pd.DataFrame({})  
-    df_ready_for_ml['Team Av Shots'] = t_total_shots
-    df_ready_for_ml['Team Av Shots Inside Box'] = t_shots_inside_box
-    df_ready_for_ml['Team Av Fouls'] = t_fouls
-    df_ready_for_ml['Team Av Corners'] = t_corners
-    df_ready_for_ml['Team Av Possession'] = t_posession
-    df_ready_for_ml['Team Av Pass Accuracy'] = t_pass_accuracy
-    df_ready_for_ml['Team Av Goals'] = t_goals
-    df_ready_for_ml['Opponent Av Shots'] = o_total_shots
-    df_ready_for_ml['Opponent Av Shots Inside Box'] = o_shots_inside_box
-    df_ready_for_ml['Opponent Av Fouls'] = o_fouls
-    df_ready_for_ml['Opponent Av Corners'] = o_corners
-    df_ready_for_ml['Opponent Av Possession'] = o_posession
-    df_ready_for_ml['Opponent Av Goals'] = o_goals
-    df_ready_for_ml['Opponent Av Pass Accuracy'] = o_pass_accuracy
-
-    df_ready_for_ml['Team Goal Target'] = t_goals_target
-    df_ready_for_ml['Opponent Goal Target'] = o_goals_target
-    df_ready_for_ml['Target Fixture ID'] = fix_id
-    df_ready_for_ml['Result Indicator'] = result_indicator
-    if making_predictions:
-        df_ready_for_ml['team_id'] = o_team_ID 
-    
-    #returning the dataframe
-    return df_ready_for_ml
-
-
-
-def mod_df(df, making_predictions=False):
-    '''
-    This function requires the output from the function 'average_stats_df()'. It takes a team and their oppoents (in the last 10 games) average stats, and subtracts one from the other. The benefit of this is it provides a more useful metric for how well a team has been performing. If the 'Av Shots Diff' is positive, it means that team has, on average taken more shots than their opponent in the previous games. This is a useful feature for machine learning.  
-
-    Parameters
-    ----------
-    df : dataframe
-        game stats, outputted from the funtion: 'average_stats_df()'.
-    making_predictions : bool, optional, the default is False.
-        default is set to false, the output is appropriate for training a model. If set to true, the output is suitable for making predictions.
-        
-
-    Returns
-    -------
-    df_output : dataframe
-        modified averaged game stats
-
-    '''
-    
-    df_sort = df.sort_values('Target Fixture ID')
-    df_sort = df_sort.reset_index(drop=True)
-    
-    #in our input dataframe (df) we have removed data from teams that have played less than 5 or 10 games. However, we havent removed data from the oposing team which has played more than 5 or 10 games. In the input df we have two rows for each fixture, one for each teams stats. The code below removes the data of all games that only have a single teams stats available, as this is not useful for training the model. This was not done at an earlier stage because this data is still useful in making future predictions.
-    
-    if not making_predictions:
-    
-        index_to_remove = []
-        
-        for i in range(0, len(df_sort)-1):
-            if i == 0:
-                continue
-        
-            elif i == len(df_sort)-1:
-                target_m1 = df_sort['Target Fixture ID'].loc[i-1]
-                target = df_sort['Target Fixture ID'].loc[i]
-                if target != target_m1:
-                    index_to_remove.append(i)
-                  
-            else:
-                target_m1 = df_sort['Target Fixture ID'].loc[i-1]
-                target = df_sort['Target Fixture ID'].loc[i]
-                target_p1 = df_sort['Target Fixture ID'].loc[i+1]
-                if (target != target_m1) and (target != target_p1):
-                    index_to_remove.append(i)
-                else:
-                    continue
+        if team_col is not None:
+            # Calcular média móvel por time
+            for col in numeric_cols:
+                result[col] = result.groupby(team_col)[col].transform(
+                    lambda x: x.rolling(window=window_size, min_periods=1).mean()
+                )
+        else:
+            # Calcular média móvel geral
+            for col in numeric_cols:
+                result[col] = result[col].rolling(window=window_size, min_periods=1).mean()
                 
-        df_sort = df_sort.drop(df_sort.index[index_to_remove])    
+        return result
+    else:
+        # Para arrays numpy
+        data = np.asarray(data)
+        if data.ndim == 1:
+            # Expandir dimensões para 2D
+            data = data.reshape(-1, 1)
+            
+        result = np.zeros_like(data)
+        for i in range(data.shape[1]):
+            # Usar convolve para média móvel eficiente
+            weights = np.ones(window_size) / window_size
+            result[:, i] = np.convolve(data[:, i], weights, mode='same')
+            
+            # Ajustar bordas
+            for j in range(window_size - 1):
+                if j < window_size // 2:
+                    # Início
+                    result[j, i] = np.mean(data[:(j + window_size//2 + 1), i])
+                else:
+                    # Fim
+                    result[-(window_size-j), i] = np.mean(data[-(window_size-j):, i])
+                    
+        return result.squeeze() if data.shape[1] == 1 else result
+
+
+
+def calculate_momentum(df: pd.DataFrame,
+                      result_col: str = 'Result Indicator',
+                      team_id_col: str = 'Team ID',
+                      window: int = 5) -> pd.DataFrame:
+    """
+    Calcula momentum baseado em resultados recentes
     
+    Args:
+        df: DataFrame com dados
+        result_col: Nome da coluna de resultado
+        team_id_col: Nome da coluna de ID do time
+        window: Tamanho da janela
     
-    #creating our desired features
-    df_output = pd.DataFrame({})
+    Returns:
+        DataFrame com momentum calculado
+    """
+    df_momentum = df.copy()
     
-    df_output['Av Shots Diff'] = df_sort['Team Av Shots'] - df_sort['Opponent Av Shots']
-    df_output['Av Shots Inside Box Diff'] = df_sort['Team Av Shots Inside Box'] - df_sort['Opponent Av Shots Inside Box']
-    df_output['Av Fouls Diff'] = df_sort['Team Av Fouls'] - df_sort['Opponent Av Fouls']
-    df_output['Av Corners Diff'] = df_sort['Team Av Corners'] -df_sort['Opponent Av Corners']
-    df_output['Av Possession Diff'] = df_sort['Team Av Possession'] - df_sort['Opponent Av Possession']
-    df_output['Av Pass Accuracy Diff'] = df_sort['Team Av Pass Accuracy'] - df_sort['Opponent Av Pass Accuracy']
-    df_output['Av Goal Difference'] = df_sort['Team Av Goals'] - df_sort['Opponent Av Goals']
-    if not making_predictions:
-        df_output['Fixture ID'] = df_sort['Target Fixture ID']
-        df_output['Result Indicator'] = df_sort['Result Indicator']
-    if making_predictions:
-        df_output['Team ID'] = df_sort['team_id']
+    # Mapear resultados para pontos
+    points_map = {0: 0, 1: 1, 2: 3}  # 0=derrota, 1=empate, 2=vitória
+    df_momentum['points'] = df_momentum[result_col].map(points_map)
     
-    return df_output
-
-
-
-def combining_fixture_id(df):
-    '''
-    This function requires the output from the function 'mod_df()'. Currently this df contains the features for a single team with a target fixture. This function combines the home and away team features into a single row per target fixture. This df is then complete with features for home and away teams and is therefore ready for model training.
-
-    Parameters
-    ----------
-    df : dataframe
-        game stats, outputted from the funtion: 'mod_df()'.
-
-    Returns
-    -------
-    df_output : dataframe
-        features for both home and away team with target fixture id. 
-
-    '''   
+    # Calcular momentum por time
+    df_momentum['momentum'] = df_momentum.groupby(team_id_col)['points'].transform(
+        lambda x: x.rolling(window=window, min_periods=1).mean()
+    )
     
-    #iterating over each opponent row to add to the previous
-    odd_list = []
-    for x in range(1, len(df), 2):
-        odd_list.append(x)
-    even_list = []
-    for x in range(0, len(df)-1, 2):
-        even_list.append(x)
+    # Normalizar momentum entre 0 e 1
+    momentum_max = df_momentum['momentum'].max()
+    momentum_min = df_momentum['momentum'].min()
+    
+    if momentum_max > momentum_min:
+        df_momentum['momentum'] = (df_momentum['momentum'] - momentum_min) / (momentum_max - momentum_min)
+    else:
+        df_momentum['momentum'] = 0
         
-    team_df = df.drop(df.index[odd_list])
-    team_df = team_df.reset_index(drop=True)
-    opponent_df = df.drop(df.index[even_list])
-    opponent_df = opponent_df.reset_index(drop=True)
+    # Remover coluna temporária
+    df_momentum.drop('points', axis=1, inplace=True)
     
-    df_output = pd.DataFrame({})
-    df_output['Team Av Shots Diff'] = team_df['Av Shots Diff']
-    df_output['Team Av Shots Inside Box Diff'] = team_df['Av Shots Inside Box Diff']
-    df_output['Team Av Fouls Diff'] = team_df['Av Fouls Diff']
-    df_output['Team Av Corners Diff'] = team_df['Av Corners Diff']
-    df_output['Team Av Possession Diff'] = team_df['Av Possession Diff']
-    df_output['Team Av Pass Accuracy Diff'] = team_df['Av Pass Accuracy Diff']
-    df_output['Team Av Goal Diff'] = team_df['Av Goal Difference']
-    df_output['Opponent Av Shots Diff'] = opponent_df['Av Shots Diff']
-    df_output['Opponent Av Shots Inside Box Diff'] = opponent_df['Av Shots Inside Box Diff']
-    df_output['Opponent Av Fouls Diff'] = opponent_df['Av Fouls Diff']
-    df_output['Opponent Av Corners Diff'] = opponent_df['Av Corners Diff']
-    df_output['Opponent Av Possession Diff'] = opponent_df['Av Possession Diff']
-    df_output['Opponent Av Pass Accuracy Diff'] = opponent_df['Av Pass Accuracy Diff']
-    df_output['Opponent Av Goal Diff'] = opponent_df['Av Goal Difference']
-    df_output['Fixture ID'] = team_df['Fixture ID']
-    df_output['Team Result Indicator'] = team_df['Result Indicator']
-    df_output['Opponent Result Indicator'] = opponent_df['Result Indicator']
+    return df_momentum
+
+
+
+def calculate_fatigue(df: pd.DataFrame,
+                     date_col: str = 'Game Date',
+                     team_id_col: str = 'Team ID',
+                     window: int = 30) -> pd.DataFrame:
+    """
+    Calcula fadiga baseada em jogos recentes
+    
+    Args:
+        df: DataFrame com dados
+        date_col: Nome da coluna de data
+        team_id_col: Nome da coluna de ID do time
+        window: Janela em dias para considerar
+        
+    Returns:
+        DataFrame com fadiga calculada
+    """
+    df_fatigue = df.copy()
+    
+    # Converter datas
+    df_fatigue[date_col] = pd.to_datetime(df_fatigue[date_col])
+    
+    # Ordenar por time e data
+    df_fatigue.sort_values([team_id_col, date_col], inplace=True)
+    
+    # Calcular dias desde último jogo por time
+    df_fatigue['days_since_last'] = df_fatigue.groupby(team_id_col)[date_col].diff().dt.days
+    
+    # Preencher primeiro jogo de cada time com valor alto
+    df_fatigue['days_since_last'].fillna(window, inplace=True)
+    
+    # Calcular fadiga (inverso dos dias de descanso)
+    df_fatigue['fatigue'] = 1 - (df_fatigue['days_since_last'] / window)
+    
+    # Limitar entre 0 e 1
+    df_fatigue['fatigue'] = df_fatigue['fatigue'].clip(0, 1)
+    
+    # Remover coluna temporária
+    df_fatigue.drop('days_since_last', axis=1, inplace=True)
+    
+    return df_fatigue
+
+
+
+def average_stats_df(window_size: int,
+                    team_list: List[str],
+                    team_fixture_id_dict: Dict[str, List[str]],
+                    game_stats: Dict[str, Dict[str, pd.DataFrame]]) -> pd.DataFrame:
+    """
+    Calcula estatísticas médias dos times
+    
+    Args:
+        window_size: Tamanho da janela móvel
+        team_list: Lista de times
+        team_fixture_id_dict: Dicionário com IDs dos jogos por time
+        game_stats: Dicionário com estatísticas dos jogos
+    
+    Returns:
+        DataFrame com estatísticas médias
+    """
+    
+    all_stats_dict_list = []
+    
+    for team in team_list:
+        fixture_id_list = team_fixture_id_dict[team]
+        
+        for fix_id in fixture_id_list:
+            if fix_id not in game_stats[team]:
+                continue
+                
+            game_stats_dict = {}
+            game_stats_dict['Team'] = team
+            game_stats_dict['Fixture ID'] = fix_id
+            
+            # Obter estatísticas do jogo atual
+            current_game_stats = game_stats[team][fix_id]
+            
+            # Adicionar Team ID
+            team_idx = 0 if current_game_stats['Team Identifier'].iloc[0] == 1 else 1
+            game_stats_dict['Team ID'] = current_game_stats['Team ID'].iloc[team_idx]
+            
+            # Adicionar Result Indicator
+            if 'Goals' in current_game_stats.columns:
+                goals = float(current_game_stats['Goals'].iloc[team_idx])
+                opponent_goals = float(current_game_stats['Goals'].iloc[1 - team_idx])
+                
+                if goals > opponent_goals:
+                    game_stats_dict['Result Indicator'] = 2  # Vitória
+                elif goals == opponent_goals:
+                    game_stats_dict['Result Indicator'] = 1  # Empate
+                else:
+                    game_stats_dict['Result Indicator'] = 0  # Derrota
+            
+            # Encontrar índice do jogo atual
+            current_game_index = fixture_id_list.index(fix_id)
+            
+            # Calcular índices para a janela móvel
+            start_index = max(0, current_game_index - window_size)
+            
+            # Coletar estatísticas da janela
+            window_stats = {}
+            for i in range(start_index, current_game_index):
+                if fixture_id_list[i] in game_stats[team]:
+                    game_data = game_stats[team][fixture_id_list[i]]
+                    team_idx = 0 if game_data['Team Identifier'].iloc[0] == 1 else 1
+                    for col in game_data.columns:
+                        if col not in ['Team Identifier', 'Team ID', 'Team', 'Game Date']:
+                            if col not in window_stats:
+                                window_stats[col] = []
+                            try:
+                                # Converter para float, ignorando valores não numéricos
+                                value = float(game_data[col].iloc[team_idx])
+                                window_stats[col].append(value)
+                            except (ValueError, TypeError):
+                                continue
+            
+            # Calcular médias e diferenças
+            for col in current_game_stats.columns:
+                if col not in ['Team Identifier', 'Team ID', 'Team', 'Game Date']:
+                    try:
+                        current_value = float(current_game_stats[col].iloc[team_idx])
+                        if col in window_stats and window_stats[col]:
+                            mean_value = np.mean(window_stats[col])
+                            game_stats_dict[f'{col} Mean'] = mean_value
+                            game_stats_dict[f'{col} Diff'] = current_value - mean_value
+                        else:
+                            game_stats_dict[f'{col} Mean'] = current_value
+                            game_stats_dict[f'{col} Diff'] = 0
+                    except (ValueError, TypeError):
+                        continue
+            
+            # Adicionar data do jogo
+            game_stats_dict['Game Date'] = current_game_stats['Game Date'].iloc[0]
+            
+            all_stats_dict_list.append(game_stats_dict)
+    
+    # Criar DataFrame
+    if not all_stats_dict_list:
+        return pd.DataFrame()
+        
+    df_output = pd.DataFrame(all_stats_dict_list)
     
     return df_output
 
 
 
-def creating_ml_df(df, making_predictions=False):
-    '''
-    This function requires the output from the function 'average_stats_df()'. It will process the average stats combining the two functions: mod_df() and combining_fixture_id() to create a df ready for model training.
-
-    Parameters
-    ----------
-    df : dataframe
-        game stats, outputted from the funtion: 'average_stats_df()'.
-    making_predictions : bool, optional, the default is False.
-        default is set to false, the output is appropriate for training a model. If set to true, the output is suitable for making predictions.
-
-    Returns
-    -------
-    df_output : dataframe
-        features for both home and away team with target fixture id. 
-
-    '''
+def mod_df(df: pd.DataFrame,
+           window_size: int = 5) -> pd.DataFrame:
+    """
+    Modifica DataFrame adicionando features
     
+    Args:
+        df: DataFrame original
+        window_size: Tamanho da janela
+        
+    Returns:
+        DataFrame modificado
+    """
+    df_mod = df.copy()
+    
+    # Calcular médias móveis apenas para colunas que existem
+    numeric_cols = []
+    for col in ['Goals Mean', 'Shots on Goal Mean']:
+        if col in df_mod.columns:
+            numeric_cols.append(col)
+    
+    if numeric_cols:
+        df_mod = running_mean(df_mod, window_size, 'Team ID', numeric_cols)
+    
+    # Adicionar momentum se Result Indicator existir
+    if 'Result Indicator' in df_mod.columns:
+        df_mod = calculate_momentum(df_mod, result_col='Result Indicator', team_id_col='Team ID', window=window_size)
+    
+    # Adicionar fadiga se as colunas necessárias existirem
+    if 'Game Date' in df_mod.columns and 'Team ID' in df_mod.columns:
+        df_mod = calculate_fatigue(df_mod, team_id_col='Team ID')
+    
+    return df_mod
+
+
+
+def combining_fixture_id(df: pd.DataFrame) -> pd.DataFrame:
+    """
+    Combina características dos times em um único DataFrame por fixture
+    
+    Args:
+        df: DataFrame com estatísticas dos times
+        
+    Returns:
+        DataFrame combinado
+    """
+    df_output = pd.DataFrame()
+    
+    # Adicionar colunas relevantes
+    for col in df.columns:
+        if col.endswith('Mean') or col.endswith('Diff') or col in ['Team ID', 'Fixture ID', 'Result Indicator', 'Game Date']:
+            df_output[col] = df[col]
+    
+    return df_output
+
+
+
+def creating_ml_df(df: pd.DataFrame) -> pd.DataFrame:
+    """
+    Cria DataFrame para machine learning
+    
+    Args:
+        df: DataFrame original
+        
+    Returns:
+        DataFrame processado para ML
+    """
+    # Modificar DataFrame
     modified_df = mod_df(df)
+    
+    # Combinar características
     df_output = combining_fixture_id(modified_df)
+    
     return df_output
 
 

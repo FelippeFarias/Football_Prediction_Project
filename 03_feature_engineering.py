@@ -5,7 +5,6 @@ Created on Tue Apr 21 18:23:13 2020
 @author: mhayt
 """
 
-
 print('\n\n ---------------- START ---------------- \n')
 
 #-------------------------------- API-FOOTBALL --------------------------------
@@ -14,70 +13,101 @@ import time
 start=time.time()
 
 import pickle
+import logging
+import os
 from ml_functions.feature_engineering_functions import average_stats_df
 from ml_functions.feature_engineering_functions import creating_ml_df
 
+# Configure logging
+logging.basicConfig(
+    level=logging.INFO,
+    format='%(asctime)s - %(levelname)s - %(message)s'
+)
 
 #------------------------------- INPUT VARIABLES ------------------------------
 
-#Please state the name of the saved nested dictionary generated with '02_cleaning_stats_data.py', as well as the name of the saved output files (stats DataFrame).
+# Find the stats dictionary file
+try:
+    dict_files = [f for f in os.listdir('prem_clean_fixtures_and_dataframes') if f.endswith('stats_dict.txt')]
+    if not dict_files:
+        raise FileNotFoundError("No stats dictionary files found")
+    stats_dict_saved_name = max(dict_files, key=lambda x: os.path.getctime(os.path.join('prem_clean_fixtures_and_dataframes', x)))
+    logging.info(f"Using stats dictionary file: {stats_dict_saved_name}")
+except Exception as e:
+    logging.error(f"Error finding stats dictionary file: {str(e)}")
+    raise
 
-stats_dict_saved_name = '2019_2020_2021_2022_2023_2024_prem_all_stats_dict.txt'
-
-df_5_output_name = '2019_2020_2021_2022_2023_2024_prem_df_for_ml_5_v2.txt'
-df_10_output_name = '2019_2020_2021_2022_2023_2024_prem_df_for_ml_10_v2.txt'
-
+# Generate output filenames
+df_5_output_name = 'prem_df_for_ml_5_v2.txt'
+df_10_output_name = 'prem_df_for_ml_10_v2.txt'
 
 #----------------------------- FEATURE ENGINEERING ----------------------------
 
-with open(f'prem_clean_fixtures_and_dataframes/{stats_dict_saved_name}', 'rb') as myFile:
-    game_stats = pickle.load(myFile)
+try:
+    # Load the game stats dictionary
+    with open(f'prem_clean_fixtures_and_dataframes/{stats_dict_saved_name}', 'rb') as myFile:
+        game_stats = pickle.load(myFile)
+    logging.info("Successfully loaded game stats dictionary")
 
-#creating a list with the team id in
-team_list = []
-for key in game_stats.keys():
-    team_list.append(key)
-team_list.sort()
+    # Create team list and sort
+    team_list = list(game_stats.keys())
+    team_list.sort()
+    logging.info(f"Processing {len(team_list)} teams")
 
-#creating a dictionary with the team id as key and fixture id's as values
-team_fixture_id_dict = {}
-for team in team_list:
-    fix_id_list = []
-    for key in game_stats[team].keys():
-        fix_id_list.append(key)
-    fix_id_list.sort()
-    sub_dict = {team:fix_id_list}
-    team_fixture_id_dict.update(sub_dict)
+    # Create team fixture dictionary
+    team_fixture_id_dict = {}
+    for team in team_list:
+        fix_id_list = sorted(game_stats[team].keys())
+        team_fixture_id_dict[team] = fix_id_list
+        logging.info(f"Team {team} has {len(fix_id_list)} fixtures")
+
+    # Generate features with different sliding windows
+    logging.info("Generating 5-game sliding window features")
+    df_ml_5 = average_stats_df(5, team_list, team_fixture_id_dict, game_stats)
+    
+    logging.info("Generating 10-game sliding window features")
+    df_ml_10 = average_stats_df(10, team_list, team_fixture_id_dict, game_stats)
+
+    # Verificar se os DataFrames têm dados antes de salvar
+    if df_ml_5 is not None and len(df_ml_5) > 0:
+        logging.info(f"5-game window DataFrame shape: {df_ml_5.shape}")
+        logging.info(f"5-game window columns: {df_ml_5.columns.tolist()}")
+        logging.info(f"5-game window unique results: {df_ml_5['Result Indicator'].unique()}")
         
-#the list of fixtures was first home then away, we want them in chronological order so we need to sort them.
-for team in team_fixture_id_dict:
-    team_fixture_id_dict[team].sort()
+        # Create and save ML dataframes
+        logging.info("Creating ML dataframe with 5-game window")
+        df_for_ml_5_v2 = creating_ml_df(df_ml_5)
+        with open(f'prem_clean_fixtures_and_dataframes/{df_5_output_name}', 'wb') as myFile:
+            pickle.dump(df_for_ml_5_v2, myFile)
+        logging.info(f"Saved 5-game window dataframe to {df_5_output_name}")
+    else:
+        logging.warning("5-game window DataFrame is empty or None")
 
-#we can now iterate over the fixture ID list given a team id key using the dict created above. N.B./ the number of games over which the past data is averaged. A large number will smooth out past performance where as a small number will result in the prediction being heavily reliant on very recent form. This is worth testing the ml model build phase.
-
-#5 game sliding average.
-df_ml_5 = average_stats_df(5, team_list, team_fixture_id_dict, game_stats)
-
-#10 game sliding average.
-df_ml_10 = average_stats_df(10, team_list, team_fixture_id_dict, game_stats)
+    if df_ml_10 is not None and len(df_ml_10) > 0:
+        logging.info(f"10-game window DataFrame shape: {df_ml_10.shape}")
+        logging.info(f"10-game window columns: {df_ml_10.columns.tolist()}")
+        logging.info(f"10-game window unique results: {df_ml_10['Result Indicator'].unique()}")
         
-#creating and saving the ml dataframe with a 5 game sliding average.
-df_for_ml_5_v2 = creating_ml_df(df_ml_5)
-with open(f'prem_clean_fixtures_and_dataframes/{df_5_output_name}', 'wb') as myFile:
-    pickle.dump(df_for_ml_5_v2, myFile)
+        logging.info("Creating ML dataframe with 10-game window")
+        df_for_ml_10_v2 = creating_ml_df(df_ml_10)
+        with open(f'prem_clean_fixtures_and_dataframes/{df_10_output_name}', 'wb') as myFile:
+            pickle.dump(df_for_ml_10_v2, myFile)
+        logging.info(f"Saved 10-game window dataframe to {df_10_output_name}")
+    else:
+        logging.warning("10-game window DataFrame is empty or None")
 
-#creating and saving the ml dataframe with a 10 game sliding average.
-df_for_ml_10_v2 = creating_ml_df(df_ml_10)
-with open(f'prem_clean_fixtures_and_dataframes/{df_10_output_name}', 'wb') as myFile:
-    pickle.dump(df_for_ml_10_v2, myFile)
+    # Save CSV for Power BI
+    if df_ml_10 is not None and len(df_ml_10) > 0:
+        csv_output = 'prem_clean_fixtures_and_dataframes/df_for_powerbi.csv'
+        df_for_ml_10_v2.to_csv(csv_output, index=False)
+        logging.info(f"Saved Power BI CSV to {csv_output}")
+    else:
+        logging.warning("Could not save Power BI CSV - no data available")
 
+except Exception as e:
+    logging.error(f"Error during feature engineering: {str(e)}")
+    raise
 
-#for Power BI
-df_for_ml_10_v2.to_csv('prem_clean_fixtures_and_dataframes/df_for_powerbi.csv', index='False')
-
-
-
-# ----------------------------------- END -------------------------------------
-
-print('\n', 'Script runtime:', round(((time.time()-start)/60), 2), 'minutes')
-print(' ----------------- END ----------------- \n')
+finally:
+    print('\n', 'Script runtime:', round(((time.time()-start)/60), 2), 'minutes')
+    print(' ----------------- END ----------------- \n')

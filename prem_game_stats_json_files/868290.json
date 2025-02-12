@@ -1,1 +1,168 @@
-{"Shots on Goal":{"home":"6","away":"2"},"Shots off Goal":{"home":"10","away":"1"},"Total Shots":{"home":"18","away":"4"},"Blocked Shots":{"home":"2","away":"1"},"Shots insidebox":{"home":"9","away":"4"},"Shots outsidebox":{"home":"9","away":"0"},"Fouls":{"home":"3","away":"16"},"Corner Kicks":{"home":"10","away":"1"},"Offsides":{"home":"4","away":"3"},"Ball Possession":{"home":"81%","away":"19%"},"Yellow Cards":{"home":"0","away":"3"},"Red Cards":{"home":null,"away":null},"Goalkeeper Saves":{"home":"1","away":"4"},"Total passes":{"home":"873","away":"201"},"Passes accurate":{"home":"795","away":"120"},"Passes %":{"home":"91%","away":"60%"},"expected_goals":{"home":"2.57","away":"0.23"}}
+{
+  "get": "fixtures/statistics",
+  "parameters": {
+    "fixture": "868290"
+  },
+  "errors": [],
+  "results": 2,
+  "paging": {
+    "current": 1,
+    "total": 1
+  },
+  "response": [
+    {
+      "team": {
+        "id": 50,
+        "name": "Manchester City",
+        "logo": "https://media.api-sports.io/football/teams/50.png"
+      },
+      "statistics": [
+        {
+          "type": "Shots on Goal",
+          "value": 6
+        },
+        {
+          "type": "Shots off Goal",
+          "value": 10
+        },
+        {
+          "type": "Total Shots",
+          "value": 18
+        },
+        {
+          "type": "Blocked Shots",
+          "value": 2
+        },
+        {
+          "type": "Shots insidebox",
+          "value": 9
+        },
+        {
+          "type": "Shots outsidebox",
+          "value": 9
+        },
+        {
+          "type": "Fouls",
+          "value": 3
+        },
+        {
+          "type": "Corner Kicks",
+          "value": 10
+        },
+        {
+          "type": "Offsides",
+          "value": 4
+        },
+        {
+          "type": "Ball Possession",
+          "value": "81%"
+        },
+        {
+          "type": "Yellow Cards",
+          "value": 0
+        },
+        {
+          "type": "Red Cards",
+          "value": null
+        },
+        {
+          "type": "Goalkeeper Saves",
+          "value": 1
+        },
+        {
+          "type": "Total passes",
+          "value": 873
+        },
+        {
+          "type": "Passes accurate",
+          "value": 795
+        },
+        {
+          "type": "Passes %",
+          "value": "91%"
+        },
+        {
+          "type": "expected_goals",
+          "value": "2.57"
+        }
+      ]
+    },
+    {
+      "team": {
+        "id": 63,
+        "name": "Leeds",
+        "logo": "https://media.api-sports.io/football/teams/63.png"
+      },
+      "statistics": [
+        {
+          "type": "Shots on Goal",
+          "value": 2
+        },
+        {
+          "type": "Shots off Goal",
+          "value": 1
+        },
+        {
+          "type": "Total Shots",
+          "value": 4
+        },
+        {
+          "type": "Blocked Shots",
+          "value": 1
+        },
+        {
+          "type": "Shots insidebox",
+          "value": 4
+        },
+        {
+          "type": "Shots outsidebox",
+          "value": 0
+        },
+        {
+          "type": "Fouls",
+          "value": 16
+        },
+        {
+          "type": "Corner Kicks",
+          "value": 1
+        },
+        {
+          "type": "Offsides",
+          "value": 3
+        },
+        {
+          "type": "Ball Possession",
+          "value": "19%"
+        },
+        {
+          "type": "Yellow Cards",
+          "value": 3
+        },
+        {
+          "type": "Red Cards",
+          "value": null
+        },
+        {
+          "type": "Goalkeeper Saves",
+          "value": 4
+        },
+        {
+          "type": "Total passes",
+          "value": 201
+        },
+        {
+          "type": "Passes accurate",
+          "value": 120
+        },
+        {
+          "type": "Passes %",
+          "value": "60%"
+        },
+        {
+          "type": "expected_goals",
+          "value": "0.23"
+        }
+      ]
+    }
+  ]
+}

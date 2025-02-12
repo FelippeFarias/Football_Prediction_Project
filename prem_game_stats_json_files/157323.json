@@ -1,1 +1,160 @@
-{"Shots on Goal":{"home":"4","away":"2"},"Shots off Goal":{"home":"11","away":"7"},"Total Shots":{"home":"15","away":"10"},"Blocked Shots":{"home":"0","away":"1"},"Shots insidebox":{"home":"8","away":"6"},"Shots outsidebox":{"home":"7","away":"4"},"Fouls":{"home":"12","away":"7"},"Corner Kicks":{"home":"9","away":"4"},"Offsides":{"home":"3","away":"2"},"Ball Possession":{"home":"64%","away":"36%"},"Yellow Cards":{"home":"2","away":"2"},"Red Cards":{"home":null,"away":null},"Goalkeeper Saves":{"home":"2","away":"3"},"Total passes":{"home":"665","away":"357"},"Passes accurate":{"home":"573","away":"265"},"Passes %":{"home":"86%","away":"74%"}}
+{
+  "get": "fixtures/statistics",
+  "parameters": {
+    "fixture": "157323"
+  },
+  "errors": [],
+  "results": 2,
+  "paging": {
+    "current": 1,
+    "total": 1
+  },
+  "response": [
+    {
+      "team": {
+        "id": 47,
+        "name": "Tottenham",
+        "logo": "https://media.api-sports.io/football/teams/47.png"
+      },
+      "statistics": [
+        {
+          "type": "Shots on Goal",
+          "value": 4
+        },
+        {
+          "type": "Shots off Goal",
+          "value": 11
+        },
+        {
+          "type": "Total Shots",
+          "value": 15
+        },
+        {
+          "type": "Blocked Shots",
+          "value": 0
+        },
+        {
+          "type": "Shots insidebox",
+          "value": 8
+        },
+        {
+          "type": "Shots outsidebox",
+          "value": 7
+        },
+        {
+          "type": "Fouls",
+          "value": 12
+        },
+        {
+          "type": "Corner Kicks",
+          "value": 9
+        },
+        {
+          "type": "Offsides",
+          "value": 3
+        },
+        {
+          "type": "Ball Possession",
+          "value": "64%"
+        },
+        {
+          "type": "Yellow Cards",
+          "value": 2
+        },
+        {
+          "type": "Red Cards",
+          "value": null
+        },
+        {
+          "type": "Goalkeeper Saves",
+          "value": 2
+        },
+        {
+          "type": "Total passes",
+          "value": 662
+        },
+        {
+          "type": "Passes accurate",
+          "value": 571
+        },
+        {
+          "type": "Passes %",
+          "value": "86%"
+        }
+      ]
+    },
+    {
+      "team": {
+        "id": 48,
+        "name": "West Ham",
+        "logo": "https://media.api-sports.io/football/teams/48.png"
+      },
+      "statistics": [
+        {
+          "type": "Shots on Goal",
+          "value": 2
+        },
+        {
+          "type": "Shots off Goal",
+          "value": 7
+        },
+        {
+          "type": "Total Shots",
+          "value": 10
+        },
+        {
+          "type": "Blocked Shots",
+          "value": 1
+        },
+        {
+          "type": "Shots insidebox",
+          "value": 6
+        },
+        {
+          "type": "Shots outsidebox",
+          "value": 4
+        },
+        {
+          "type": "Fouls",
+          "value": 7
+        },
+        {
+          "type": "Corner Kicks",
+          "value": 4
+        },
+        {
+          "type": "Offsides",
+          "value": 2
+        },
+        {
+          "type": "Ball Possession",
+          "value": "36%"
+        },
+        {
+          "type": "Yellow Cards",
+          "value": 2
+        },
+        {
+          "type": "Red Cards",
+          "value": null
+        },
+        {
+          "type": "Goalkeeper Saves",
+          "value": 3
+        },
+        {
+          "type": "Total passes",
+          "value": 361
+        },
+        {
+          "type": "Passes accurate",
+          "value": 266
+        },
+        {
+          "type": "Passes %",
+          "value": "74%"
+        }
+      ]
+    }
+  ]
+}

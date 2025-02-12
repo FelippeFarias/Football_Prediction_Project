@@ -1,1 +1,168 @@
-{"Shots on Goal":{"home":"2","away":"3"},"Shots off Goal":{"home":"2","away":"6"},"Total Shots":{"home":"6","away":"16"},"Blocked Shots":{"home":"2","away":"7"},"Shots insidebox":{"home":"4","away":"12"},"Shots outsidebox":{"home":"2","away":"4"},"Fouls":{"home":"20","away":"9"},"Corner Kicks":{"home":"5","away":"6"},"Offsides":{"home":"3","away":"2"},"Ball Possession":{"home":"38%","away":"62%"},"Yellow Cards":{"home":"3","away":"3"},"Red Cards":{"home":null,"away":null},"Goalkeeper Saves":{"home":"3","away":"1"},"Total passes":{"home":"264","away":"432"},"Passes accurate":{"home":"194","away":"371"},"Passes %":{"home":"73%","away":"86%"},"expected_goals":{"home":"0.76","away":"1.48"}}
+{
+  "get": "fixtures/statistics",
+  "parameters": {
+    "fixture": "868295"
+  },
+  "errors": [],
+  "results": 2,
+  "paging": {
+    "current": 1,
+    "total": 1
+  },
+  "response": [
+    {
+      "team": {
+        "id": 39,
+        "name": "Wolves",
+        "logo": "https://media.api-sports.io/football/teams/39.png"
+      },
+      "statistics": [
+        {
+          "type": "Shots on Goal",
+          "value": 2
+        },
+        {
+          "type": "Shots off Goal",
+          "value": 2
+        },
+        {
+          "type": "Total Shots",
+          "value": 6
+        },
+        {
+          "type": "Blocked Shots",
+          "value": 2
+        },
+        {
+          "type": "Shots insidebox",
+          "value": 4
+        },
+        {
+          "type": "Shots outsidebox",
+          "value": 2
+        },
+        {
+          "type": "Fouls",
+          "value": 20
+        },
+        {
+          "type": "Corner Kicks",
+          "value": 5
+        },
+        {
+          "type": "Offsides",
+          "value": 3
+        },
+        {
+          "type": "Ball Possession",
+          "value": "38%"
+        },
+        {
+          "type": "Yellow Cards",
+          "value": 3
+        },
+        {
+          "type": "Red Cards",
+          "value": null
+        },
+        {
+          "type": "Goalkeeper Saves",
+          "value": 3
+        },
+        {
+          "type": "Total passes",
+          "value": 264
+        },
+        {
+          "type": "Passes accurate",
+          "value": 194
+        },
+        {
+          "type": "Passes %",
+          "value": "73%"
+        },
+        {
+          "type": "expected_goals",
+          "value": "0.76"
+        }
+      ]
+    },
+    {
+      "team": {
+        "id": 66,
+        "name": "Aston Villa",
+        "logo": "https://media.api-sports.io/football/teams/66.png"
+      },
+      "statistics": [
+        {
+          "type": "Shots on Goal",
+          "value": 3
+        },
+        {
+          "type": "Shots off Goal",
+          "value": 6
+        },
+        {
+          "type": "Total Shots",
+          "value": 16
+        },
+        {
+          "type": "Blocked Shots",
+          "value": 7
+        },
+        {
+          "type": "Shots insidebox",
+          "value": 12
+        },
+        {
+          "type": "Shots outsidebox",
+          "value": 4
+        },
+        {
+          "type": "Fouls",
+          "value": 9
+        },
+        {
+          "type": "Corner Kicks",
+          "value": 6
+        },
+        {
+          "type": "Offsides",
+          "value": 2
+        },
+        {
+          "type": "Ball Possession",
+          "value": "62%"
+        },
+        {
+          "type": "Yellow Cards",
+          "value": 3
+        },
+        {
+          "type": "Red Cards",
+          "value": null
+        },
+        {
+          "type": "Goalkeeper Saves",
+          "value": 1
+        },
+        {
+          "type": "Total passes",
+          "value": 432
+        },
+        {
+          "type": "Passes accurate",
+          "value": 371
+        },
+        {
+          "type": "Passes %",
+          "value": "86%"
+        },
+        {
+          "type": "expected_goals",
+          "value": "1.48"
+        }
+      ]
+    }
+  ]
+}

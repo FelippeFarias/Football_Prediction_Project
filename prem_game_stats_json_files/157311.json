@@ -1,1 +1,160 @@
-{"Shots on Goal":{"home":"1","away":"9"},"Shots off Goal":{"home":"3","away":"6"},"Total Shots":{"home":"9","away":"22"},"Blocked Shots":{"home":"5","away":"7"},"Shots insidebox":{"home":"5","away":"15"},"Shots outsidebox":{"home":"4","away":"7"},"Fouls":{"home":"9","away":"15"},"Corner Kicks":{"home":"9","away":"7"},"Offsides":{"home":"3","away":"1"},"Ball Possession":{"home":"54%","away":"46%"},"Yellow Cards":{"home":"1","away":"1"},"Red Cards":{"home":null,"away":null},"Goalkeeper Saves":{"home":"6","away":"1"},"Total passes":{"home":"393","away":"326"},"Passes accurate":{"home":"276","away":"229"},"Passes %":{"home":"70%","away":"70%"}}
+{
+  "get": "fixtures/statistics",
+  "parameters": {
+    "fixture": "157311"
+  },
+  "errors": [],
+  "results": 2,
+  "paging": {
+    "current": 1,
+    "total": 1
+  },
+  "response": [
+    {
+      "team": {
+        "id": 71,
+        "name": "Norwich",
+        "logo": "https://media.api-sports.io/football/teams/71.png"
+      },
+      "statistics": [
+        {
+          "type": "Shots on Goal",
+          "value": 1
+        },
+        {
+          "type": "Shots off Goal",
+          "value": 3
+        },
+        {
+          "type": "Total Shots",
+          "value": 9
+        },
+        {
+          "type": "Blocked Shots",
+          "value": 5
+        },
+        {
+          "type": "Shots insidebox",
+          "value": 5
+        },
+        {
+          "type": "Shots outsidebox",
+          "value": 4
+        },
+        {
+          "type": "Fouls",
+          "value": 9
+        },
+        {
+          "type": "Corner Kicks",
+          "value": 9
+        },
+        {
+          "type": "Offsides",
+          "value": 3
+        },
+        {
+          "type": "Ball Possession",
+          "value": "55%"
+        },
+        {
+          "type": "Yellow Cards",
+          "value": 1
+        },
+        {
+          "type": "Red Cards",
+          "value": null
+        },
+        {
+          "type": "Goalkeeper Saves",
+          "value": 6
+        },
+        {
+          "type": "Total passes",
+          "value": 406
+        },
+        {
+          "type": "Passes accurate",
+          "value": 289
+        },
+        {
+          "type": "Passes %",
+          "value": "71%"
+        }
+      ]
+    },
+    {
+      "team": {
+        "id": 41,
+        "name": "Southampton",
+        "logo": "https://media.api-sports.io/football/teams/41.png"
+      },
+      "statistics": [
+        {
+          "type": "Shots on Goal",
+          "value": 9
+        },
+        {
+          "type": "Shots off Goal",
+          "value": 6
+        },
+        {
+          "type": "Total Shots",
+          "value": 22
+        },
+        {
+          "type": "Blocked Shots",
+          "value": 7
+        },
+        {
+          "type": "Shots insidebox",
+          "value": 14
+        },
+        {
+          "type": "Shots outsidebox",
+          "value": 8
+        },
+        {
+          "type": "Fouls",
+          "value": 15
+        },
+        {
+          "type": "Corner Kicks",
+          "value": 7
+        },
+        {
+          "type": "Offsides",
+          "value": 1
+        },
+        {
+          "type": "Ball Possession",
+          "value": "45%"
+        },
+        {
+          "type": "Yellow Cards",
+          "value": 1
+        },
+        {
+          "type": "Red Cards",
+          "value": null
+        },
+        {
+          "type": "Goalkeeper Saves",
+          "value": 1
+        },
+        {
+          "type": "Total passes",
+          "value": 333
+        },
+        {
+          "type": "Passes accurate",
+          "value": 230
+        },
+        {
+          "type": "Passes %",
+          "value": "69%"
+        }
+      ]
+    }
+  ]
+}

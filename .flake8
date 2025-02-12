@@ -1,0 +1,9 @@
+[flake8]
+max-line-length = 100
+max-complexity = 10
+exclude = .git,__pycache__,build,dist,*.egg-info
+ignore = E203,W503,D100,D101,D102,D103,D104,D105,D106,D107
+per-file-ignores =
+    tests/*:D100,D101,D102,D103,D104,D105,D106,D107
+    setup.py:D100
+docstring-convention = google 

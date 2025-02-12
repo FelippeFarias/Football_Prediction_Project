@@ -1,1 +1,168 @@
-{"Shots on Goal":{"home":"4","away":"2"},"Shots off Goal":{"home":"8","away":"4"},"Total Shots":{"home":"18","away":"11"},"Blocked Shots":{"home":"6","away":"5"},"Shots insidebox":{"home":"11","away":"6"},"Shots outsidebox":{"home":"7","away":"5"},"Fouls":{"home":"12","away":"7"},"Corner Kicks":{"home":"4","away":"6"},"Offsides":{"home":"5","away":"1"},"Ball Possession":{"home":"51%","away":"49%"},"Yellow Cards":{"home":"3","away":"1"},"Red Cards":{"home":null,"away":null},"Goalkeeper Saves":{"home":"0","away":"4"},"Total passes":{"home":"444","away":"421"},"Passes accurate":{"home":"383","away":"347"},"Passes %":{"home":"86%","away":"82%"},"expected_goals":{"home":"1.62","away":"1.13"}}
+{
+  "get": "fixtures/statistics",
+  "parameters": {
+    "fixture": "1035495"
+  },
+  "errors": [],
+  "results": 2,
+  "paging": {
+    "current": 1,
+    "total": 1
+  },
+  "response": [
+    {
+      "team": {
+        "id": 42,
+        "name": "Arsenal",
+        "logo": "https://media.api-sports.io/football/teams/42.png"
+      },
+      "statistics": [
+        {
+          "type": "Shots on Goal",
+          "value": 4
+        },
+        {
+          "type": "Shots off Goal",
+          "value": 8
+        },
+        {
+          "type": "Total Shots",
+          "value": 18
+        },
+        {
+          "type": "Blocked Shots",
+          "value": 6
+        },
+        {
+          "type": "Shots insidebox",
+          "value": 11
+        },
+        {
+          "type": "Shots outsidebox",
+          "value": 7
+        },
+        {
+          "type": "Fouls",
+          "value": 12
+        },
+        {
+          "type": "Corner Kicks",
+          "value": 4
+        },
+        {
+          "type": "Offsides",
+          "value": 5
+        },
+        {
+          "type": "Ball Possession",
+          "value": "52%"
+        },
+        {
+          "type": "Yellow Cards",
+          "value": 3
+        },
+        {
+          "type": "Red Cards",
+          "value": null
+        },
+        {
+          "type": "Goalkeeper Saves",
+          "value": 0
+        },
+        {
+          "type": "Total passes",
+          "value": 450
+        },
+        {
+          "type": "Passes accurate",
+          "value": 390
+        },
+        {
+          "type": "Passes %",
+          "value": "87%"
+        },
+        {
+          "type": "expected_goals",
+          "value": "1.64"
+        }
+      ]
+    },
+    {
+      "team": {
+        "id": 66,
+        "name": "Aston Villa",
+        "logo": "https://media.api-sports.io/football/teams/66.png"
+      },
+      "statistics": [
+        {
+          "type": "Shots on Goal",
+          "value": 2
+        },
+        {
+          "type": "Shots off Goal",
+          "value": 4
+        },
+        {
+          "type": "Total Shots",
+          "value": 11
+        },
+        {
+          "type": "Blocked Shots",
+          "value": 5
+        },
+        {
+          "type": "Shots insidebox",
+          "value": 6
+        },
+        {
+          "type": "Shots outsidebox",
+          "value": 5
+        },
+        {
+          "type": "Fouls",
+          "value": 7
+        },
+        {
+          "type": "Corner Kicks",
+          "value": 6
+        },
+        {
+          "type": "Offsides",
+          "value": 1
+        },
+        {
+          "type": "Ball Possession",
+          "value": "48%"
+        },
+        {
+          "type": "Yellow Cards",
+          "value": 1
+        },
+        {
+          "type": "Red Cards",
+          "value": null
+        },
+        {
+          "type": "Goalkeeper Saves",
+          "value": 4
+        },
+        {
+          "type": "Total passes",
+          "value": 425
+        },
+        {
+          "type": "Passes accurate",
+          "value": 351
+        },
+        {
+          "type": "Passes %",
+          "value": "83%"
+        },
+        {
+          "type": "expected_goals",
+          "value": "0.94"
+        }
+      ]
+    }
+  ]
+}

@@ -1,1 +1,160 @@
-{"Shots on Goal":{"home":"3","away":"1"},"Shots off Goal":{"home":"6","away":"0"},"Total Shots":{"home":"16","away":"2"},"Blocked Shots":{"home":"7","away":"1"},"Shots insidebox":{"home":"11","away":"1"},"Shots outsidebox":{"home":"5","away":"1"},"Fouls":{"home":"13","away":"14"},"Corner Kicks":{"home":"7","away":"1"},"Offsides":{"home":"3","away":"2"},"Ball Possession":{"home":"74%","away":"26%"},"Yellow Cards":{"home":"3","away":"4"},"Red Cards":{"home":null,"away":null},"Goalkeeper Saves":{"home":"0","away":"2"},"Total passes":{"home":"662","away":"238"},"Passes accurate":{"home":"597","away":"185"},"Passes %":{"home":"90%","away":"78%"}}
+{
+  "get": "fixtures/statistics",
+  "parameters": {
+    "fixture": "868120"
+  },
+  "errors": [],
+  "results": 2,
+  "paging": {
+    "current": 1,
+    "total": 1
+  },
+  "response": [
+    {
+      "team": {
+        "id": 50,
+        "name": "Manchester City",
+        "logo": "https://media.api-sports.io/football/teams/50.png"
+      },
+      "statistics": [
+        {
+          "type": "Shots on Goal",
+          "value": 3
+        },
+        {
+          "type": "Shots off Goal",
+          "value": 6
+        },
+        {
+          "type": "Total Shots",
+          "value": 16
+        },
+        {
+          "type": "Blocked Shots",
+          "value": 7
+        },
+        {
+          "type": "Shots insidebox",
+          "value": 11
+        },
+        {
+          "type": "Shots outsidebox",
+          "value": 5
+        },
+        {
+          "type": "Fouls",
+          "value": 13
+        },
+        {
+          "type": "Corner Kicks",
+          "value": 7
+        },
+        {
+          "type": "Offsides",
+          "value": 3
+        },
+        {
+          "type": "Ball Possession",
+          "value": "74%"
+        },
+        {
+          "type": "Yellow Cards",
+          "value": 3
+        },
+        {
+          "type": "Red Cards",
+          "value": null
+        },
+        {
+          "type": "Goalkeeper Saves",
+          "value": 0
+        },
+        {
+          "type": "Total passes",
+          "value": 662
+        },
+        {
+          "type": "Passes accurate",
+          "value": 597
+        },
+        {
+          "type": "Passes %",
+          "value": "90%"
+        }
+      ]
+    },
+    {
+      "team": {
+        "id": 45,
+        "name": "Everton",
+        "logo": "https://media.api-sports.io/football/teams/45.png"
+      },
+      "statistics": [
+        {
+          "type": "Shots on Goal",
+          "value": 1
+        },
+        {
+          "type": "Shots off Goal",
+          "value": 0
+        },
+        {
+          "type": "Total Shots",
+          "value": 2
+        },
+        {
+          "type": "Blocked Shots",
+          "value": 1
+        },
+        {
+          "type": "Shots insidebox",
+          "value": 1
+        },
+        {
+          "type": "Shots outsidebox",
+          "value": 1
+        },
+        {
+          "type": "Fouls",
+          "value": 14
+        },
+        {
+          "type": "Corner Kicks",
+          "value": 1
+        },
+        {
+          "type": "Offsides",
+          "value": 2
+        },
+        {
+          "type": "Ball Possession",
+          "value": "26%"
+        },
+        {
+          "type": "Yellow Cards",
+          "value": 4
+        },
+        {
+          "type": "Red Cards",
+          "value": null
+        },
+        {
+          "type": "Goalkeeper Saves",
+          "value": 2
+        },
+        {
+          "type": "Total passes",
+          "value": 238
+        },
+        {
+          "type": "Passes accurate",
+          "value": 185
+        },
+        {
+          "type": "Passes %",
+          "value": "78%"
+        }
+      ]
+    }
+  ]
+}

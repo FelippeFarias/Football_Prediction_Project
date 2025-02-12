@@ -1,1 +1,168 @@
-{"Shots on Goal":{"home":"5","away":"5"},"Shots off Goal":{"home":"9","away":"1"},"Total Shots":{"home":"23","away":"10"},"Blocked Shots":{"home":"9","away":"4"},"Shots insidebox":{"home":"18","away":"9"},"Shots outsidebox":{"home":"5","away":"1"},"Fouls":{"home":"11","away":"13"},"Corner Kicks":{"home":"15","away":"1"},"Offsides":{"home":"1","away":"1"},"Ball Possession":{"home":"78%","away":"22%"},"Yellow Cards":{"home":"1","away":"5"},"Red Cards":{"home":null,"away":null},"Goalkeeper Saves":{"home":"1","away":"4"},"Total passes":{"home":"741","away":"221"},"Passes accurate":{"home":"657","away":"144"},"Passes %":{"home":"89%","away":"65%"},"expected_goals":{"home":"3.26","away":"2.28"}}
+{
+  "get": "fixtures/statistics",
+  "parameters": {
+    "fixture": "868287"
+  },
+  "errors": [],
+  "results": 2,
+  "paging": {
+    "current": 1,
+    "total": 1
+  },
+  "response": [
+    {
+      "team": {
+        "id": 51,
+        "name": "Brighton",
+        "logo": "https://media.api-sports.io/football/teams/51.png"
+      },
+      "statistics": [
+        {
+          "type": "Shots on Goal",
+          "value": 5
+        },
+        {
+          "type": "Shots off Goal",
+          "value": 9
+        },
+        {
+          "type": "Total Shots",
+          "value": 23
+        },
+        {
+          "type": "Blocked Shots",
+          "value": 9
+        },
+        {
+          "type": "Shots insidebox",
+          "value": 18
+        },
+        {
+          "type": "Shots outsidebox",
+          "value": 5
+        },
+        {
+          "type": "Fouls",
+          "value": 11
+        },
+        {
+          "type": "Corner Kicks",
+          "value": 15
+        },
+        {
+          "type": "Offsides",
+          "value": 1
+        },
+        {
+          "type": "Ball Possession",
+          "value": "78%"
+        },
+        {
+          "type": "Yellow Cards",
+          "value": 1
+        },
+        {
+          "type": "Red Cards",
+          "value": null
+        },
+        {
+          "type": "Goalkeeper Saves",
+          "value": 1
+        },
+        {
+          "type": "Total passes",
+          "value": 741
+        },
+        {
+          "type": "Passes accurate",
+          "value": 657
+        },
+        {
+          "type": "Passes %",
+          "value": "89%"
+        },
+        {
+          "type": "expected_goals",
+          "value": "3.26"
+        }
+      ]
+    },
+    {
+      "team": {
+        "id": 45,
+        "name": "Everton",
+        "logo": "https://media.api-sports.io/football/teams/45.png"
+      },
+      "statistics": [
+        {
+          "type": "Shots on Goal",
+          "value": 5
+        },
+        {
+          "type": "Shots off Goal",
+          "value": 1
+        },
+        {
+          "type": "Total Shots",
+          "value": 10
+        },
+        {
+          "type": "Blocked Shots",
+          "value": 4
+        },
+        {
+          "type": "Shots insidebox",
+          "value": 9
+        },
+        {
+          "type": "Shots outsidebox",
+          "value": 1
+        },
+        {
+          "type": "Fouls",
+          "value": 13
+        },
+        {
+          "type": "Corner Kicks",
+          "value": 1
+        },
+        {
+          "type": "Offsides",
+          "value": 1
+        },
+        {
+          "type": "Ball Possession",
+          "value": "22%"
+        },
+        {
+          "type": "Yellow Cards",
+          "value": 5
+        },
+        {
+          "type": "Red Cards",
+          "value": null
+        },
+        {
+          "type": "Goalkeeper Saves",
+          "value": 4
+        },
+        {
+          "type": "Total passes",
+          "value": 221
+        },
+        {
+          "type": "Passes accurate",
+          "value": 144
+        },
+        {
+          "type": "Passes %",
+          "value": "65%"
+        },
+        {
+          "type": "expected_goals",
+          "value": "2.28"
+        }
+      ]
+    }
+  ]
+}

@@ -1,1 +1,168 @@
-{"Shots on Goal":{"home":"5","away":"7"},"Shots off Goal":{"home":"1","away":"7"},"Total Shots":{"home":"11","away":"18"},"Blocked Shots":{"home":"5","away":"4"},"Shots insidebox":{"home":"10","away":"13"},"Shots outsidebox":{"home":"1","away":"5"},"Fouls":{"home":"10","away":"10"},"Corner Kicks":{"home":"6","away":"6"},"Offsides":{"home":null,"away":null},"Ball Possession":{"home":"32%","away":"68%"},"Yellow Cards":{"home":"2","away":"3"},"Red Cards":{"home":"1","away":"0"},"Goalkeeper Saves":{"home":"3","away":"2"},"Total passes":{"home":"231","away":"503"},"Passes accurate":{"home":"150","away":"422"},"Passes %":{"home":"65%","away":"84%"},"expected_goals":{"home":"0.75","away":"1.57"}}
+{
+  "get": "fixtures/statistics",
+  "parameters": {
+    "fixture": "1035350"
+  },
+  "errors": [],
+  "results": 2,
+  "paging": {
+    "current": 1,
+    "total": 1
+  },
+  "response": [
+    {
+      "team": {
+        "id": 65,
+        "name": "Nottingham Forest",
+        "logo": "https://media.api-sports.io/football/teams/65.png"
+      },
+      "statistics": [
+        {
+          "type": "Shots on Goal",
+          "value": 5
+        },
+        {
+          "type": "Shots off Goal",
+          "value": 1
+        },
+        {
+          "type": "Total Shots",
+          "value": 11
+        },
+        {
+          "type": "Blocked Shots",
+          "value": 5
+        },
+        {
+          "type": "Shots insidebox",
+          "value": 10
+        },
+        {
+          "type": "Shots outsidebox",
+          "value": 1
+        },
+        {
+          "type": "Fouls",
+          "value": 10
+        },
+        {
+          "type": "Corner Kicks",
+          "value": 6
+        },
+        {
+          "type": "Offsides",
+          "value": null
+        },
+        {
+          "type": "Ball Possession",
+          "value": "33%"
+        },
+        {
+          "type": "Yellow Cards",
+          "value": 2
+        },
+        {
+          "type": "Red Cards",
+          "value": 1
+        },
+        {
+          "type": "Goalkeeper Saves",
+          "value": 3
+        },
+        {
+          "type": "Total passes",
+          "value": 256
+        },
+        {
+          "type": "Passes accurate",
+          "value": 162
+        },
+        {
+          "type": "Passes %",
+          "value": "63%"
+        },
+        {
+          "type": "expected_goals",
+          "value": "1.02"
+        }
+      ]
+    },
+    {
+      "team": {
+        "id": 35,
+        "name": "Bournemouth",
+        "logo": "https://media.api-sports.io/football/teams/35.png"
+      },
+      "statistics": [
+        {
+          "type": "Shots on Goal",
+          "value": 7
+        },
+        {
+          "type": "Shots off Goal",
+          "value": 7
+        },
+        {
+          "type": "Total Shots",
+          "value": 18
+        },
+        {
+          "type": "Blocked Shots",
+          "value": 4
+        },
+        {
+          "type": "Shots insidebox",
+          "value": 13
+        },
+        {
+          "type": "Shots outsidebox",
+          "value": 5
+        },
+        {
+          "type": "Fouls",
+          "value": 10
+        },
+        {
+          "type": "Corner Kicks",
+          "value": 6
+        },
+        {
+          "type": "Offsides",
+          "value": null
+        },
+        {
+          "type": "Ball Possession",
+          "value": "67%"
+        },
+        {
+          "type": "Yellow Cards",
+          "value": 3
+        },
+        {
+          "type": "Red Cards",
+          "value": 0
+        },
+        {
+          "type": "Goalkeeper Saves",
+          "value": 2
+        },
+        {
+          "type": "Total passes",
+          "value": 523
+        },
+        {
+          "type": "Passes accurate",
+          "value": 434
+        },
+        {
+          "type": "Passes %",
+          "value": "83%"
+        },
+        {
+          "type": "expected_goals",
+          "value": "1.61"
+        }
+      ]
+    }
+  ]
+}

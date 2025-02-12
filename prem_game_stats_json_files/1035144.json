@@ -1,1 +1,168 @@
-{"Shots on Goal":{"home":"3","away":"3"},"Shots off Goal":{"home":"2","away":"6"},"Total Shots":{"home":"5","away":"13"},"Blocked Shots":{"home":"0","away":"4"},"Shots insidebox":{"home":"2","away":"11"},"Shots outsidebox":{"home":"3","away":"2"},"Fouls":{"home":"6","away":"9"},"Corner Kicks":{"home":"0","away":"10"},"Offsides":{"home":"9","away":"1"},"Ball Possession":{"home":"26%","away":"74%"},"Yellow Cards":{"home":"1","away":"1"},"Red Cards":{"home":null,"away":null},"Goalkeeper Saves":{"home":"3","away":"1"},"Total passes":{"home":"233","away":"637"},"Passes accurate":{"home":"165","away":"581"},"Passes %":{"home":"71%","away":"91%"},"expected_goals":{"home":"0.41","away":"1.26"}}
+{
+  "get": "fixtures/statistics",
+  "parameters": {
+    "fixture": "1035144"
+  },
+  "errors": [],
+  "results": 2,
+  "paging": {
+    "current": 1,
+    "total": 1
+  },
+  "response": [
+    {
+      "team": {
+        "id": 65,
+        "name": "Nottingham Forest",
+        "logo": "https://media.api-sports.io/football/teams/65.png"
+      },
+      "statistics": [
+        {
+          "type": "Shots on Goal",
+          "value": 3
+        },
+        {
+          "type": "Shots off Goal",
+          "value": 2
+        },
+        {
+          "type": "Total Shots",
+          "value": 5
+        },
+        {
+          "type": "Blocked Shots",
+          "value": 0
+        },
+        {
+          "type": "Shots insidebox",
+          "value": 2
+        },
+        {
+          "type": "Shots outsidebox",
+          "value": 3
+        },
+        {
+          "type": "Fouls",
+          "value": 6
+        },
+        {
+          "type": "Corner Kicks",
+          "value": 0
+        },
+        {
+          "type": "Offsides",
+          "value": 9
+        },
+        {
+          "type": "Ball Possession",
+          "value": "27%"
+        },
+        {
+          "type": "Yellow Cards",
+          "value": 1
+        },
+        {
+          "type": "Red Cards",
+          "value": null
+        },
+        {
+          "type": "Goalkeeper Saves",
+          "value": 3
+        },
+        {
+          "type": "Total passes",
+          "value": 240
+        },
+        {
+          "type": "Passes accurate",
+          "value": 172
+        },
+        {
+          "type": "Passes %",
+          "value": "72%"
+        },
+        {
+          "type": "expected_goals",
+          "value": "0.38"
+        }
+      ]
+    },
+    {
+      "team": {
+        "id": 66,
+        "name": "Aston Villa",
+        "logo": "https://media.api-sports.io/football/teams/66.png"
+      },
+      "statistics": [
+        {
+          "type": "Shots on Goal",
+          "value": 3
+        },
+        {
+          "type": "Shots off Goal",
+          "value": 6
+        },
+        {
+          "type": "Total Shots",
+          "value": 13
+        },
+        {
+          "type": "Blocked Shots",
+          "value": 4
+        },
+        {
+          "type": "Shots insidebox",
+          "value": 11
+        },
+        {
+          "type": "Shots outsidebox",
+          "value": 2
+        },
+        {
+          "type": "Fouls",
+          "value": 9
+        },
+        {
+          "type": "Corner Kicks",
+          "value": 10
+        },
+        {
+          "type": "Offsides",
+          "value": 1
+        },
+        {
+          "type": "Ball Possession",
+          "value": "73%"
+        },
+        {
+          "type": "Yellow Cards",
+          "value": 1
+        },
+        {
+          "type": "Red Cards",
+          "value": null
+        },
+        {
+          "type": "Goalkeeper Saves",
+          "value": 1
+        },
+        {
+          "type": "Total passes",
+          "value": 654
+        },
+        {
+          "type": "Passes accurate",
+          "value": 598
+        },
+        {
+          "type": "Passes %",
+          "value": "91%"
+        },
+        {
+          "type": "expected_goals",
+          "value": "1.23"
+        }
+      ]
+    }
+  ]
+}

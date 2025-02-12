@@ -1,1 +1,160 @@
-{"Shots on Goal":{"home":"1","away":"3"},"Shots off Goal":{"home":"3","away":"5"},"Total Shots":{"home":"6","away":"9"},"Blocked Shots":{"home":"2","away":"1"},"Shots insidebox":{"home":"4","away":"6"},"Shots outsidebox":{"home":"2","away":"3"},"Fouls":{"home":"11","away":"15"},"Corner Kicks":{"home":"2","away":"5"},"Offsides":{"home":"0","away":"1"},"Ball Possession":{"home":"62%","away":"38%"},"Yellow Cards":{"home":"2","away":"3"},"Red Cards":{"home":null,"away":null},"Goalkeeper Saves":{"home":"1","away":"0"},"Total passes":{"home":"556","away":"335"},"Passes accurate":{"home":"454","away":"240"},"Passes %":{"home":"82%","away":"72%"}}
+{
+  "get": "fixtures/statistics",
+  "parameters": {
+    "fixture": "867971"
+  },
+  "errors": [],
+  "results": 2,
+  "paging": {
+    "current": 1,
+    "total": 1
+  },
+  "response": [
+    {
+      "team": {
+        "id": 46,
+        "name": "Leicester",
+        "logo": "https://media.api-sports.io/football/teams/46.png"
+      },
+      "statistics": [
+        {
+          "type": "Shots on Goal",
+          "value": 1
+        },
+        {
+          "type": "Shots off Goal",
+          "value": 3
+        },
+        {
+          "type": "Total Shots",
+          "value": 6
+        },
+        {
+          "type": "Blocked Shots",
+          "value": 2
+        },
+        {
+          "type": "Shots insidebox",
+          "value": 4
+        },
+        {
+          "type": "Shots outsidebox",
+          "value": 2
+        },
+        {
+          "type": "Fouls",
+          "value": 11
+        },
+        {
+          "type": "Corner Kicks",
+          "value": 2
+        },
+        {
+          "type": "Offsides",
+          "value": 0
+        },
+        {
+          "type": "Ball Possession",
+          "value": "62%"
+        },
+        {
+          "type": "Yellow Cards",
+          "value": 2
+        },
+        {
+          "type": "Red Cards",
+          "value": null
+        },
+        {
+          "type": "Goalkeeper Saves",
+          "value": 1
+        },
+        {
+          "type": "Total passes",
+          "value": 556
+        },
+        {
+          "type": "Passes accurate",
+          "value": 454
+        },
+        {
+          "type": "Passes %",
+          "value": "82%"
+        }
+      ]
+    },
+    {
+      "team": {
+        "id": 41,
+        "name": "Southampton",
+        "logo": "https://media.api-sports.io/football/teams/41.png"
+      },
+      "statistics": [
+        {
+          "type": "Shots on Goal",
+          "value": 3
+        },
+        {
+          "type": "Shots off Goal",
+          "value": 5
+        },
+        {
+          "type": "Total Shots",
+          "value": 9
+        },
+        {
+          "type": "Blocked Shots",
+          "value": 1
+        },
+        {
+          "type": "Shots insidebox",
+          "value": 6
+        },
+        {
+          "type": "Shots outsidebox",
+          "value": 3
+        },
+        {
+          "type": "Fouls",
+          "value": 15
+        },
+        {
+          "type": "Corner Kicks",
+          "value": 5
+        },
+        {
+          "type": "Offsides",
+          "value": 1
+        },
+        {
+          "type": "Ball Possession",
+          "value": "38%"
+        },
+        {
+          "type": "Yellow Cards",
+          "value": 3
+        },
+        {
+          "type": "Red Cards",
+          "value": null
+        },
+        {
+          "type": "Goalkeeper Saves",
+          "value": 0
+        },
+        {
+          "type": "Total passes",
+          "value": 335
+        },
+        {
+          "type": "Passes accurate",
+          "value": 240
+        },
+        {
+          "type": "Passes %",
+          "value": "72%"
+        }
+      ]
+    }
+  ]
+}

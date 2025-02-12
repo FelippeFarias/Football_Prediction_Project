@@ -1,1 +1,160 @@
-{"Shots on Goal":{"home":"3","away":"6"},"Shots off Goal":{"home":"2","away":"4"},"Total Shots":{"home":"12","away":"14"},"Blocked Shots":{"home":"7","away":"4"},"Shots insidebox":{"home":"7","away":"10"},"Shots outsidebox":{"home":"5","away":"4"},"Fouls":{"home":"14","away":"7"},"Corner Kicks":{"home":"4","away":"7"},"Offsides":{"home":null,"away":null},"Ball Possession":{"home":"56%","away":"44%"},"Yellow Cards":{"home":"1","away":"1"},"Red Cards":{"home":null,"away":null},"Goalkeeper Saves":{"home":"4","away":"2"},"Total passes":{"home":"470","away":"360"},"Passes accurate":{"home":"333","away":"235"},"Passes %":{"home":"71%","away":"65%"}}
+{
+  "get": "fixtures/statistics",
+  "parameters": {
+    "fixture": "710860"
+  },
+  "errors": [],
+  "results": 2,
+  "paging": {
+    "current": 1,
+    "total": 1
+  },
+  "response": [
+    {
+      "team": {
+        "id": 63,
+        "name": "Leeds",
+        "logo": "https://media.api-sports.io/football/teams/63.png"
+      },
+      "statistics": [
+        {
+          "type": "Shots on Goal",
+          "value": 3
+        },
+        {
+          "type": "Shots off Goal",
+          "value": 2
+        },
+        {
+          "type": "Total Shots",
+          "value": 12
+        },
+        {
+          "type": "Blocked Shots",
+          "value": 7
+        },
+        {
+          "type": "Shots insidebox",
+          "value": 7
+        },
+        {
+          "type": "Shots outsidebox",
+          "value": 5
+        },
+        {
+          "type": "Fouls",
+          "value": 14
+        },
+        {
+          "type": "Corner Kicks",
+          "value": 4
+        },
+        {
+          "type": "Offsides",
+          "value": null
+        },
+        {
+          "type": "Ball Possession",
+          "value": "56%"
+        },
+        {
+          "type": "Yellow Cards",
+          "value": 1
+        },
+        {
+          "type": "Red Cards",
+          "value": null
+        },
+        {
+          "type": "Goalkeeper Saves",
+          "value": 4
+        },
+        {
+          "type": "Total passes",
+          "value": 470
+        },
+        {
+          "type": "Passes accurate",
+          "value": 333
+        },
+        {
+          "type": "Passes %",
+          "value": "71%"
+        }
+      ]
+    },
+    {
+      "team": {
+        "id": 41,
+        "name": "Southampton",
+        "logo": "https://media.api-sports.io/football/teams/41.png"
+      },
+      "statistics": [
+        {
+          "type": "Shots on Goal",
+          "value": 6
+        },
+        {
+          "type": "Shots off Goal",
+          "value": 4
+        },
+        {
+          "type": "Total Shots",
+          "value": 14
+        },
+        {
+          "type": "Blocked Shots",
+          "value": 4
+        },
+        {
+          "type": "Shots insidebox",
+          "value": 10
+        },
+        {
+          "type": "Shots outsidebox",
+          "value": 4
+        },
+        {
+          "type": "Fouls",
+          "value": 7
+        },
+        {
+          "type": "Corner Kicks",
+          "value": 7
+        },
+        {
+          "type": "Offsides",
+          "value": null
+        },
+        {
+          "type": "Ball Possession",
+          "value": "44%"
+        },
+        {
+          "type": "Yellow Cards",
+          "value": 1
+        },
+        {
+          "type": "Red Cards",
+          "value": null
+        },
+        {
+          "type": "Goalkeeper Saves",
+          "value": 2
+        },
+        {
+          "type": "Total passes",
+          "value": 360
+        },
+        {
+          "type": "Passes accurate",
+          "value": 235
+        },
+        {
+          "type": "Passes %",
+          "value": "65%"
+        }
+      ]
+    }
+  ]
+}

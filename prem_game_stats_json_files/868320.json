@@ -1,1 +1,168 @@
-{"Shots on Goal":{"home":"3","away":"4"},"Shots off Goal":{"home":"8","away":"2"},"Total Shots":{"home":"15","away":"7"},"Blocked Shots":{"home":"4","away":"1"},"Shots insidebox":{"home":"9","away":"4"},"Shots outsidebox":{"home":"6","away":"3"},"Fouls":{"home":"9","away":"13"},"Corner Kicks":{"home":"5","away":"4"},"Offsides":{"home":"2","away":"2"},"Ball Possession":{"home":"66%","away":"34%"},"Yellow Cards":{"home":"0","away":"2"},"Red Cards":{"home":null,"away":null},"Goalkeeper Saves":{"home":"3","away":"2"},"Total passes":{"home":"538","away":"276"},"Passes accurate":{"home":"461","away":"193"},"Passes %":{"home":"86%","away":"70%"},"expected_goals":{"home":"1.47","away":"0.48"}}
+{
+  "get": "fixtures/statistics",
+  "parameters": {
+    "fixture": "868320"
+  },
+  "errors": [],
+  "results": 2,
+  "paging": {
+    "current": 1,
+    "total": 1
+  },
+  "response": [
+    {
+      "team": {
+        "id": 52,
+        "name": "Crystal Palace",
+        "logo": "https://media.api-sports.io/football/teams/52.png"
+      },
+      "statistics": [
+        {
+          "type": "Shots on Goal",
+          "value": 3
+        },
+        {
+          "type": "Shots off Goal",
+          "value": 8
+        },
+        {
+          "type": "Total Shots",
+          "value": 15
+        },
+        {
+          "type": "Blocked Shots",
+          "value": 4
+        },
+        {
+          "type": "Shots insidebox",
+          "value": 9
+        },
+        {
+          "type": "Shots outsidebox",
+          "value": 6
+        },
+        {
+          "type": "Fouls",
+          "value": 9
+        },
+        {
+          "type": "Corner Kicks",
+          "value": 5
+        },
+        {
+          "type": "Offsides",
+          "value": 2
+        },
+        {
+          "type": "Ball Possession",
+          "value": "66%"
+        },
+        {
+          "type": "Yellow Cards",
+          "value": 0
+        },
+        {
+          "type": "Red Cards",
+          "value": null
+        },
+        {
+          "type": "Goalkeeper Saves",
+          "value": 3
+        },
+        {
+          "type": "Total passes",
+          "value": 538
+        },
+        {
+          "type": "Passes accurate",
+          "value": 461
+        },
+        {
+          "type": "Passes %",
+          "value": "86%"
+        },
+        {
+          "type": "expected_goals",
+          "value": "1.47"
+        }
+      ]
+    },
+    {
+      "team": {
+        "id": 65,
+        "name": "Nottingham Forest",
+        "logo": "https://media.api-sports.io/football/teams/65.png"
+      },
+      "statistics": [
+        {
+          "type": "Shots on Goal",
+          "value": 4
+        },
+        {
+          "type": "Shots off Goal",
+          "value": 2
+        },
+        {
+          "type": "Total Shots",
+          "value": 7
+        },
+        {
+          "type": "Blocked Shots",
+          "value": 1
+        },
+        {
+          "type": "Shots insidebox",
+          "value": 4
+        },
+        {
+          "type": "Shots outsidebox",
+          "value": 3
+        },
+        {
+          "type": "Fouls",
+          "value": 13
+        },
+        {
+          "type": "Corner Kicks",
+          "value": 4
+        },
+        {
+          "type": "Offsides",
+          "value": 2
+        },
+        {
+          "type": "Ball Possession",
+          "value": "34%"
+        },
+        {
+          "type": "Yellow Cards",
+          "value": 2
+        },
+        {
+          "type": "Red Cards",
+          "value": null
+        },
+        {
+          "type": "Goalkeeper Saves",
+          "value": 2
+        },
+        {
+          "type": "Total passes",
+          "value": 276
+        },
+        {
+          "type": "Passes accurate",
+          "value": 193
+        },
+        {
+          "type": "Passes %",
+          "value": "70%"
+        },
+        {
+          "type": "expected_goals",
+          "value": "0.48"
+        }
+      ]
+    }
+  ]
+}

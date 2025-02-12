@@ -1,1 +1,160 @@
-{"Shots on Goal":{"home":"1","away":"3"},"Shots off Goal":{"home":"5","away":"5"},"Total Shots":{"home":"7","away":"9"},"Blocked Shots":{"home":"1","away":"1"},"Shots insidebox":{"home":"4","away":"8"},"Shots outsidebox":{"home":"3","away":"1"},"Fouls":{"home":"7","away":"14"},"Corner Kicks":{"home":"5","away":"3"},"Offsides":{"home":"1","away":"0"},"Ball Possession":{"home":"60%","away":"40%"},"Yellow Cards":{"home":"3","away":"3"},"Red Cards":{"home":null,"away":null},"Goalkeeper Saves":{"home":"3","away":"1"},"Total passes":{"home":"496","away":"328"},"Passes accurate":{"home":"392","away":"235"},"Passes %":{"home":"79%","away":"72%"}}
+{
+  "get": "fixtures/statistics",
+  "parameters": {
+    "fixture": "867965"
+  },
+  "errors": [],
+  "results": 2,
+  "paging": {
+    "current": 1,
+    "total": 1
+  },
+  "response": [
+    {
+      "team": {
+        "id": 39,
+        "name": "Wolves",
+        "logo": "https://media.api-sports.io/football/teams/39.png"
+      },
+      "statistics": [
+        {
+          "type": "Shots on Goal",
+          "value": 1
+        },
+        {
+          "type": "Shots off Goal",
+          "value": 5
+        },
+        {
+          "type": "Total Shots",
+          "value": 7
+        },
+        {
+          "type": "Blocked Shots",
+          "value": 1
+        },
+        {
+          "type": "Shots insidebox",
+          "value": 4
+        },
+        {
+          "type": "Shots outsidebox",
+          "value": 3
+        },
+        {
+          "type": "Fouls",
+          "value": 7
+        },
+        {
+          "type": "Corner Kicks",
+          "value": 5
+        },
+        {
+          "type": "Offsides",
+          "value": 1
+        },
+        {
+          "type": "Ball Possession",
+          "value": "60%"
+        },
+        {
+          "type": "Yellow Cards",
+          "value": 3
+        },
+        {
+          "type": "Red Cards",
+          "value": null
+        },
+        {
+          "type": "Goalkeeper Saves",
+          "value": 3
+        },
+        {
+          "type": "Total passes",
+          "value": 496
+        },
+        {
+          "type": "Passes accurate",
+          "value": 392
+        },
+        {
+          "type": "Passes %",
+          "value": "79%"
+        }
+      ]
+    },
+    {
+      "team": {
+        "id": 36,
+        "name": "Fulham",
+        "logo": "https://media.api-sports.io/football/teams/36.png"
+      },
+      "statistics": [
+        {
+          "type": "Shots on Goal",
+          "value": 3
+        },
+        {
+          "type": "Shots off Goal",
+          "value": 5
+        },
+        {
+          "type": "Total Shots",
+          "value": 9
+        },
+        {
+          "type": "Blocked Shots",
+          "value": 1
+        },
+        {
+          "type": "Shots insidebox",
+          "value": 8
+        },
+        {
+          "type": "Shots outsidebox",
+          "value": 1
+        },
+        {
+          "type": "Fouls",
+          "value": 14
+        },
+        {
+          "type": "Corner Kicks",
+          "value": 3
+        },
+        {
+          "type": "Offsides",
+          "value": 0
+        },
+        {
+          "type": "Ball Possession",
+          "value": "40%"
+        },
+        {
+          "type": "Yellow Cards",
+          "value": 3
+        },
+        {
+          "type": "Red Cards",
+          "value": null
+        },
+        {
+          "type": "Goalkeeper Saves",
+          "value": 1
+        },
+        {
+          "type": "Total passes",
+          "value": 328
+        },
+        {
+          "type": "Passes accurate",
+          "value": 235
+        },
+        {
+          "type": "Passes %",
+          "value": "72%"
+        }
+      ]
+    }
+  ]
+}

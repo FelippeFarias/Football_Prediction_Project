@@ -1,1 +1,168 @@
-{"Shots on Goal":{"home":"3","away":"3"},"Shots off Goal":{"home":"9","away":"3"},"Total Shots":{"home":"15","away":"9"},"Blocked Shots":{"home":"3","away":"3"},"Shots insidebox":{"home":"6","away":"7"},"Shots outsidebox":{"home":"9","away":"2"},"Fouls":{"home":"10","away":"8"},"Corner Kicks":{"home":"7","away":"5"},"Offsides":{"home":"3","away":"2"},"Ball Possession":{"home":"57%","away":"43%"},"Yellow Cards":{"home":null,"away":null},"Red Cards":{"home":null,"away":null},"Goalkeeper Saves":{"home":"3","away":"2"},"Total passes":{"home":"613","away":"454"},"Passes accurate":{"home":"522","away":"381"},"Passes %":{"home":"85%","away":"84%"},"expected_goals":{"home":"1.83","away":"0.87"}}
+{
+  "get": "fixtures/statistics",
+  "parameters": {
+    "fixture": "868221"
+  },
+  "errors": [],
+  "results": 2,
+  "paging": {
+    "current": 1,
+    "total": 1
+  },
+  "response": [
+    {
+      "team": {
+        "id": 40,
+        "name": "Liverpool",
+        "logo": "https://media.api-sports.io/football/teams/40.png"
+      },
+      "statistics": [
+        {
+          "type": "Shots on Goal",
+          "value": 3
+        },
+        {
+          "type": "Shots off Goal",
+          "value": 9
+        },
+        {
+          "type": "Total Shots",
+          "value": 15
+        },
+        {
+          "type": "Blocked Shots",
+          "value": 3
+        },
+        {
+          "type": "Shots insidebox",
+          "value": 6
+        },
+        {
+          "type": "Shots outsidebox",
+          "value": 9
+        },
+        {
+          "type": "Fouls",
+          "value": 10
+        },
+        {
+          "type": "Corner Kicks",
+          "value": 7
+        },
+        {
+          "type": "Offsides",
+          "value": 3
+        },
+        {
+          "type": "Ball Possession",
+          "value": "57%"
+        },
+        {
+          "type": "Yellow Cards",
+          "value": null
+        },
+        {
+          "type": "Red Cards",
+          "value": null
+        },
+        {
+          "type": "Goalkeeper Saves",
+          "value": 3
+        },
+        {
+          "type": "Total passes",
+          "value": 613
+        },
+        {
+          "type": "Passes accurate",
+          "value": 522
+        },
+        {
+          "type": "Passes %",
+          "value": "85%"
+        },
+        {
+          "type": "expected_goals",
+          "value": "1.83"
+        }
+      ]
+    },
+    {
+      "team": {
+        "id": 36,
+        "name": "Fulham",
+        "logo": "https://media.api-sports.io/football/teams/36.png"
+      },
+      "statistics": [
+        {
+          "type": "Shots on Goal",
+          "value": 3
+        },
+        {
+          "type": "Shots off Goal",
+          "value": 3
+        },
+        {
+          "type": "Total Shots",
+          "value": 9
+        },
+        {
+          "type": "Blocked Shots",
+          "value": 3
+        },
+        {
+          "type": "Shots insidebox",
+          "value": 7
+        },
+        {
+          "type": "Shots outsidebox",
+          "value": 2
+        },
+        {
+          "type": "Fouls",
+          "value": 8
+        },
+        {
+          "type": "Corner Kicks",
+          "value": 5
+        },
+        {
+          "type": "Offsides",
+          "value": 2
+        },
+        {
+          "type": "Ball Possession",
+          "value": "43%"
+        },
+        {
+          "type": "Yellow Cards",
+          "value": null
+        },
+        {
+          "type": "Red Cards",
+          "value": null
+        },
+        {
+          "type": "Goalkeeper Saves",
+          "value": 2
+        },
+        {
+          "type": "Total passes",
+          "value": 454
+        },
+        {
+          "type": "Passes accurate",
+          "value": 381
+        },
+        {
+          "type": "Passes %",
+          "value": "84%"
+        },
+        {
+          "type": "expected_goals",
+          "value": "0.87"
+        }
+      ]
+    }
+  ]
+}

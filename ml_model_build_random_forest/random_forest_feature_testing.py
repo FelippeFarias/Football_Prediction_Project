@@ -10,9 +10,10 @@ print('\n\n ---------------- START ---------------- \n')
 
 #-------------------------------- API-FOOTBALL --------------------------------
 
-#!/usr/bin/python
-from os.path import dirname, realpath, sep, pardir
 import sys
+# !/usr/bin/python
+from os.path import dirname, realpath, sep, pardir
+
 sys.path.append(dirname(realpath(__file__)) + sep + pardir + sep)
 
 import time
@@ -21,12 +22,10 @@ start=time.time()
 import pickle
 import numpy as np
 import pandas as pd
-from ml_functions.ml_model_eval import pred_proba_plot, plot_cross_val_confusion_matrix, plot_learning_curve
+from ml_functions.ml_model_eval import plot_cross_val_confusion_matrix
 from sklearn.ensemble import RandomForestClassifier
-from ml_functions.data_processing import scale_df
-from sklearn.model_selection import train_test_split, GridSearchCV
-from sklearn.metrics import classification_report, confusion_matrix, plot_confusion_matrix, accuracy_score
-from sklearn.model_selection import StratifiedKFold, cross_val_score, cross_val_predict
+from sklearn.model_selection import train_test_split
+from sklearn.model_selection import StratifiedKFold, cross_val_score
 
 
 #------------------------------- INPUT VARIABLES ------------------------------

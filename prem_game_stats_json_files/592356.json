@@ -1,1 +1,160 @@
-{"Shots on Goal":{"home":"7","away":"3"},"Shots off Goal":{"home":"4","away":"1"},"Total Shots":{"home":"11","away":"9"},"Blocked Shots":{"home":"0","away":"5"},"Shots insidebox":{"home":"7","away":"6"},"Shots outsidebox":{"home":"4","away":"3"},"Fouls":{"home":"11","away":"8"},"Corner Kicks":{"home":"9","away":"6"},"Offsides":{"home":"1","away":"3"},"Ball Possession":{"home":"54%","away":"46%"},"Yellow Cards":{"home":"3","away":"2"},"Red Cards":{"home":"0","away":"2"},"Goalkeeper Saves":{"home":"2","away":"5"},"Total passes":{"home":"576","away":"488"},"Passes accurate":{"home":"524","away":"435"},"Passes %":{"home":"91%","away":"89%"}}
+{
+  "get": "fixtures/statistics",
+  "parameters": {
+    "fixture": "592356"
+  },
+  "errors": [],
+  "results": 2,
+  "paging": {
+    "current": 1,
+    "total": 1
+  },
+  "response": [
+    {
+      "team": {
+        "id": 39,
+        "name": "Wolves",
+        "logo": "https://media.api-sports.io/football/teams/39.png"
+      },
+      "statistics": [
+        {
+          "type": "Shots on Goal",
+          "value": 7
+        },
+        {
+          "type": "Shots off Goal",
+          "value": 4
+        },
+        {
+          "type": "Total Shots",
+          "value": 11
+        },
+        {
+          "type": "Blocked Shots",
+          "value": 0
+        },
+        {
+          "type": "Shots insidebox",
+          "value": 7
+        },
+        {
+          "type": "Shots outsidebox",
+          "value": 4
+        },
+        {
+          "type": "Fouls",
+          "value": 11
+        },
+        {
+          "type": "Corner Kicks",
+          "value": 9
+        },
+        {
+          "type": "Offsides",
+          "value": 1
+        },
+        {
+          "type": "Ball Possession",
+          "value": "54%"
+        },
+        {
+          "type": "Yellow Cards",
+          "value": 3
+        },
+        {
+          "type": "Red Cards",
+          "value": 0
+        },
+        {
+          "type": "Goalkeeper Saves",
+          "value": 2
+        },
+        {
+          "type": "Total passes",
+          "value": 576
+        },
+        {
+          "type": "Passes accurate",
+          "value": 524
+        },
+        {
+          "type": "Passes %",
+          "value": "91%"
+        }
+      ]
+    },
+    {
+      "team": {
+        "id": 42,
+        "name": "Arsenal",
+        "logo": "https://media.api-sports.io/football/teams/42.png"
+      },
+      "statistics": [
+        {
+          "type": "Shots on Goal",
+          "value": 3
+        },
+        {
+          "type": "Shots off Goal",
+          "value": 1
+        },
+        {
+          "type": "Total Shots",
+          "value": 9
+        },
+        {
+          "type": "Blocked Shots",
+          "value": 5
+        },
+        {
+          "type": "Shots insidebox",
+          "value": 6
+        },
+        {
+          "type": "Shots outsidebox",
+          "value": 3
+        },
+        {
+          "type": "Fouls",
+          "value": 8
+        },
+        {
+          "type": "Corner Kicks",
+          "value": 6
+        },
+        {
+          "type": "Offsides",
+          "value": 3
+        },
+        {
+          "type": "Ball Possession",
+          "value": "46%"
+        },
+        {
+          "type": "Yellow Cards",
+          "value": 2
+        },
+        {
+          "type": "Red Cards",
+          "value": 2
+        },
+        {
+          "type": "Goalkeeper Saves",
+          "value": 5
+        },
+        {
+          "type": "Total passes",
+          "value": 488
+        },
+        {
+          "type": "Passes accurate",
+          "value": 435
+        },
+        {
+          "type": "Passes %",
+          "value": "89%"
+        }
+      ]
+    }
+  ]
+}

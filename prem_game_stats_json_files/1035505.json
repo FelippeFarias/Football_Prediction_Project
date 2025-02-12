@@ -1,1 +1,168 @@
-{"Shots on Goal":{"home":"2","away":"6"},"Shots off Goal":{"home":"7","away":"3"},"Total Shots":{"home":"11","away":"13"},"Blocked Shots":{"home":"2","away":"4"},"Shots insidebox":{"home":"7","away":"7"},"Shots outsidebox":{"home":"4","away":"6"},"Fouls":{"home":"13","away":"14"},"Corner Kicks":{"home":"4","away":"6"},"Offsides":{"home":"1","away":"1"},"Ball Possession":{"home":"54%","away":"46%"},"Yellow Cards":{"home":"2","away":"2"},"Red Cards":{"home":"0","away":"1"},"Goalkeeper Saves":{"home":"4","away":"1"},"Total passes":{"home":"544","away":"471"},"Passes accurate":{"home":"492","away":"427"},"Passes %":{"home":"90%","away":"91%"},"expected_goals":{"home":"1.08","away":"1.48"}}
+{
+  "get": "fixtures/statistics",
+  "parameters": {
+    "fixture": "1035505"
+  },
+  "errors": [],
+  "results": 2,
+  "paging": {
+    "current": 1,
+    "total": 1
+  },
+  "response": [
+    {
+      "team": {
+        "id": 51,
+        "name": "Brighton",
+        "logo": "https://media.api-sports.io/football/teams/51.png"
+      },
+      "statistics": [
+        {
+          "type": "Shots on Goal",
+          "value": 2
+        },
+        {
+          "type": "Shots off Goal",
+          "value": 7
+        },
+        {
+          "type": "Total Shots",
+          "value": 12
+        },
+        {
+          "type": "Blocked Shots",
+          "value": 3
+        },
+        {
+          "type": "Shots insidebox",
+          "value": 8
+        },
+        {
+          "type": "Shots outsidebox",
+          "value": 4
+        },
+        {
+          "type": "Fouls",
+          "value": 13
+        },
+        {
+          "type": "Corner Kicks",
+          "value": 4
+        },
+        {
+          "type": "Offsides",
+          "value": 1
+        },
+        {
+          "type": "Ball Possession",
+          "value": "55%"
+        },
+        {
+          "type": "Yellow Cards",
+          "value": 2
+        },
+        {
+          "type": "Red Cards",
+          "value": 0
+        },
+        {
+          "type": "Goalkeeper Saves",
+          "value": 4
+        },
+        {
+          "type": "Total passes",
+          "value": 555
+        },
+        {
+          "type": "Passes accurate",
+          "value": 503
+        },
+        {
+          "type": "Passes %",
+          "value": "91%"
+        },
+        {
+          "type": "expected_goals",
+          "value": "1.27"
+        }
+      ]
+    },
+    {
+      "team": {
+        "id": 49,
+        "name": "Chelsea",
+        "logo": "https://media.api-sports.io/football/teams/49.png"
+      },
+      "statistics": [
+        {
+          "type": "Shots on Goal",
+          "value": 6
+        },
+        {
+          "type": "Shots off Goal",
+          "value": 4
+        },
+        {
+          "type": "Total Shots",
+          "value": 14
+        },
+        {
+          "type": "Blocked Shots",
+          "value": 4
+        },
+        {
+          "type": "Shots insidebox",
+          "value": 7
+        },
+        {
+          "type": "Shots outsidebox",
+          "value": 7
+        },
+        {
+          "type": "Fouls",
+          "value": 14
+        },
+        {
+          "type": "Corner Kicks",
+          "value": 6
+        },
+        {
+          "type": "Offsides",
+          "value": 1
+        },
+        {
+          "type": "Ball Possession",
+          "value": "45%"
+        },
+        {
+          "type": "Yellow Cards",
+          "value": 2
+        },
+        {
+          "type": "Red Cards",
+          "value": 1
+        },
+        {
+          "type": "Goalkeeper Saves",
+          "value": 1
+        },
+        {
+          "type": "Total passes",
+          "value": 474
+        },
+        {
+          "type": "Passes accurate",
+          "value": 430
+        },
+        {
+          "type": "Passes %",
+          "value": "91%"
+        },
+        {
+          "type": "expected_goals",
+          "value": "1.54"
+        }
+      ]
+    }
+  ]
+}

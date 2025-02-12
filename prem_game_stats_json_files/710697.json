@@ -1,1 +1,160 @@
-{"Shots on Goal":{"home":"5","away":"3"},"Shots off Goal":{"home":"3","away":"4"},"Total Shots":{"home":"11","away":"10"},"Blocked Shots":{"home":"3","away":"3"},"Shots insidebox":{"home":"7","away":"8"},"Shots outsidebox":{"home":"4","away":"2"},"Fouls":{"home":"8","away":"12"},"Corner Kicks":{"home":"3","away":"3"},"Offsides":{"home":"5","away":"1"},"Ball Possession":{"home":"36%","away":"64%"},"Yellow Cards":{"home":"2","away":"2"},"Red Cards":{"home":null,"away":null},"Goalkeeper Saves":{"home":"2","away":"3"},"Total passes":{"home":"328","away":"588"},"Passes accurate":{"home":"227","away":"486"},"Passes %":{"home":"69%","away":"83%"}}
+{
+  "get": "fixtures/statistics",
+  "parameters": {
+    "fixture": "710697"
+  },
+  "errors": [],
+  "results": 2,
+  "paging": {
+    "current": 1,
+    "total": 1
+  },
+  "response": [
+    {
+      "team": {
+        "id": 45,
+        "name": "Everton",
+        "logo": "https://media.api-sports.io/football/teams/45.png"
+      },
+      "statistics": [
+        {
+          "type": "Shots on Goal",
+          "value": 5
+        },
+        {
+          "type": "Shots off Goal",
+          "value": 3
+        },
+        {
+          "type": "Total Shots",
+          "value": 11
+        },
+        {
+          "type": "Blocked Shots",
+          "value": 3
+        },
+        {
+          "type": "Shots insidebox",
+          "value": 7
+        },
+        {
+          "type": "Shots outsidebox",
+          "value": 4
+        },
+        {
+          "type": "Fouls",
+          "value": 8
+        },
+        {
+          "type": "Corner Kicks",
+          "value": 3
+        },
+        {
+          "type": "Offsides",
+          "value": 5
+        },
+        {
+          "type": "Ball Possession",
+          "value": "36%"
+        },
+        {
+          "type": "Yellow Cards",
+          "value": 2
+        },
+        {
+          "type": "Red Cards",
+          "value": null
+        },
+        {
+          "type": "Goalkeeper Saves",
+          "value": 2
+        },
+        {
+          "type": "Total passes",
+          "value": 329
+        },
+        {
+          "type": "Passes accurate",
+          "value": 228
+        },
+        {
+          "type": "Passes %",
+          "value": "69%"
+        }
+      ]
+    },
+    {
+      "team": {
+        "id": 42,
+        "name": "Arsenal",
+        "logo": "https://media.api-sports.io/football/teams/42.png"
+      },
+      "statistics": [
+        {
+          "type": "Shots on Goal",
+          "value": 3
+        },
+        {
+          "type": "Shots off Goal",
+          "value": 4
+        },
+        {
+          "type": "Total Shots",
+          "value": 10
+        },
+        {
+          "type": "Blocked Shots",
+          "value": 3
+        },
+        {
+          "type": "Shots insidebox",
+          "value": 8
+        },
+        {
+          "type": "Shots outsidebox",
+          "value": 2
+        },
+        {
+          "type": "Fouls",
+          "value": 12
+        },
+        {
+          "type": "Corner Kicks",
+          "value": 3
+        },
+        {
+          "type": "Offsides",
+          "value": 1
+        },
+        {
+          "type": "Ball Possession",
+          "value": "64%"
+        },
+        {
+          "type": "Yellow Cards",
+          "value": 2
+        },
+        {
+          "type": "Red Cards",
+          "value": null
+        },
+        {
+          "type": "Goalkeeper Saves",
+          "value": 3
+        },
+        {
+          "type": "Total passes",
+          "value": 588
+        },
+        {
+          "type": "Passes accurate",
+          "value": 486
+        },
+        {
+          "type": "Passes %",
+          "value": "83%"
+        }
+      ]
+    }
+  ]
+}

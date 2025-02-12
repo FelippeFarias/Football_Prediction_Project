@@ -1,1 +1,168 @@
-{"Shots on Goal":{"home":"8","away":"2"},"Shots off Goal":{"home":"6","away":"1"},"Total Shots":{"home":"20","away":"8"},"Blocked Shots":{"home":"6","away":"5"},"Shots insidebox":{"home":"14","away":"6"},"Shots outsidebox":{"home":"6","away":"2"},"Fouls":{"home":"7","away":"15"},"Corner Kicks":{"home":"5","away":"3"},"Offsides":{"home":"1","away":"3"},"Ball Possession":{"home":"53%","away":"47%"},"Yellow Cards":{"home":"1","away":"3"},"Red Cards":{"home":null,"away":null},"Goalkeeper Saves":{"home":"2","away":"6"},"Total passes":{"home":"510","away":"463"},"Passes accurate":{"home":"414","away":"364"},"Passes %":{"home":"81%","away":"79%"},"expected_goals":{"home":"3.19","away":"0.65"}}
+{
+  "get": "fixtures/statistics",
+  "parameters": {
+    "fixture": "1035102"
+  },
+  "errors": [],
+  "results": 2,
+  "paging": {
+    "current": 1,
+    "total": 1
+  },
+  "response": [
+    {
+      "team": {
+        "id": 34,
+        "name": "Newcastle",
+        "logo": "https://media.api-sports.io/football/teams/34.png"
+      },
+      "statistics": [
+        {
+          "type": "Shots on Goal",
+          "value": 8
+        },
+        {
+          "type": "Shots off Goal",
+          "value": 6
+        },
+        {
+          "type": "Total Shots",
+          "value": 20
+        },
+        {
+          "type": "Blocked Shots",
+          "value": 6
+        },
+        {
+          "type": "Shots insidebox",
+          "value": 14
+        },
+        {
+          "type": "Shots outsidebox",
+          "value": 6
+        },
+        {
+          "type": "Fouls",
+          "value": 7
+        },
+        {
+          "type": "Corner Kicks",
+          "value": 5
+        },
+        {
+          "type": "Offsides",
+          "value": 1
+        },
+        {
+          "type": "Ball Possession",
+          "value": "53%"
+        },
+        {
+          "type": "Yellow Cards",
+          "value": 1
+        },
+        {
+          "type": "Red Cards",
+          "value": null
+        },
+        {
+          "type": "Goalkeeper Saves",
+          "value": 2
+        },
+        {
+          "type": "Total passes",
+          "value": 510
+        },
+        {
+          "type": "Passes accurate",
+          "value": 414
+        },
+        {
+          "type": "Passes %",
+          "value": "81%"
+        },
+        {
+          "type": "expected_goals",
+          "value": "3.19"
+        }
+      ]
+    },
+    {
+      "team": {
+        "id": 44,
+        "name": "Burnley",
+        "logo": "https://media.api-sports.io/football/teams/44.png"
+      },
+      "statistics": [
+        {
+          "type": "Shots on Goal",
+          "value": 2
+        },
+        {
+          "type": "Shots off Goal",
+          "value": 1
+        },
+        {
+          "type": "Total Shots",
+          "value": 8
+        },
+        {
+          "type": "Blocked Shots",
+          "value": 5
+        },
+        {
+          "type": "Shots insidebox",
+          "value": 6
+        },
+        {
+          "type": "Shots outsidebox",
+          "value": 2
+        },
+        {
+          "type": "Fouls",
+          "value": 15
+        },
+        {
+          "type": "Corner Kicks",
+          "value": 3
+        },
+        {
+          "type": "Offsides",
+          "value": 3
+        },
+        {
+          "type": "Ball Possession",
+          "value": "47%"
+        },
+        {
+          "type": "Yellow Cards",
+          "value": 3
+        },
+        {
+          "type": "Red Cards",
+          "value": null
+        },
+        {
+          "type": "Goalkeeper Saves",
+          "value": 6
+        },
+        {
+          "type": "Total passes",
+          "value": 463
+        },
+        {
+          "type": "Passes accurate",
+          "value": 364
+        },
+        {
+          "type": "Passes %",
+          "value": "79%"
+        },
+        {
+          "type": "expected_goals",
+          "value": "0.65"
+        }
+      ]
+    }
+  ]
+}

@@ -1,1 +1,168 @@
-{"Shots on Goal":{"home":"4","away":"7"},"Shots off Goal":{"home":"2","away":"3"},"Total Shots":{"home":"10","away":"15"},"Blocked Shots":{"home":"4","away":"5"},"Shots insidebox":{"home":"7","away":"10"},"Shots outsidebox":{"home":"3","away":"5"},"Fouls":{"home":"9","away":"11"},"Corner Kicks":{"home":"5","away":"11"},"Offsides":{"home":"10","away":"1"},"Ball Possession":{"home":"53%","away":"47%"},"Yellow Cards":{"home":"2","away":"3"},"Red Cards":{"home":"1","away":"0"},"Goalkeeper Saves":{"home":"6","away":"4"},"Total passes":{"home":"436","away":"374"},"Passes accurate":{"home":"376","away":"315"},"Passes %":{"home":"86%","away":"84%"},"expected_goals":{"home":"1.35","away":"1.04"}}
+{
+  "get": "fixtures/statistics",
+  "parameters": {
+    "fixture": "1035091"
+  },
+  "errors": [],
+  "results": 2,
+  "paging": {
+    "current": 1,
+    "total": 1
+  },
+  "response": [
+    {
+      "team": {
+        "id": 49,
+        "name": "Chelsea",
+        "logo": "https://media.api-sports.io/football/teams/49.png"
+      },
+      "statistics": [
+        {
+          "type": "Shots on Goal",
+          "value": 4
+        },
+        {
+          "type": "Shots off Goal",
+          "value": 2
+        },
+        {
+          "type": "Total Shots",
+          "value": 10
+        },
+        {
+          "type": "Blocked Shots",
+          "value": 4
+        },
+        {
+          "type": "Shots insidebox",
+          "value": 7
+        },
+        {
+          "type": "Shots outsidebox",
+          "value": 3
+        },
+        {
+          "type": "Fouls",
+          "value": 9
+        },
+        {
+          "type": "Corner Kicks",
+          "value": 5
+        },
+        {
+          "type": "Offsides",
+          "value": 10
+        },
+        {
+          "type": "Ball Possession",
+          "value": "53%"
+        },
+        {
+          "type": "Yellow Cards",
+          "value": 2
+        },
+        {
+          "type": "Red Cards",
+          "value": 1
+        },
+        {
+          "type": "Goalkeeper Saves",
+          "value": 6
+        },
+        {
+          "type": "Total passes",
+          "value": 443
+        },
+        {
+          "type": "Passes accurate",
+          "value": 380
+        },
+        {
+          "type": "Passes %",
+          "value": "86%"
+        },
+        {
+          "type": "expected_goals",
+          "value": "1.33"
+        }
+      ]
+    },
+    {
+      "team": {
+        "id": 66,
+        "name": "Aston Villa",
+        "logo": "https://media.api-sports.io/football/teams/66.png"
+      },
+      "statistics": [
+        {
+          "type": "Shots on Goal",
+          "value": 7
+        },
+        {
+          "type": "Shots off Goal",
+          "value": 3
+        },
+        {
+          "type": "Total Shots",
+          "value": 15
+        },
+        {
+          "type": "Blocked Shots",
+          "value": 5
+        },
+        {
+          "type": "Shots insidebox",
+          "value": 10
+        },
+        {
+          "type": "Shots outsidebox",
+          "value": 5
+        },
+        {
+          "type": "Fouls",
+          "value": 11
+        },
+        {
+          "type": "Corner Kicks",
+          "value": 11
+        },
+        {
+          "type": "Offsides",
+          "value": 1
+        },
+        {
+          "type": "Ball Possession",
+          "value": "47%"
+        },
+        {
+          "type": "Yellow Cards",
+          "value": 3
+        },
+        {
+          "type": "Red Cards",
+          "value": 0
+        },
+        {
+          "type": "Goalkeeper Saves",
+          "value": 4
+        },
+        {
+          "type": "Total passes",
+          "value": 388
+        },
+        {
+          "type": "Passes accurate",
+          "value": 328
+        },
+        {
+          "type": "Passes %",
+          "value": "85%"
+        },
+        {
+          "type": "expected_goals",
+          "value": "1.07"
+        }
+      ]
+    }
+  ]
+}

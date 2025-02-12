@@ -5,192 +5,353 @@ Created on Sun Jun 28 11:45:42 2020
 @author: mhayt
 """
 
+import pandas as pd
+import numpy as np
+import pickle
+import logging
+import os
+from datetime import datetime
+from typing import Dict, Any, List, Tuple
+import matplotlib.pyplot as plt
+import seaborn as sns
+from sklearn.metrics import confusion_matrix, classification_report
+import warnings
+import joblib
+from ml_functions.feature_engineering_functions import average_stats_df, mod_df
+
+# Configurar warnings e logging
+warnings.filterwarnings('ignore')
+logging.basicConfig(
+    level=logging.INFO,
+    format='%(asctime)s - %(levelname)s - %(message)s',
+    handlers=[
+        logging.FileHandler('predictions/prediction_logs.log'),
+        logging.StreamHandler()
+    ]
+)
 
 print('\n\n ---------------- START ---------------- \n')
 
-#-------------------------------- API-FOOTBALL --------------------------------
-
-#!/usr/bin/python
-from os.path import dirname, realpath, sep, pardir
-import sys
-sys.path.append(dirname(realpath(__file__)) + sep + pardir + sep)
-
-import time
-start=time.time()
-
-import pandas as pd
-import pickle
-import numpy as np
-import math
-from ml_functions.feature_engineering_functions import average_stats_df, mod_df
-
-
-#------------------------------- INPUT VARIABLES ------------------------------
-
-fixtures_saved_name = '2019_2020_2021_2022_2023_2024_premier_league_fixtures_df.csv'
-
-stats_dict_saved_name = '2019_2020_2021_2022_2023_2024_prem_all_stats_dict.txt'
-
-df_10_saved_name = '2019_2020_2021_2022_2023_2024_prem_df_for_ml_10_v2.txt'
-
-path_to_model = '/ml_model_build_random_forest/ml_models/random_forest_model_10.pk1'
-
-
-#----------------------------- FEATURE ENGINEERING ----------------------------
-
-with open(f'../prem_clean_fixtures_and_dataframes/{stats_dict_saved_name}', 'rb') as myFile:
-    game_stats = pickle.load(myFile)
+class PremierLeaguePredictor:
+    """Classe para gerenciar predições de jogos da Premier League"""
     
-#creating a list with the team id in
-team_list = []
-for key in game_stats.keys():
-    team_list.append(key)
-team_list.sort()
-
-#creating a dictionary with the team id as key and fixture id's as values
-team_fixture_id_dict = {}
-for team in team_list:
-    fix_id_list = []
-    for key in game_stats[team].keys():
-        fix_id_list.append(key)
-    fix_id_list.sort()
-    sub_dict = {team:fix_id_list}
-    team_fixture_id_dict.update(sub_dict)
-    
-#creating the same dictionary as above but only with the previous 10 games ready for predictions.
-team_fixture_id_dict_reduced = {}
-for team in team_fixture_id_dict:
-    team_fixture_list_reduced = team_fixture_id_dict[team][-10:]
-    sub_dict = {team:team_fixture_list_reduced}
-    team_fixture_id_dict_reduced.update(sub_dict)
-
-df_10_upcom_fix_e = average_stats_df(10, team_list, team_fixture_id_dict_reduced, game_stats, making_predictions=True)
-df_10_upcom_fix = mod_df(df_10_upcom_fix_e, making_predictions=True)
-
-#loading fixtures dataframe, we will work with the clean version.
-fixtures_clean = pd.read_csv(f'../prem_clean_fixtures_and_dataframes/{fixtures_saved_name}')
-
-#creating a df with unplayed games only
-played_games = []
-for i in range(0, len(fixtures_clean)):
-    if math.isnan(fixtures_clean['Home Team Goals'].iloc[i]) == False:
-        played_games.append(i)
-  
-unplayed_games = fixtures_clean.drop(fixtures_clean.index[played_games])
-unplayed_games = unplayed_games.reset_index(drop=True)
-unplayed_games = unplayed_games.drop(['Home Team Goals', 'Away Team Goals'], axis=1)
-
-#loading df for the labels 
-with open(f'../prem_clean_fixtures_and_dataframes/{df_10_saved_name}', 'rb') as myFile:
-    df_ml_10 = pickle.load(myFile)
-
-column_list = df_ml_10.columns.tolist()
-
-#instatiating the df for predictions with zeros
-df_for_predictions = pd.DataFrame(np.zeros((68, 14)))
-df_for_predictions.columns = column_list[:14]
-
-#adding the home and away team id
-df_for_predictions = pd.DataFrame(np.zeros((len(unplayed_games), 14)))
-df_for_predictions.columns = column_list[:14]
-df_for_predictions['Home Team ID'] = unplayed_games['Home Team ID']
-df_for_predictions['Away Team ID'] = unplayed_games['Away Team ID']
-df_for_predictions['Home Team'] = unplayed_games['Home Team']
-df_for_predictions['Away Team'] = unplayed_games['Away Team']
-df_for_predictions['Game Date'] = unplayed_games['Game Date']
-
-
-# ---------- MODELLING MISSING GAME DATA ----------
-#if our newly promoted team has not yet played 10 games we need to fill in this gap in order to make a prediction. Lets take the 3 relegated teams, avergae these and use that for all newly promoted teams. 
-
-relegated_id_1 = 35
-relegated_id_2 = 38
-relegated_id_3 = 71
-
-rel_1_df = (df_10_upcom_fix.loc[df_10_upcom_fix['Team ID'] == relegated_id_1]).reset_index(drop=True)
-rel_2_df = (df_10_upcom_fix.loc[df_10_upcom_fix['Team ID'] == relegated_id_2]).reset_index(drop=True)
-rel_3_df = (df_10_upcom_fix.loc[df_10_upcom_fix['Team ID'] == relegated_id_3]).reset_index(drop=True)
-
-average_df = rel_1_df.add(rel_2_df, fill_value=0)
-average_df = average_df.add(rel_3_df, fill_value=0)
-average_df = average_df.div(3)
-
-
-# ---------- POPULATING 'df_for_predictions' WITH STATS ----------
-
-for i in range(0, len(unplayed_games)):
-    #getting home team id and index
-    home_team = unplayed_games['Home Team ID'].iloc[i]
-    home_team_index = df_10_upcom_fix[df_10_upcom_fix['Team ID']==home_team].index.values
-    
-    #getting away team id and index
-    away_team = unplayed_games['Away Team ID'].iloc[i]
-    away_team_index = df_10_upcom_fix[df_10_upcom_fix['Team ID']==away_team].index.values    
-    
-    #getting the home and away team stats given the index of the teams. This still a df. To replace in the df_for_predictions we need this to be a list. This turns out to be quite complex (steps 2 through to 5).
-    #if the team is newly promoted they will not have any stats in df_10_upcom_fix. If this is the case we need to replace the missing data with modelled data
-    team_ids = list(df_10_upcom_fix['Team ID'])
-    
-    if home_team in team_ids:
-        h1 = df_10_upcom_fix.iloc[home_team_index]
-    else:
-        h1 = average_df
+    def __init__(self):
+        self.fixtures_clean = None
+        self.game_stats = None
+        self.team_list = []
+        self.team_fixture_id_dict = {}
+        self.unplayed_games = None
+        self.df_for_predictions = None
+        self.predictions = None
+        self.models = {}
         
-    if away_team in team_ids:
-        a1 = df_10_upcom_fix.iloc[away_team_index]
-    else:
-        a1 = average_df
-    
-    
-    h2 = h1.T
-    a2 = a1.T
-    
-    h3 = h2.values.tolist()
-    a3 = a2.values.tolist()
-    
-    h4 = []
-    for j in range(0, len(h3)):
-        h4.append(h3[j][0])
-
-    a4 = []
-    for k in range(0, len(a3)):
-        a4.append(a3[k][0])
+        # Criar diretórios necessários
+        os.makedirs('predictions/results', exist_ok=True)
+        os.makedirs('predictions/figures', exist_ok=True)
         
-    h5 = h4[0:7]
-    a5 = a4[0:7]
+    def load_data(self) -> None:
+        """Carrega dados necessários para predições"""
+        try:
+            # Carregar dados de fixtures
+            fixtures_files = [f for f in os.listdir('prem_clean_fixtures_and_dataframes') 
+                            if f.endswith('fixtures_df.csv')]
+            latest_fixtures = max(fixtures_files, key=lambda x: os.path.getctime(
+                os.path.join('prem_clean_fixtures_and_dataframes', x)))
+            
+            self.fixtures_clean = pd.read_csv(f'prem_clean_fixtures_and_dataframes/{latest_fixtures}')
+            logging.info(f"Fixtures carregados: {latest_fixtures}")
+            
+            # Carregar estatísticas dos jogos
+            stats_files = [f for f in os.listdir('prem_clean_fixtures_and_dataframes') 
+                          if f.endswith('stats_dict.txt')]
+            latest_stats = max(stats_files, key=lambda x: os.path.getctime(
+                os.path.join('prem_clean_fixtures_and_dataframes', x)))
+            
+            with open(f'prem_clean_fixtures_and_dataframes/{latest_stats}', 'rb') as f:
+                self.game_stats = pickle.load(f)
+            logging.info(f"Estatísticas carregadas: {latest_stats}")
+            
+            # Carregar modelos
+            self._load_models()
+            
+        except Exception as e:
+            logging.error(f"Erro ao carregar dados: {str(e)}")
+            raise
+            
+    def _load_models(self) -> None:
+        """Carrega os modelos treinados"""
+        model_dirs = [
+            'ml_model_build_random_forest/ml_models',
+            'ml_model_build_xgboost/ml_models',
+            'ml_model_build_neural_network/ml_models',
+            'ml_model_build_ensemble_model/ml_models'
+        ]
+        
+        for dir_path in model_dirs:
+            if os.path.exists(dir_path):
+                model_files = [f for f in os.listdir(dir_path) 
+                             if f.endswith('.pkl') and not f.startswith('scaler') 
+                             and not f.startswith('label')]
+                
+                for model_file in model_files:
+                    model_name = model_file.split('_')[0]
+                    model_path = os.path.join(dir_path, model_file)
+                    
+                    try:
+                        self.models[model_name] = joblib.load(model_path)
+                        logging.info(f"Modelo carregado: {model_file}")
+                    except Exception as e:
+                        logging.warning(f"Erro ao carregar modelo {model_file}: {str(e)}")
     
-    df_for_predictions.iloc[i, 0:7] = h5
-    df_for_predictions.iloc[i, 7:14] = a5
-
-
-#--------------------------- MAKING THE PREDICTIONS ---------------------------
-
-clf = pickle.load(open(f'..{path_to_model}', 'rb'))
-
-df_for_predictions_r = df_for_predictions.drop(['Home Team ID', 'Away Team ID', 'Home Team', 'Away Team', 'Game Date'], axis=1)
-
-predictions_raw = clf.predict_proba(df_for_predictions_r)
-
-predictions_df = pd.DataFrame(data=predictions_raw, 
-                              index=range(0, len(predictions_raw)), 
-                              columns=['Away Win', 'Draw', 'Home Win'])
-
-predictions_df[predictions_df.select_dtypes(include=['number']).columns] *= 100
-predictions_df = predictions_df.round(1)
-
-predictions = pd.concat([unplayed_games, predictions_df], axis=1, join='inner')
-
-re_order_cols = ['Home Team', 'Away Team', 'Home Win', 'Draw', 'Away Win', 'Game Date', 'Venue', 'Home Team Logo', 'Away Team Logo', 'Home Team ID', 'Away Team ID', 'Fixture ID', 'index']
+    def prepare_team_data(self) -> None:
+        """Prepara dados dos times para predições"""
+        try:
+            # Criar lista de times
+            self.team_list = sorted(list(self.game_stats.keys()))
+            
+            # Criar dicionário de IDs de jogos por time
+            for team in self.team_list:
+                fix_id_list = sorted(list(self.game_stats[team].keys()))
+                self.team_fixture_id_dict[team] = fix_id_list
+            
+            # Criar versão reduzida com apenas os últimos 10 jogos
+            team_fixture_id_dict_reduced = {
+                team: self.team_fixture_id_dict[team][-10:]
+                for team in self.team_fixture_id_dict
+            }
+            
+            # Preparar dados para predições
+            df_10_upcom_fix_e = average_stats_df(
+                10, self.team_list, team_fixture_id_dict_reduced, 
+                self.game_stats, making_predictions=True
+            )
+            self.df_for_predictions = mod_df(df_10_upcom_fix_e, making_predictions=True)
+            
+            logging.info("Dados dos times preparados com sucesso")
+            
+        except Exception as e:
+            logging.error(f"Erro ao preparar dados dos times: {str(e)}")
+            raise
     
-predictions = predictions.reindex(columns=re_order_cols)
+    def get_unplayed_games(self) -> None:
+        """Identifica jogos não realizados"""
+        try:
+            # Identificar jogos já realizados
+            played_games = self.fixtures_clean[
+                self.fixtures_clean['Home Team Goals'].notna()
+            ].index.tolist()
+            
+            # Filtrar jogos não realizados
+            self.unplayed_games = self.fixtures_clean.drop(played_games).reset_index(drop=True)
+            self.unplayed_games = self.unplayed_games.drop(
+                ['Home Team Goals', 'Away Team Goals'], axis=1
+            )
+            
+            logging.info(f"Identificados {len(self.unplayed_games)} jogos não realizados")
+            
+        except Exception as e:
+            logging.error(f"Erro ao identificar jogos não realizados: {str(e)}")
+            raise
+    
+    def model_missing_data(self) -> pd.DataFrame:
+        """Modela dados faltantes para times recém-promovidos"""
+        try:
+            # IDs dos times rebaixados (atualizar conforme necessário)
+            relegated_teams = [35, 38, 71]  # Atualizar com IDs corretos
+            
+            # Calcular média dos times rebaixados
+            relegated_dfs = []
+            for team_id in relegated_teams:
+                team_df = self.df_for_predictions[
+                    self.df_for_predictions['Team ID'] == team_id
+                ].reset_index(drop=True)
+                if not team_df.empty:
+                    relegated_dfs.append(team_df)
+            
+            if relegated_dfs:
+                average_df = pd.concat(relegated_dfs).groupby(level=0).mean()
+                logging.info("Dados modelados para times recém-promovidos")
+                return average_df
+            else:
+                logging.warning("Sem dados de times rebaixados disponíveis")
+                return pd.DataFrame()
+                
+        except Exception as e:
+            logging.error(f"Erro ao modelar dados faltantes: {str(e)}")
+            raise
+    
+    def prepare_prediction_data(self) -> None:
+        """Prepara dados para predições"""
+        try:
+            # Criar DataFrame base para predições
+            columns = self.df_for_predictions.columns.tolist()[:14]
+            self.df_for_predictions = pd.DataFrame(
+                np.zeros((len(self.unplayed_games), 14)),
+                columns=columns
+            )
+            
+            # Adicionar informações dos times
+            self.df_for_predictions['Home Team ID'] = self.unplayed_games['Home Team ID']
+            self.df_for_predictions['Away Team ID'] = self.unplayed_games['Away Team ID']
+            self.df_for_predictions['Home Team'] = self.unplayed_games['Home Team']
+            self.df_for_predictions['Away Team'] = self.unplayed_games['Away Team']
+            self.df_for_predictions['Game Date'] = self.unplayed_games['Game Date']
+            
+            # Modelar dados faltantes
+            average_stats = self.model_missing_data()
+            
+            # Preencher estatísticas
+            team_ids = list(self.df_for_predictions['Team ID'])
+            for i in range(len(self.unplayed_games)):
+                home_team = self.unplayed_games['Home Team ID'].iloc[i]
+                away_team = self.unplayed_games['Away Team ID'].iloc[i]
+                
+                # Obter estatísticas dos times
+                home_stats = (self.df_for_predictions[
+                    self.df_for_predictions['Team ID'] == home_team
+                ] if home_team in team_ids else average_stats).iloc[0, :7].values
+                
+                away_stats = (self.df_for_predictions[
+                    self.df_for_predictions['Team ID'] == away_team
+                ] if away_team in team_ids else average_stats).iloc[0, :7].values
+                
+                # Preencher estatísticas
+                self.df_for_predictions.iloc[i, 0:7] = home_stats
+                self.df_for_predictions.iloc[i, 7:14] = away_stats
+            
+            logging.info("Dados preparados para predições")
+            
+        except Exception as e:
+            logging.error(f"Erro ao preparar dados para predições: {str(e)}")
+            raise
+    
+    def make_predictions(self) -> None:
+        """Realiza predições usando os modelos carregados"""
+        try:
+            predictions_all = {}
+            df_features = self.df_for_predictions.drop(
+                ['Home Team ID', 'Away Team ID', 'Home Team', 'Away Team', 'Game Date'],
+                axis=1
+            )
+            
+            # Fazer predições com cada modelo
+            for model_name, model in self.models.items():
+                predictions_raw = model.predict_proba(df_features)
+                predictions_df = pd.DataFrame(
+                    data=predictions_raw * 100,
+                    columns=['Away Win', 'Draw', 'Home Win']
+                ).round(1)
+                predictions_all[model_name] = predictions_df
+            
+            # Calcular média das predições (ensemble)
+            predictions_combined = pd.concat(predictions_all.values()).groupby(level=0).mean()
+            
+            # Criar DataFrame final
+            self.predictions = pd.concat(
+                [self.unplayed_games, predictions_combined],
+                axis=1,
+                join='inner'
+            )
+            
+            # Reordenar colunas
+            columns = [
+                'Home Team', 'Away Team', 'Home Win', 'Draw', 'Away Win',
+                'Game Date', 'Venue', 'Home Team Logo', 'Away Team Logo',
+                'Home Team ID', 'Away Team ID', 'Fixture ID', 'index'
+            ]
+            self.predictions = self.predictions.reindex(columns=columns)
+            
+            logging.info("Predições realizadas com sucesso")
+            
+        except Exception as e:
+            logging.error(f"Erro ao realizar predições: {str(e)}")
+            raise
+    
+    def plot_predictions(self) -> None:
+        """Gera visualizações das predições"""
+        try:
+            timestamp = datetime.now().strftime('%Y%m%d_%H%M%S')
+            
+            # Plot de probabilidades por jogo
+            plt.figure(figsize=(15, 8))
+            games = [f"{row['Home Team']} vs {row['Away Team']}" 
+                    for _, row in self.predictions.iterrows()]
+            
+            data = {
+                'Home Win': self.predictions['Home Win'],
+                'Draw': self.predictions['Draw'],
+                'Away Win': self.predictions['Away Win']
+            }
+            
+            df_plot = pd.DataFrame(data, index=games)
+            ax = df_plot.plot(kind='bar', stacked=True)
+            plt.title('Probabilidades de Resultado por Jogo')
+            plt.xlabel('Jogos')
+            plt.ylabel('Probabilidade (%)')
+            plt.xticks(rotation=45, ha='right')
+            plt.tight_layout()
+            plt.savefig(f'predictions/figures/probabilities_{timestamp}.png')
+            plt.close()
+            
+            logging.info("Visualizações geradas com sucesso")
+            
+        except Exception as e:
+            logging.error(f"Erro ao gerar visualizações: {str(e)}")
+            raise
+    
+    def save_predictions(self) -> None:
+        """Salva as predições geradas"""
+        try:
+            timestamp = datetime.now().strftime('%Y%m%d_%H%M%S')
+            
+            # Salvar em formato CSV
+            csv_path = f'predictions/results/predictions_{timestamp}.csv'
+            self.predictions.to_csv(csv_path, index=False)
+            
+            # Salvar em formato pickle
+            pickle_path = f'predictions/results/predictions_{timestamp}.pkl'
+            with open(pickle_path, 'wb') as f:
+                pickle.dump(self.predictions, f)
+            
+            # Salvar cópia para o servidor web
+            web_path = 'web_server/pl_predictions.csv'
+            if os.path.exists('web_server'):
+                self.predictions.to_csv(web_path, index=False)
+            
+            logging.info(f"Predições salvas em {csv_path} e {pickle_path}")
+            
+        except Exception as e:
+            logging.error(f"Erro ao salvar predições: {str(e)}")
+            raise
+    
+    def run_prediction_pipeline(self) -> None:
+        """Executa o pipeline completo de predições"""
+        try:
+            logging.info("Iniciando pipeline de predições...")
+            
+            self.load_data()
+            self.prepare_team_data()
+            self.get_unplayed_games()
+            self.prepare_prediction_data()
+            self.make_predictions()
+            self.plot_predictions()
+            self.save_predictions()
+            
+            logging.info("Pipeline de predições concluído com sucesso")
+            
+        except Exception as e:
+            logging.error(f"Erro no pipeline de predições: {str(e)}")
+            raise
 
-with open('pl_predictions.csv', 'wb') as myFile:
-    pickle.dump(predictions, myFile)  
-with open('../web_server/pl_predictions.csv', 'wb') as myFile:
-    pickle.dump(predictions, myFile)  
+def main():
+    try:
+        predictor = PremierLeaguePredictor()
+        predictor.run_prediction_pipeline()
+    except Exception as e:
+        logging.error(f"Erro na execução principal: {str(e)}")
+        raise
+    finally:
+        print('\n ----------------- END ----------------- \n')
 
-
-# ----------------------------------- END -------------------------------------
-
-print('\n', 'Script runtime:', round(((time.time()-start)/60), 2), 'minutes')
-print(' ----------------- END ----------------- \n')
+if __name__ == "__main__":
+    main()

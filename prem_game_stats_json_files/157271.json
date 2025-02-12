@@ -1,1 +1,160 @@
-{"Shots on Goal":{"home":"1","away":"6"},"Shots off Goal":{"home":"3","away":"7"},"Total Shots":{"home":"5","away":"17"},"Blocked Shots":{"home":"1","away":"4"},"Shots insidebox":{"home":"3","away":"11"},"Shots outsidebox":{"home":"2","away":"6"},"Fouls":{"home":"5","away":"11"},"Corner Kicks":{"home":"2","away":"7"},"Offsides":{"home":"1","away":"0"},"Ball Possession":{"home":"36%","away":"64%"},"Yellow Cards":{"home":"1","away":"2"},"Red Cards":{"home":null,"away":null},"Goalkeeper Saves":{"home":"5","away":"1"},"Total passes":{"home":"367","away":"620"},"Passes accurate":{"home":"266","away":"520"},"Passes %":{"home":"72%","away":"84%"}}
+{
+  "get": "fixtures/statistics",
+  "parameters": {
+    "fixture": "157271"
+  },
+  "errors": [],
+  "results": 2,
+  "paging": {
+    "current": 1,
+    "total": 1
+  },
+  "response": [
+    {
+      "team": {
+        "id": 71,
+        "name": "Norwich",
+        "logo": "https://media.api-sports.io/football/teams/71.png"
+      },
+      "statistics": [
+        {
+          "type": "Shots on Goal",
+          "value": 1
+        },
+        {
+          "type": "Shots off Goal",
+          "value": 3
+        },
+        {
+          "type": "Total Shots",
+          "value": 5
+        },
+        {
+          "type": "Blocked Shots",
+          "value": 1
+        },
+        {
+          "type": "Shots insidebox",
+          "value": 3
+        },
+        {
+          "type": "Shots outsidebox",
+          "value": 2
+        },
+        {
+          "type": "Fouls",
+          "value": 5
+        },
+        {
+          "type": "Corner Kicks",
+          "value": 2
+        },
+        {
+          "type": "Offsides",
+          "value": 1
+        },
+        {
+          "type": "Ball Possession",
+          "value": "36%"
+        },
+        {
+          "type": "Yellow Cards",
+          "value": 1
+        },
+        {
+          "type": "Red Cards",
+          "value": null
+        },
+        {
+          "type": "Goalkeeper Saves",
+          "value": 5
+        },
+        {
+          "type": "Total passes",
+          "value": 373
+        },
+        {
+          "type": "Passes accurate",
+          "value": 268
+        },
+        {
+          "type": "Passes %",
+          "value": "72%"
+        }
+      ]
+    },
+    {
+      "team": {
+        "id": 40,
+        "name": "Liverpool",
+        "logo": "https://media.api-sports.io/football/teams/40.png"
+      },
+      "statistics": [
+        {
+          "type": "Shots on Goal",
+          "value": 6
+        },
+        {
+          "type": "Shots off Goal",
+          "value": 7
+        },
+        {
+          "type": "Total Shots",
+          "value": 17
+        },
+        {
+          "type": "Blocked Shots",
+          "value": 4
+        },
+        {
+          "type": "Shots insidebox",
+          "value": 11
+        },
+        {
+          "type": "Shots outsidebox",
+          "value": 6
+        },
+        {
+          "type": "Fouls",
+          "value": 11
+        },
+        {
+          "type": "Corner Kicks",
+          "value": 7
+        },
+        {
+          "type": "Offsides",
+          "value": 0
+        },
+        {
+          "type": "Ball Possession",
+          "value": "64%"
+        },
+        {
+          "type": "Yellow Cards",
+          "value": 2
+        },
+        {
+          "type": "Red Cards",
+          "value": null
+        },
+        {
+          "type": "Goalkeeper Saves",
+          "value": 1
+        },
+        {
+          "type": "Total passes",
+          "value": 624
+        },
+        {
+          "type": "Passes accurate",
+          "value": 524
+        },
+        {
+          "type": "Passes %",
+          "value": "84%"
+        }
+      ]
+    }
+  ]
+}

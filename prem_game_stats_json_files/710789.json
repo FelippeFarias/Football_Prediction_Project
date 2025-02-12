@@ -1,1 +1,160 @@
-{"Shots on Goal":{"home":"1","away":"5"},"Shots off Goal":{"home":"2","away":"4"},"Total Shots":{"home":"5","away":"13"},"Blocked Shots":{"home":"2","away":"4"},"Shots insidebox":{"home":"4","away":"8"},"Shots outsidebox":{"home":"1","away":"5"},"Fouls":{"home":"11","away":"16"},"Corner Kicks":{"home":"4","away":"6"},"Offsides":{"home":"1","away":"2"},"Ball Possession":{"home":"28%","away":"72%"},"Yellow Cards":{"home":"1","away":"2"},"Red Cards":{"home":null,"away":null},"Goalkeeper Saves":{"home":"4","away":"0"},"Total passes":{"home":"256","away":"669"},"Passes accurate":{"home":"159","away":"574"},"Passes %":{"home":"62%","away":"86%"}}
+{
+  "get": "fixtures/statistics",
+  "parameters": {
+    "fixture": "710789"
+  },
+  "errors": [],
+  "results": 2,
+  "paging": {
+    "current": 1,
+    "total": 1
+  },
+  "response": [
+    {
+      "team": {
+        "id": 71,
+        "name": "Norwich",
+        "logo": "https://media.api-sports.io/football/teams/71.png"
+      },
+      "statistics": [
+        {
+          "type": "Shots on Goal",
+          "value": 1
+        },
+        {
+          "type": "Shots off Goal",
+          "value": 2
+        },
+        {
+          "type": "Total Shots",
+          "value": 5
+        },
+        {
+          "type": "Blocked Shots",
+          "value": 2
+        },
+        {
+          "type": "Shots insidebox",
+          "value": 4
+        },
+        {
+          "type": "Shots outsidebox",
+          "value": 1
+        },
+        {
+          "type": "Fouls",
+          "value": 11
+        },
+        {
+          "type": "Corner Kicks",
+          "value": 4
+        },
+        {
+          "type": "Offsides",
+          "value": 1
+        },
+        {
+          "type": "Ball Possession",
+          "value": "28%"
+        },
+        {
+          "type": "Yellow Cards",
+          "value": 1
+        },
+        {
+          "type": "Red Cards",
+          "value": null
+        },
+        {
+          "type": "Goalkeeper Saves",
+          "value": 4
+        },
+        {
+          "type": "Total passes",
+          "value": 256
+        },
+        {
+          "type": "Passes accurate",
+          "value": 159
+        },
+        {
+          "type": "Passes %",
+          "value": "62%"
+        }
+      ]
+    },
+    {
+      "team": {
+        "id": 52,
+        "name": "Crystal Palace",
+        "logo": "https://media.api-sports.io/football/teams/52.png"
+      },
+      "statistics": [
+        {
+          "type": "Shots on Goal",
+          "value": 5
+        },
+        {
+          "type": "Shots off Goal",
+          "value": 4
+        },
+        {
+          "type": "Total Shots",
+          "value": 13
+        },
+        {
+          "type": "Blocked Shots",
+          "value": 4
+        },
+        {
+          "type": "Shots insidebox",
+          "value": 8
+        },
+        {
+          "type": "Shots outsidebox",
+          "value": 5
+        },
+        {
+          "type": "Fouls",
+          "value": 16
+        },
+        {
+          "type": "Corner Kicks",
+          "value": 6
+        },
+        {
+          "type": "Offsides",
+          "value": 2
+        },
+        {
+          "type": "Ball Possession",
+          "value": "72%"
+        },
+        {
+          "type": "Yellow Cards",
+          "value": 2
+        },
+        {
+          "type": "Red Cards",
+          "value": null
+        },
+        {
+          "type": "Goalkeeper Saves",
+          "value": 0
+        },
+        {
+          "type": "Total passes",
+          "value": 669
+        },
+        {
+          "type": "Passes accurate",
+          "value": 574
+        },
+        {
+          "type": "Passes %",
+          "value": "86%"
+        }
+      ]
+    }
+  ]
+}

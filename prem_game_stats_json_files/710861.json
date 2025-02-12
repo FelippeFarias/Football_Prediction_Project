@@ -1,1 +1,160 @@
-{"Shots on Goal":{"home":"3","away":"2"},"Shots off Goal":{"home":"10","away":"2"},"Total Shots":{"home":"20","away":"5"},"Blocked Shots":{"home":"7","away":"1"},"Shots insidebox":{"home":"12","away":"4"},"Shots outsidebox":{"home":"8","away":"1"},"Fouls":{"home":"9","away":"8"},"Corner Kicks":{"home":"9","away":"3"},"Offsides":{"home":"1","away":"3"},"Ball Possession":{"home":"73%","away":"27%"},"Yellow Cards":{"home":"1","away":"1"},"Red Cards":{"home":null,"away":null},"Goalkeeper Saves":{"home":"2","away":"1"},"Total passes":{"home":"716","away":"263"},"Passes accurate":{"home":"606","away":"166"},"Passes %":{"home":"85%","away":"63%"}}
+{
+  "get": "fixtures/statistics",
+  "parameters": {
+    "fixture": "710861"
+  },
+  "errors": [],
+  "results": 2,
+  "paging": {
+    "current": 1,
+    "total": 1
+  },
+  "response": [
+    {
+      "team": {
+        "id": 40,
+        "name": "Liverpool",
+        "logo": "https://media.api-sports.io/football/teams/40.png"
+      },
+      "statistics": [
+        {
+          "type": "Shots on Goal",
+          "value": 3
+        },
+        {
+          "type": "Shots off Goal",
+          "value": 10
+        },
+        {
+          "type": "Total Shots",
+          "value": 20
+        },
+        {
+          "type": "Blocked Shots",
+          "value": 7
+        },
+        {
+          "type": "Shots insidebox",
+          "value": 12
+        },
+        {
+          "type": "Shots outsidebox",
+          "value": 8
+        },
+        {
+          "type": "Fouls",
+          "value": 9
+        },
+        {
+          "type": "Corner Kicks",
+          "value": 9
+        },
+        {
+          "type": "Offsides",
+          "value": 1
+        },
+        {
+          "type": "Ball Possession",
+          "value": "73%"
+        },
+        {
+          "type": "Yellow Cards",
+          "value": 1
+        },
+        {
+          "type": "Red Cards",
+          "value": null
+        },
+        {
+          "type": "Goalkeeper Saves",
+          "value": 2
+        },
+        {
+          "type": "Total passes",
+          "value": 716
+        },
+        {
+          "type": "Passes accurate",
+          "value": 606
+        },
+        {
+          "type": "Passes %",
+          "value": "85%"
+        }
+      ]
+    },
+    {
+      "team": {
+        "id": 38,
+        "name": "Watford",
+        "logo": "https://media.api-sports.io/football/teams/38.png"
+      },
+      "statistics": [
+        {
+          "type": "Shots on Goal",
+          "value": 2
+        },
+        {
+          "type": "Shots off Goal",
+          "value": 2
+        },
+        {
+          "type": "Total Shots",
+          "value": 5
+        },
+        {
+          "type": "Blocked Shots",
+          "value": 1
+        },
+        {
+          "type": "Shots insidebox",
+          "value": 4
+        },
+        {
+          "type": "Shots outsidebox",
+          "value": 1
+        },
+        {
+          "type": "Fouls",
+          "value": 8
+        },
+        {
+          "type": "Corner Kicks",
+          "value": 3
+        },
+        {
+          "type": "Offsides",
+          "value": 3
+        },
+        {
+          "type": "Ball Possession",
+          "value": "27%"
+        },
+        {
+          "type": "Yellow Cards",
+          "value": 1
+        },
+        {
+          "type": "Red Cards",
+          "value": null
+        },
+        {
+          "type": "Goalkeeper Saves",
+          "value": 1
+        },
+        {
+          "type": "Total passes",
+          "value": 263
+        },
+        {
+          "type": "Passes accurate",
+          "value": 166
+        },
+        {
+          "type": "Passes %",
+          "value": "63%"
+        }
+      ]
+    }
+  ]
+}

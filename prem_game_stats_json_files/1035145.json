@@ -1,1 +1,168 @@
-{"Shots on Goal":{"home":"2","away":"3"},"Shots off Goal":{"home":"6","away":"5"},"Total Shots":{"home":"11","away":"10"},"Blocked Shots":{"home":"3","away":"2"},"Shots insidebox":{"home":"4","away":"7"},"Shots outsidebox":{"home":"7","away":"3"},"Fouls":{"home":"13","away":"10"},"Corner Kicks":{"home":"4","away":"4"},"Offsides":{"home":"0","away":"3"},"Ball Possession":{"home":"38%","away":"62%"},"Yellow Cards":{"home":"2","away":"3"},"Red Cards":{"home":null,"away":null},"Goalkeeper Saves":{"home":"2","away":"0"},"Total passes":{"home":"296","away":"496"},"Passes accurate":{"home":"199","away":"401"},"Passes %":{"home":"67%","away":"81%"},"expected_goals":{"home":"1.06","away":"1.33"}}
+{
+  "get": "fixtures/statistics",
+  "parameters": {
+    "fixture": "1035145"
+  },
+  "errors": [],
+  "results": 2,
+  "paging": {
+    "current": 1,
+    "total": 1
+  },
+  "response": [
+    {
+      "team": {
+        "id": 62,
+        "name": "Sheffield Utd",
+        "logo": "https://media.api-sports.io/football/teams/62.png"
+      },
+      "statistics": [
+        {
+          "type": "Shots on Goal",
+          "value": 2
+        },
+        {
+          "type": "Shots off Goal",
+          "value": 6
+        },
+        {
+          "type": "Total Shots",
+          "value": 11
+        },
+        {
+          "type": "Blocked Shots",
+          "value": 3
+        },
+        {
+          "type": "Shots insidebox",
+          "value": 4
+        },
+        {
+          "type": "Shots outsidebox",
+          "value": 7
+        },
+        {
+          "type": "Fouls",
+          "value": 13
+        },
+        {
+          "type": "Corner Kicks",
+          "value": 4
+        },
+        {
+          "type": "Offsides",
+          "value": 0
+        },
+        {
+          "type": "Ball Possession",
+          "value": "38%"
+        },
+        {
+          "type": "Yellow Cards",
+          "value": 2
+        },
+        {
+          "type": "Red Cards",
+          "value": null
+        },
+        {
+          "type": "Goalkeeper Saves",
+          "value": 2
+        },
+        {
+          "type": "Total passes",
+          "value": 300
+        },
+        {
+          "type": "Passes accurate",
+          "value": 201
+        },
+        {
+          "type": "Passes %",
+          "value": "67%"
+        },
+        {
+          "type": "expected_goals",
+          "value": "1.05"
+        }
+      ]
+    },
+    {
+      "team": {
+        "id": 39,
+        "name": "Wolves",
+        "logo": "https://media.api-sports.io/football/teams/39.png"
+      },
+      "statistics": [
+        {
+          "type": "Shots on Goal",
+          "value": 3
+        },
+        {
+          "type": "Shots off Goal",
+          "value": 5
+        },
+        {
+          "type": "Total Shots",
+          "value": 10
+        },
+        {
+          "type": "Blocked Shots",
+          "value": 2
+        },
+        {
+          "type": "Shots insidebox",
+          "value": 7
+        },
+        {
+          "type": "Shots outsidebox",
+          "value": 3
+        },
+        {
+          "type": "Fouls",
+          "value": 10
+        },
+        {
+          "type": "Corner Kicks",
+          "value": 4
+        },
+        {
+          "type": "Offsides",
+          "value": 3
+        },
+        {
+          "type": "Ball Possession",
+          "value": "62%"
+        },
+        {
+          "type": "Yellow Cards",
+          "value": 3
+        },
+        {
+          "type": "Red Cards",
+          "value": null
+        },
+        {
+          "type": "Goalkeeper Saves",
+          "value": 0
+        },
+        {
+          "type": "Total passes",
+          "value": 501
+        },
+        {
+          "type": "Passes accurate",
+          "value": 407
+        },
+        {
+          "type": "Passes %",
+          "value": "81%"
+        },
+        {
+          "type": "expected_goals",
+          "value": "1.33"
+        }
+      ]
+    }
+  ]
+}

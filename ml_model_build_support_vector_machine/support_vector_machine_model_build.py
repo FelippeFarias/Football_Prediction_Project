@@ -1,280 +1,228 @@
 # -*- coding: utf-8 -*-
 """
-Created on Mon May 11 18:28:28 2020
-
+Created on Wed Jun 24 13:57:52 2020
 @author: mhayt
 """
-
 
 print('\n\n ---------------- START ---------------- \n')
 
 #-------------------------------- API-FOOTBALL --------------------------------
 
-#!/usr/bin/python
-from os.path import dirname, realpath, sep, pardir
-import sys
-sys.path.append(dirname(realpath(__file__)) + sep + pardir + sep)
-
-import time
-start=time.time()
-
-from ml_functions.ml_model_eval import pred_proba_plot, plot_cross_val_confusion_matrix, plot_learning_curve
-from ml_functions.data_processing import scale_df
+import pandas as pd
 import pickle
 import numpy as np
+from sklearn.svm import SVC
+from sklearn.model_selection import train_test_split, cross_val_score, learning_curve, GridSearchCV
+from sklearn.metrics import confusion_matrix, classification_report, roc_curve, auc
+from sklearn.preprocessing import StandardScaler
+from imblearn.over_sampling import SMOTE
+from imblearn.pipeline import Pipeline
 import matplotlib.pyplot as plt
-from sklearn import svm
-from sklearn.model_selection import train_test_split
-from sklearn.metrics import confusion_matrix, accuracy_score
-from sklearn.model_selection import StratifiedKFold, cross_val_score
+import seaborn as sns
+from datetime import datetime
+import os
+import logging
 
-plt.close('all')
+# Configure logging
+logging.basicConfig(
+    level=logging.INFO,
+    format='%(asctime)s - %(levelname)s - %(message)s'
+)
 
+#----------------------------- LOAD DATA -------------------------
 
-#------------------------------- INPUT VARIABLES ------------------------------
+def load_data(window_size=10):
+    try:
+        # Encontrar o arquivo mais recente
+        df_files = [f for f in os.listdir('prem_clean_fixtures_and_dataframes') if f.endswith(f'_v2.txt')]
+        if not df_files:
+            raise FileNotFoundError("No dataframe files found")
+        
+        df_file = max([f for f in df_files if f'{window_size}_v2.txt' in f], 
+                     key=lambda x: os.path.getctime(os.path.join('prem_clean_fixtures_and_dataframes', x)))
+        
+        with open(f'prem_clean_fixtures_and_dataframes/{df_file}', 'rb') as myFile:
+            df = pickle.load(myFile)
+            
+        logging.info(f"Successfully loaded {window_size}-game window dataframe")
+        return df
+    except Exception as e:
+        logging.error(f"Error loading data: {str(e)}")
+        raise
 
-df_5_saved_name = '2019_2020_2021_prem_df_for_ml_5_v2.txt'
-df_10_saved_name = '2019_2020_2021_prem_df_for_ml_10_v2.txt'
+#---------------------------- SVM BUILD ---------------------------
 
-pred_prob_plot_df10 = False
-save_pred_prob_plot_df10 = False
-pred_prob_plot_df5 = False
-save_pred_prob_plot_df5 = False
-
-save_conf_matrix_df10 = False
-save_conf_matrix_df5 = False
-
-save_learning_curve_df10 = False
-save_learning_curve_df5 = False
-
-create_final_model = True
-
-
-#------------------------------- ML MODEL BUILD -------------------------------
-
-#importing the data and creating the feature dataframe and target series
-
-with open(f'../prem_clean_fixtures_and_dataframes/{df_5_saved_name}', 'rb') as myFile:
-    df_ml_5 = pickle.load(myFile)
-
-with open(f'../prem_clean_fixtures_and_dataframes/{df_10_saved_name}', 'rb') as myFile:
-    df_ml_10 = pickle.load(myFile)
-
-#scaling dataframe to make all features to have zero mean and unit vector.
-df_ml_10 = scale_df(df_ml_10, list(range(14)), [14,15,16])
-df_ml_5 = scale_df(df_ml_5, list(range(14)), [14,15,16])
-
-x_10 = df_ml_10.drop(['Fixture ID', 'Team Result Indicator', 'Opponent Result Indicator'], axis=1)
-y_10 = df_ml_10['Team Result Indicator']
-
-x_5 = df_ml_5.drop(['Fixture ID', 'Team Result Indicator', 'Opponent Result Indicator'], axis=1)
-y_5 = df_ml_5['Team Result Indicator']
-
-
-#--------------------------- SUPPORT VECTOR MACHINE ---------------------------
-
-
-def svm_train(df, print_result=True, print_result_label=''):
-    
-    #create features matrix
-    x = df.drop(['Fixture ID', 'Team Result Indicator', 'Opponent Result Indicator'], axis=1)
+def prepare_data(df):
+    """Prepara os dados para treinamento com normalização e SMOTE"""
+    # Removendo colunas que não serão usadas para treinamento
+    feature_cols = [col for col in df.columns if col not in ['Fixture ID', 'Team Result Indicator', 'Opponent Result Indicator']]
+    X = df[feature_cols]
     y = df['Team Result Indicator']
     
-    #split into training data and test data
-    x_train, x_test, y_train, y_test = train_test_split(x, y, test_size=0.2)
+    # Divisão treino/teste estratificada
+    X_train, X_test, y_train, y_test = train_test_split(
+        X, y, test_size=0.2, random_state=42, stratify=y
+    )
     
-    #default gamma value
-    gamma = 1 / (14 * sum(x_train.var()))
-    C = 1 / gamma
+    # Normalização dos dados
+    scaler = StandardScaler()
+    X_train_scaled = scaler.fit_transform(X_train)
+    X_test_scaled = scaler.transform(X_test)
     
-    #instantiate the SVM class
-    clf = svm.SVC(kernel='rbf', C=3, probability=True)
+    # Converter para DataFrame mantendo nomes das colunas
+    X_train_scaled = pd.DataFrame(X_train_scaled, columns=feature_cols)
+    X_test_scaled = pd.DataFrame(X_test_scaled, columns=feature_cols)
     
-    #train the model
-    clf.fit(x_train, y_train)
+    return X_train_scaled, X_test_scaled, y_train, y_test, feature_cols, scaler
+
+def optimize_hyperparameters(X_train, y_train):
+    """Otimiza hiperparâmetros usando GridSearchCV"""
+    param_grid = {
+        'C': [0.1, 1, 10, 100],
+        'gamma': ['scale', 'auto', 0.1, 0.01],
+        'kernel': ['rbf', 'poly'],
+        'class_weight': ['balanced', None],
+        'degree': [2, 3] # para kernel poly
+    }
     
-    if print_result:
-        print(print_result_label)
-        #training data
-        train_data_score = round(clf.score(x_train, y_train) * 100, 1)
-        print(f'Training data score = {train_data_score}%')
-        
-        #test data
-        test_data_score = round(clf.score(x_test, y_test) * 100, 1)
-        print(f'Test data score = {test_data_score}% \n')
+    svm = SVC(probability=True, random_state=42)
+    grid_search = GridSearchCV(
+        estimator=svm,
+        param_grid=param_grid,
+        cv=5,
+        n_jobs=-1,
+        scoring='f1_weighted',
+        verbose=1
+    )
     
-    return clf, x_train, x_test, y_train, y_test
-
-
-ml_10_svm, x10_train, x10_test, y10_train, y10_test = svm_train(df_ml_10)
-ml_5_svm, x5_train, x5_test, y5_train, y5_test = svm_train(df_ml_5)
-
-
-# ---------- TESTING C PARAM ----------
-
-expo_iter = np.square(np.arange(0.1, 10, 0.1))
-
-def testing_c_parms(df, iterable):
-    training_score_li = []
-    test_score_li = []
-    for c in iterable:
-        x = df.drop(['Fixture ID', 'Team Result Indicator', 'Opponent Result Indicator'], axis=1)
-        y = df['Team Result Indicator']
-        x_train, x_test, y_train, y_test = train_test_split(x, y, test_size=0.2, random_state = 1)
-        clf = svm.SVC(kernel='rbf', C=c)
-        clf.fit(x_train, y_train)
-        train_data_score = round(clf.score(x_train, y_train) * 100, 1)
-        test_data_score = round(clf.score(x_test, y_test) * 100, 1)
-        training_score_li.append(train_data_score)
-        test_score_li.append(test_data_score)
-    return training_score_li, test_score_li
+    # SMOTE para balanceamento
+    smote = SMOTE(random_state=42)
+    X_train_resampled, y_train_resampled = smote.fit_resample(X_train, y_train)
     
-training_score_li, test_score_li = testing_c_parms(df_ml_10, expo_iter)
+    grid_search.fit(X_train_resampled, y_train_resampled)
+    logging.info(f"Best parameters: {grid_search.best_params_}")
+    return grid_search.best_estimator_
 
-#from the plot below we can see that a c of around 3 is likely to be more optimal than 1
-fig, ax = plt.subplots()
-ax.plot(expo_iter, test_score_li)
+def evaluate_model(model, X_test, y_test, X_train, y_train):
+    """Avalia o modelo com métricas detalhadas"""
+    # Previsões
+    y_pred = model.predict(X_test)
+    y_pred_proba = model.predict_proba(X_test)
     
-
-# ---------- ENSEMBLE MODELLING ----------
-
-#In this section we will combine the results of using the same algorithm but with different input data used to train the model. The features are still broadly the same but have been averaged over a different number of games df_ml_10 is 10 games, df_ml_5 is 5 games. 
-
-#reducing fixtures in df_ml_5 to contain only the fixtures within df_ml_10 and training that new dataset
-df_ml_5_dropto10 = df_ml_5.drop(list(range(0,50)))
-ml_5_to10_svm, x5_to10_train, x5_to10_test, y5_to10_train, y5_to10_test = svm_train(df_ml_5_dropto10, print_result=False)
-
-#making predictions using the two df inputs independantly
-y_pred_ml10 = ml_10_svm.predict(x10_test)
-y_pred_ml5to10 = ml_5_to10_svm.predict(x10_test)
-
-#making probability predictions on each of the datasets independantly
-pred_proba_ml10 = ml_10_svm.predict_proba(x10_test)
-pred_proba_ml5_10 = ml_5_to10_svm.predict_proba(x10_test)
-
-#combining independant probabilities and creating combined class prediction
-pred_proba_ml5and10 = (np.array(pred_proba_ml10) + np.array(pred_proba_ml5_10)) / 2.0
-y_pred_ml5and10 = np.argmax(pred_proba_ml5and10, axis=1)
-
-#accuracy score variables
-y_pred_ml10_accuracy = round(accuracy_score(y10_test, y_pred_ml10), 3) * 100
-y_pred_ml5to10_accuracy = round(accuracy_score(y10_test, y_pred_ml5to10), 3) * 100
-y_pred_ml5and10_accuracy = round(accuracy_score(y10_test, y_pred_ml5and10), 3) * 100
-
-print('ENSEMBLE MODEL TESTING')
-print(f'Accuracy of df_10 alone = {y_pred_ml10_accuracy}%')
-print(confusion_matrix(y10_test, y_pred_ml10), '\n')
-print(f'Accuracy of df_5 alone = {y_pred_ml5to10_accuracy}%')
-print(confusion_matrix(y10_test, y_pred_ml5to10), '\n')
-print(f'Accuracy of df_5 and df_10 combined = {y_pred_ml5and10_accuracy}%')
-print(confusion_matrix(y10_test, y_pred_ml5and10), '\n\n')
-
-
-#------------------------------- MODEL EVALUATION -----------------------------
-
-#cross validation
-skf = StratifiedKFold(n_splits=5, shuffle=True)
-
-cv_score_av = round(np.mean(cross_val_score(ml_10_svm, x_10, y_10, cv=skf))*100,1)
-print('Cross-Validation Accuracy Score ML10: ', cv_score_av, '%\n')
-
-cv_score_av = round(np.mean(cross_val_score(ml_5_svm, x_5, y_5, cv=skf))*100,1)
-print('Cross-Validation Accuracy Score ML5: ', cv_score_av, '%\n')
-
-
-# ---------- PREDICTION PROBABILITY PLOTS ----------
-
-if pred_prob_plot_df10:
-    fig = pred_proba_plot(ml_10_svm, 
-                          x_10, 
-                          y_10, 
-                          no_iter=50, 
-                          no_bins=36, 
-                          x_min=0.3, 
-                          classifier='Support Vector Machine (ml_10)')
-    if save_pred_prob_plot_df10:
-        fig.savefig('figures/ml_10_svm_pred_proba.png')
-
-if pred_prob_plot_df5:
-    fig = pred_proba_plot(ml_5_svm, 
-                          x_5, 
-                          y_5, 
-                          no_iter=50, 
-                          no_bins=36, 
-                          x_min=0.3, 
-                          classifier='Support Vector Machine (ml_5)')
-    if save_pred_prob_plot_df5:
-        fig.savefig('figures/ml_5_svm_pred_proba.png')
-
-
-# ---------- CONFUSION MATRIX PLOTS ----------
-
-#plot confusion matrix - modified to take cross-val results.
-
-plot_cross_val_confusion_matrix(ml_10_svm, 
-                                x_10, 
-                                y_10, 
-                                display_labels=('team loses', 'draw', 'team wins'), 
-                                title='Support Vector Machine Confusion Matrix ML10', 
-                                cv=skf)
-if save_conf_matrix_df10:
-    plt.savefig('figures\ml_10_confusion_matrix_cross_val_svm.png')
-
-plot_cross_val_confusion_matrix(ml_5_svm, 
-                                x_5, 
-                                y_5, 
-                                display_labels=('team loses', 'draw', 'team wins'), 
-                                title='Support Vector Machine Confusion Matrix ML5', 
-                                cv=skf)
-if save_conf_matrix_df5:
-    plt.savefig('figures\ml_5_confusion_matrix_cross_val_svm.png')
-
-
-# ---------- LEARNING CURVE PLOTS ----------
-
-plot_learning_curve(ml_10_svm, 
-                    x_10, 
-                    y_10, 
-                    training_set_size=10, 
-                    x_max=600, 
-                    title='Learning Curve - Support Vector Machine DF_10', 
-                    leg_loc=1)
-if save_learning_curve_df10:
-    plt.savefig('figures\ml_10_svm_learning_curve.png')
-
-plot_learning_curve(ml_5_svm, 
-                    x_5, 
-                    y_5, 
-                    training_set_size=10, 
-                    x_max=600, 
-                    title='Learning Curve - Support Vector Machine DF_5', 
-                    leg_loc=1)
-if save_learning_curve_df5:
-    plt.savefig('figures\ml_5_svm_learning_curve.png')
-
-
-#--------------------------------- FINAL MODEL --------------------------------
-
-#in this section we will take the learnings from the hyperparameter testing above and train a final model using 100% of the data. This model may then be used for predictions going forward.
-
-if create_final_model:
+    # Matriz de confusão
+    cm = confusion_matrix(y_test, y_pred)
     
-    #intantiating and training the df_5 network
-    ml_5_svm = svm.SVC(kernel='rbf', C=3, probability=True)
-    ml_5_svm.fit(x_5, y_5)
+    # Relatório de classificação
+    report = classification_report(y_test, y_pred)
     
-    #intantiating and training the df_10 network
-    ml_10_svm = svm.SVC(kernel='rbf', C=3, probability=True)
-    ml_10_svm.fit(x_10, y_10)
+    # Cross-validation
+    cv_scores = cross_val_score(model, X_train, y_train, cv=5, scoring='f1_weighted')
     
-    with open('ml_models/svm_model_5.pk1', 'wb') as myFile:
-        pickle.dump(ml_5_svm, myFile)
+    # ROC Curve para cada classe
+    n_classes = len(np.unique(y_test))
+    fpr = dict()
+    tpr = dict()
+    roc_auc = dict()
+    
+    for i in range(n_classes):
+        fpr[i], tpr[i], _ = roc_curve((y_test == i).astype(int), y_pred_proba[:, i])
+        roc_auc[i] = auc(fpr[i], tpr[i])
+    
+    return {
+        'confusion_matrix': cm,
+        'classification_report': report,
+        'cv_scores': cv_scores,
+        'roc_data': (fpr, tpr, roc_auc)
+    }
 
-    with open('ml_models/svm_model_10.pk1', 'wb') as myFile:
-        pickle.dump(ml_10_svm, myFile)
+def plot_results(evaluation_results, window_size):
+    """Plota resultados detalhados da avaliação"""
+    # Criar diretório para figuras
+    os.makedirs('ml_model_build_support_vector_machine/figures', exist_ok=True)
+    timestamp = datetime.now().strftime('%Y%m%d_%H%M%S')
+    
+    # Confusion Matrix
+    plt.figure(figsize=(10,7))
+    sns.heatmap(evaluation_results['confusion_matrix'], 
+                annot=True, 
+                fmt='d',
+                cmap='Blues',
+                xticklabels=['Derrota', 'Empate', 'Vitória'],
+                yticklabels=['Derrota', 'Empate', 'Vitória'])
+    plt.title(f'Matriz de Confusão SVM - Janela de {window_size} Jogos')
+    plt.ylabel('Valor Real')
+    plt.xlabel('Previsão')
+    plt.savefig(f'ml_model_build_support_vector_machine/figures/confusion_matrix_{window_size}_{timestamp}.png')
+    plt.close()
+    
+    # ROC Curves
+    plt.figure(figsize=(10,7))
+    colors = ['blue', 'red', 'green']
+    labels = ['Derrota', 'Empate', 'Vitória']
+    
+    for i, (label, color) in enumerate(zip(labels, colors)):
+        plt.plot(evaluation_results['roc_data'][0][i], 
+                evaluation_results['roc_data'][1][i], 
+                color=color,
+                label=f'{label} (AUC = {evaluation_results["roc_data"][2][i]:.2f})')
+    
+    plt.plot([0, 1], [0, 1], 'k--')
+    plt.xlabel('Taxa de Falsos Positivos')
+    plt.ylabel('Taxa de Verdadeiros Positivos')
+    plt.title(f'Curvas ROC SVM - Janela de {window_size} Jogos')
+    plt.legend(loc='lower right')
+    plt.savefig(f'ml_model_build_support_vector_machine/figures/roc_curves_{window_size}_{timestamp}.png')
+    plt.close()
 
-  
-# ----------------------------------- END -------------------------------------
+def save_model_and_scaler(model, scaler, window_size):
+    """Salva o modelo treinado e o scaler"""
+    os.makedirs('ml_model_build_support_vector_machine/ml_models', exist_ok=True)
+    timestamp = datetime.now().strftime('%Y%m%d_%H%M%S')
+    
+    # Salvar modelo
+    model_path = f'ml_model_build_support_vector_machine/ml_models/svm_model_{window_size}_{timestamp}.pkl'
+    with open(model_path, 'wb') as file:
+        pickle.dump(model, file)
+    logging.info(f"Model saved to {model_path}")
+    
+    # Salvar scaler
+    scaler_path = f'ml_model_build_support_vector_machine/ml_models/svm_scaler_{window_size}_{timestamp}.pkl'
+    with open(scaler_path, 'wb') as file:
+        pickle.dump(scaler, file)
+    logging.info(f"Scaler saved to {scaler_path}")
 
-print('\n', 'Script runtime:', round(((time.time()-start)/60), 2), 'minutes')
-print(' ----------------- END ----------------- \n')
+def main():
+    try:
+        # Processar ambas as janelas de tempo
+        for window_size in [5, 10]:
+            logging.info(f"\nProcessing {window_size}-game window")
+            
+            # Carregar e preparar dados
+            df = load_data(window_size)
+            X_train, X_test, y_train, y_test, feature_cols, scaler = prepare_data(df)
+            
+            # Otimizar e treinar modelo
+            logging.info("Optimizing hyperparameters...")
+            model = optimize_hyperparameters(X_train, y_train)
+            
+            # Avaliar modelo
+            logging.info("Evaluating model...")
+            evaluation_results = evaluate_model(model, X_test, y_test, X_train, y_train)
+            
+            # Logging dos resultados
+            logging.info(f"\nClassification Report:\n{evaluation_results['classification_report']}")
+            logging.info(f"Cross-validation scores: {evaluation_results['cv_scores'].mean():.3f} (+/- {evaluation_results['cv_scores'].std() * 2:.3f})")
+            
+            # Plotar resultados
+            plot_results(evaluation_results, window_size)
+            
+            # Salvar modelo e scaler
+            save_model_and_scaler(model, scaler, window_size)
+
+    except Exception as e:
+        logging.error(f"Error in main execution: {str(e)}")
+        raise
+
+if __name__ == "__main__":
+    main()
+    print('\n ----------------- END ----------------- \n')

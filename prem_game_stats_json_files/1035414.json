@@ -1,1 +1,168 @@
-{"Shots on Goal":{"home":"6","away":"8"},"Shots off Goal":{"home":"7","away":"5"},"Total Shots":{"home":"15","away":"15"},"Blocked Shots":{"home":"2","away":"2"},"Shots insidebox":{"home":"9","away":"11"},"Shots outsidebox":{"home":"6","away":"4"},"Fouls":{"home":"4","away":"18"},"Corner Kicks":{"home":"1","away":"6"},"Offsides":{"home":"3","away":"2"},"Ball Possession":{"home":"37%","away":"63%"},"Yellow Cards":{"home":"2","away":"1"},"Red Cards":{"home":null,"away":null},"Goalkeeper Saves":{"home":"4","away":"5"},"Total passes":{"home":"358","away":"613"},"Passes accurate":{"home":"248","away":"508"},"Passes %":{"home":"69%","away":"83%"},"expected_goals":{"home":"1.14","away":"2.43"}}
+{
+  "get": "fixtures/statistics",
+  "parameters": {
+    "fixture": "1035414"
+  },
+  "errors": [],
+  "results": 2,
+  "paging": {
+    "current": 1,
+    "total": 1
+  },
+  "response": [
+    {
+      "team": {
+        "id": 55,
+        "name": "Brentford",
+        "logo": "https://media.api-sports.io/football/teams/55.png"
+      },
+      "statistics": [
+        {
+          "type": "Shots on Goal",
+          "value": 6
+        },
+        {
+          "type": "Shots off Goal",
+          "value": 7
+        },
+        {
+          "type": "Total Shots",
+          "value": 15
+        },
+        {
+          "type": "Blocked Shots",
+          "value": 2
+        },
+        {
+          "type": "Shots insidebox",
+          "value": 9
+        },
+        {
+          "type": "Shots outsidebox",
+          "value": 6
+        },
+        {
+          "type": "Fouls",
+          "value": 4
+        },
+        {
+          "type": "Corner Kicks",
+          "value": 1
+        },
+        {
+          "type": "Offsides",
+          "value": 3
+        },
+        {
+          "type": "Ball Possession",
+          "value": "37%"
+        },
+        {
+          "type": "Yellow Cards",
+          "value": 2
+        },
+        {
+          "type": "Red Cards",
+          "value": null
+        },
+        {
+          "type": "Goalkeeper Saves",
+          "value": 4
+        },
+        {
+          "type": "Total passes",
+          "value": 357
+        },
+        {
+          "type": "Passes accurate",
+          "value": 247
+        },
+        {
+          "type": "Passes %",
+          "value": "69%"
+        },
+        {
+          "type": "expected_goals",
+          "value": "1.69"
+        }
+      ]
+    },
+    {
+      "team": {
+        "id": 40,
+        "name": "Liverpool",
+        "logo": "https://media.api-sports.io/football/teams/40.png"
+      },
+      "statistics": [
+        {
+          "type": "Shots on Goal",
+          "value": 8
+        },
+        {
+          "type": "Shots off Goal",
+          "value": 5
+        },
+        {
+          "type": "Total Shots",
+          "value": 15
+        },
+        {
+          "type": "Blocked Shots",
+          "value": 2
+        },
+        {
+          "type": "Shots insidebox",
+          "value": 11
+        },
+        {
+          "type": "Shots outsidebox",
+          "value": 4
+        },
+        {
+          "type": "Fouls",
+          "value": 18
+        },
+        {
+          "type": "Corner Kicks",
+          "value": 6
+        },
+        {
+          "type": "Offsides",
+          "value": 2
+        },
+        {
+          "type": "Ball Possession",
+          "value": "63%"
+        },
+        {
+          "type": "Yellow Cards",
+          "value": 1
+        },
+        {
+          "type": "Red Cards",
+          "value": null
+        },
+        {
+          "type": "Goalkeeper Saves",
+          "value": 5
+        },
+        {
+          "type": "Total passes",
+          "value": 614
+        },
+        {
+          "type": "Passes accurate",
+          "value": 508
+        },
+        {
+          "type": "Passes %",
+          "value": "83%"
+        },
+        {
+          "type": "expected_goals",
+          "value": "2.82"
+        }
+      ]
+    }
+  ]
+}

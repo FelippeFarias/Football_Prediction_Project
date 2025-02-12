@@ -126,6 +126,8 @@ dmypy.json
 # Working Data to Ignore
 #**/2019_prem_game_stats/**
 **/prem_seasons_fixture_id/**
+**/prem_game_stats_json_files/**
+**/prem_clean_fixtures_and_dataframes/**
 **/test_data/**
 **/misc/**
 **/backup_files/**

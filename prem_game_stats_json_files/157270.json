@@ -1,1 +1,160 @@
-{"Shots on Goal":{"home":"7","away":"0"},"Shots off Goal":{"home":"5","away":"2"},"Total Shots":{"home":"20","away":"3"},"Blocked Shots":{"home":"8","away":"1"},"Shots insidebox":{"home":"13","away":"2"},"Shots outsidebox":{"home":"7","away":"1"},"Fouls":{"home":"5","away":"7"},"Corner Kicks":{"home":"6","away":"1"},"Offsides":{"home":"1","away":"3"},"Ball Possession":{"home":"78%","away":"22%"},"Yellow Cards":{"home":"0","away":"1"},"Red Cards":{"home":null,"away":null},"Goalkeeper Saves":{"home":"0","away":"5"},"Total passes":{"home":"891","away":"244"},"Passes accurate":{"home":"819","away":"169"},"Passes %":{"home":"92%","away":"69%"}}
+{
+  "get": "fixtures/statistics",
+  "parameters": {
+    "fixture": "157270"
+  },
+  "errors": [],
+  "results": 2,
+  "paging": {
+    "current": 1,
+    "total": 1
+  },
+  "response": [
+    {
+      "team": {
+        "id": 50,
+        "name": "Manchester City",
+        "logo": "https://media.api-sports.io/football/teams/50.png"
+      },
+      "statistics": [
+        {
+          "type": "Shots on Goal",
+          "value": 7
+        },
+        {
+          "type": "Shots off Goal",
+          "value": 5
+        },
+        {
+          "type": "Total Shots",
+          "value": 20
+        },
+        {
+          "type": "Blocked Shots",
+          "value": 8
+        },
+        {
+          "type": "Shots insidebox",
+          "value": 13
+        },
+        {
+          "type": "Shots outsidebox",
+          "value": 7
+        },
+        {
+          "type": "Fouls",
+          "value": 5
+        },
+        {
+          "type": "Corner Kicks",
+          "value": 6
+        },
+        {
+          "type": "Offsides",
+          "value": 1
+        },
+        {
+          "type": "Ball Possession",
+          "value": "77%"
+        },
+        {
+          "type": "Yellow Cards",
+          "value": 0
+        },
+        {
+          "type": "Red Cards",
+          "value": null
+        },
+        {
+          "type": "Goalkeeper Saves",
+          "value": 0
+        },
+        {
+          "type": "Total passes",
+          "value": 896
+        },
+        {
+          "type": "Passes accurate",
+          "value": 822
+        },
+        {
+          "type": "Passes %",
+          "value": "92%"
+        }
+      ]
+    },
+    {
+      "team": {
+        "id": 48,
+        "name": "West Ham",
+        "logo": "https://media.api-sports.io/football/teams/48.png"
+      },
+      "statistics": [
+        {
+          "type": "Shots on Goal",
+          "value": 0
+        },
+        {
+          "type": "Shots off Goal",
+          "value": 2
+        },
+        {
+          "type": "Total Shots",
+          "value": 3
+        },
+        {
+          "type": "Blocked Shots",
+          "value": 1
+        },
+        {
+          "type": "Shots insidebox",
+          "value": 2
+        },
+        {
+          "type": "Shots outsidebox",
+          "value": 1
+        },
+        {
+          "type": "Fouls",
+          "value": 7
+        },
+        {
+          "type": "Corner Kicks",
+          "value": 1
+        },
+        {
+          "type": "Offsides",
+          "value": 3
+        },
+        {
+          "type": "Ball Possession",
+          "value": "23%"
+        },
+        {
+          "type": "Yellow Cards",
+          "value": 1
+        },
+        {
+          "type": "Red Cards",
+          "value": null
+        },
+        {
+          "type": "Goalkeeper Saves",
+          "value": 5
+        },
+        {
+          "type": "Total passes",
+          "value": 254
+        },
+        {
+          "type": "Passes accurate",
+          "value": 178
+        },
+        {
+          "type": "Passes %",
+          "value": "70%"
+        }
+      ]
+    }
+  ]
+}

@@ -1,1 +1,168 @@
-{"Shots on Goal":{"home":"4","away":"2"},"Shots off Goal":{"home":"8","away":"4"},"Total Shots":{"home":"19","away":"8"},"Blocked Shots":{"home":"7","away":"2"},"Shots insidebox":{"home":"15","away":"5"},"Shots outsidebox":{"home":"4","away":"3"},"Fouls":{"home":"10","away":"8"},"Corner Kicks":{"home":"10","away":"4"},"Offsides":{"home":"2","away":"0"},"Ball Possession":{"home":"77%","away":"23%"},"Yellow Cards":{"home":"3","away":"2"},"Red Cards":{"home":null,"away":null},"Goalkeeper Saves":{"home":"1","away":"3"},"Total passes":{"home":"741","away":"221"},"Passes accurate":{"home":"653","away":"148"},"Passes %":{"home":"88%","away":"67%"},"expected_goals":{"home":"1.30","away":"0.90"}}
+{
+  "get": "fixtures/statistics",
+  "parameters": {
+    "fixture": "1035101"
+  },
+  "errors": [],
+  "results": 2,
+  "paging": {
+    "current": 1,
+    "total": 1
+  },
+  "response": [
+    {
+      "team": {
+        "id": 33,
+        "name": "Manchester United",
+        "logo": "https://media.api-sports.io/football/teams/33.png"
+      },
+      "statistics": [
+        {
+          "type": "Shots on Goal",
+          "value": 4
+        },
+        {
+          "type": "Shots off Goal",
+          "value": 8
+        },
+        {
+          "type": "Total Shots",
+          "value": 19
+        },
+        {
+          "type": "Blocked Shots",
+          "value": 7
+        },
+        {
+          "type": "Shots insidebox",
+          "value": 15
+        },
+        {
+          "type": "Shots outsidebox",
+          "value": 4
+        },
+        {
+          "type": "Fouls",
+          "value": 10
+        },
+        {
+          "type": "Corner Kicks",
+          "value": 10
+        },
+        {
+          "type": "Offsides",
+          "value": 2
+        },
+        {
+          "type": "Ball Possession",
+          "value": "77%"
+        },
+        {
+          "type": "Yellow Cards",
+          "value": 3
+        },
+        {
+          "type": "Red Cards",
+          "value": null
+        },
+        {
+          "type": "Goalkeeper Saves",
+          "value": 1
+        },
+        {
+          "type": "Total passes",
+          "value": 741
+        },
+        {
+          "type": "Passes accurate",
+          "value": 653
+        },
+        {
+          "type": "Passes %",
+          "value": "88%"
+        },
+        {
+          "type": "expected_goals",
+          "value": "1.30"
+        }
+      ]
+    },
+    {
+      "team": {
+        "id": 52,
+        "name": "Crystal Palace",
+        "logo": "https://media.api-sports.io/football/teams/52.png"
+      },
+      "statistics": [
+        {
+          "type": "Shots on Goal",
+          "value": 2
+        },
+        {
+          "type": "Shots off Goal",
+          "value": 4
+        },
+        {
+          "type": "Total Shots",
+          "value": 8
+        },
+        {
+          "type": "Blocked Shots",
+          "value": 2
+        },
+        {
+          "type": "Shots insidebox",
+          "value": 5
+        },
+        {
+          "type": "Shots outsidebox",
+          "value": 3
+        },
+        {
+          "type": "Fouls",
+          "value": 8
+        },
+        {
+          "type": "Corner Kicks",
+          "value": 4
+        },
+        {
+          "type": "Offsides",
+          "value": 0
+        },
+        {
+          "type": "Ball Possession",
+          "value": "23%"
+        },
+        {
+          "type": "Yellow Cards",
+          "value": 2
+        },
+        {
+          "type": "Red Cards",
+          "value": null
+        },
+        {
+          "type": "Goalkeeper Saves",
+          "value": 3
+        },
+        {
+          "type": "Total passes",
+          "value": 221
+        },
+        {
+          "type": "Passes accurate",
+          "value": 148
+        },
+        {
+          "type": "Passes %",
+          "value": "67%"
+        },
+        {
+          "type": "expected_goals",
+          "value": "0.90"
+        }
+      ]
+    }
+  ]
+}

@@ -1,1 +1,160 @@
-{"Shots on Goal":{"home":"6","away":"3"},"Shots off Goal":{"home":"7","away":"5"},"Total Shots":{"home":"16","away":"11"},"Blocked Shots":{"home":"3","away":"3"},"Shots insidebox":{"home":"13","away":"9"},"Shots outsidebox":{"home":"3","away":"2"},"Fouls":{"home":"7","away":"9"},"Corner Kicks":{"home":"4","away":"4"},"Offsides":{"home":"1","away":"3"},"Ball Possession":{"home":"69%","away":"31%"},"Yellow Cards":{"home":"0","away":"1"},"Red Cards":{"home":null,"away":null},"Goalkeeper Saves":{"home":"2","away":"4"},"Total passes":{"home":"652","away":"275"},"Passes accurate":{"home":"544","away":"185"},"Passes %":{"home":"83%","away":"67%"}}
+{
+  "get": "fixtures/statistics",
+  "parameters": {
+    "fixture": "157147"
+  },
+  "errors": [],
+  "results": 2,
+  "paging": {
+    "current": 1,
+    "total": 1
+  },
+  "response": [
+    {
+      "team": {
+        "id": 46,
+        "name": "Leicester",
+        "logo": "https://media.api-sports.io/football/teams/46.png"
+      },
+      "statistics": [
+        {
+          "type": "Shots on Goal",
+          "value": 6
+        },
+        {
+          "type": "Shots off Goal",
+          "value": 7
+        },
+        {
+          "type": "Total Shots",
+          "value": 16
+        },
+        {
+          "type": "Blocked Shots",
+          "value": 3
+        },
+        {
+          "type": "Shots insidebox",
+          "value": 13
+        },
+        {
+          "type": "Shots outsidebox",
+          "value": 3
+        },
+        {
+          "type": "Fouls",
+          "value": 7
+        },
+        {
+          "type": "Corner Kicks",
+          "value": 4
+        },
+        {
+          "type": "Offsides",
+          "value": 1
+        },
+        {
+          "type": "Ball Possession",
+          "value": "69%"
+        },
+        {
+          "type": "Yellow Cards",
+          "value": 0
+        },
+        {
+          "type": "Red Cards",
+          "value": null
+        },
+        {
+          "type": "Goalkeeper Saves",
+          "value": 2
+        },
+        {
+          "type": "Total passes",
+          "value": 652
+        },
+        {
+          "type": "Passes accurate",
+          "value": 544
+        },
+        {
+          "type": "Passes %",
+          "value": "83%"
+        }
+      ]
+    },
+    {
+      "team": {
+        "id": 45,
+        "name": "Everton",
+        "logo": "https://media.api-sports.io/football/teams/45.png"
+      },
+      "statistics": [
+        {
+          "type": "Shots on Goal",
+          "value": 3
+        },
+        {
+          "type": "Shots off Goal",
+          "value": 5
+        },
+        {
+          "type": "Total Shots",
+          "value": 11
+        },
+        {
+          "type": "Blocked Shots",
+          "value": 3
+        },
+        {
+          "type": "Shots insidebox",
+          "value": 9
+        },
+        {
+          "type": "Shots outsidebox",
+          "value": 2
+        },
+        {
+          "type": "Fouls",
+          "value": 9
+        },
+        {
+          "type": "Corner Kicks",
+          "value": 4
+        },
+        {
+          "type": "Offsides",
+          "value": 3
+        },
+        {
+          "type": "Ball Possession",
+          "value": "31%"
+        },
+        {
+          "type": "Yellow Cards",
+          "value": 1
+        },
+        {
+          "type": "Red Cards",
+          "value": null
+        },
+        {
+          "type": "Goalkeeper Saves",
+          "value": 4
+        },
+        {
+          "type": "Total passes",
+          "value": 275
+        },
+        {
+          "type": "Passes accurate",
+          "value": 185
+        },
+        {
+          "type": "Passes %",
+          "value": "67%"
+        }
+      ]
+    }
+  ]
+}

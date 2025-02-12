@@ -1,0 +1,237 @@
+Comparação de Modelos de Machine Learning
+Data: 2025-02-10 15:12:25
+
+
+=== RANDOM_FOREST ===
+Acurácia: 0.612
+Precision Macro: 0.698
+Recall Macro: 0.656
+F1 Macro: 0.615
+
+Relatório de Classificação:
+              precision    recall  f1-score   support
+
+           0       0.83      0.57      0.67        60
+           1       0.38      0.91      0.54        33
+           2       0.88      0.49      0.63        59
+
+    accuracy                           0.61       152
+   macro avg       0.70      0.66      0.61       152
+weighted avg       0.75      0.61      0.63       152
+
+Métricas por Classe:
+
+Derrota:
+  precision: 0.829
+  recall: 0.567
+  f1: 0.673
+  retorno_esperado: 2.317
+  Retorno Esperado: 2.32
+
+Empate:
+  precision: 0.385
+  recall: 0.909
+  f1: 0.541
+
+Vitória:
+  precision: 0.879
+  recall: 0.492
+  f1: 0.630
+  retorno_esperado: 1.197
+  Retorno Esperado: 1.20
+
+=== NEURAL_NETWORK ===
+Acurácia: 0.559
+Precision Macro: 0.603
+Recall Macro: 0.584
+F1 Macro: 0.557
+
+Relatório de Classificação:
+              precision    recall  f1-score   support
+
+           0       0.77      0.60      0.67        60
+           1       0.35      0.73      0.47        33
+           2       0.69      0.42      0.53        59
+
+    accuracy                           0.56       152
+   macro avg       0.60      0.58      0.56       152
+weighted avg       0.65      0.56      0.57       152
+
+Métricas por Classe:
+
+Derrota:
+  precision: 0.766
+  recall: 0.600
+  f1: 0.673
+  retorno_esperado: 2.064
+  Retorno Esperado: 2.06
+
+Empate:
+  precision: 0.348
+  recall: 0.727
+  f1: 0.471
+
+Vitória:
+  precision: 0.694
+  recall: 0.424
+  f1: 0.526
+  retorno_esperado: 0.736
+  Retorno Esperado: 0.74
+
+=== KNN ===
+Acurácia: 0.408
+Precision Macro: 0.639
+Recall Macro: 0.464
+F1 Macro: 0.406
+
+Relatório de Classificação:
+              precision    recall  f1-score   support
+
+           0       0.76      0.42      0.54        60
+           1       0.24      0.79      0.37        33
+           2       0.92      0.19      0.31        59
+
+    accuracy                           0.41       152
+   macro avg       0.64      0.46      0.41       152
+weighted avg       0.71      0.41      0.41       152
+
+Métricas por Classe:
+
+Derrota:
+  precision: 0.758
+  recall: 0.417
+  f1: 0.538
+  retorno_esperado: 2.030
+  Retorno Esperado: 2.03
+
+Empate:
+  precision: 0.243
+  recall: 0.788
+  f1: 0.371
+
+Vitória:
+  precision: 0.917
+  recall: 0.186
+  f1: 0.310
+  retorno_esperado: 1.292
+  Retorno Esperado: 1.29
+
+=== SVM ===
+Acurácia: 0.500
+Precision Macro: 0.625
+Recall Macro: 0.555
+F1 Macro: 0.493
+
+Relatório de Classificação:
+              precision    recall  f1-score   support
+
+           0       0.82      0.55      0.66        60
+           1       0.31      0.88      0.46        33
+           2       0.74      0.24      0.36        59
+
+    accuracy                           0.50       152
+   macro avg       0.62      0.56      0.49       152
+weighted avg       0.68      0.50      0.50       152
+
+Métricas por Classe:
+
+Derrota:
+  precision: 0.825
+  recall: 0.550
+  f1: 0.660
+  retorno_esperado: 2.300
+  Retorno Esperado: 2.30
+
+Empate:
+  precision: 0.312
+  recall: 0.879
+  f1: 0.460
+
+Vitória:
+  precision: 0.737
+  recall: 0.237
+  f1: 0.359
+  retorno_esperado: 0.842
+  Retorno Esperado: 0.84
+
+=== XGBOOST ===
+Acurácia: 0.750
+Precision Macro: 0.757
+Recall Macro: 0.774
+F1 Macro: 0.746
+
+Relatório de Classificação:
+              precision    recall  f1-score   support
+
+           0       0.86      0.72      0.78        60
+           1       0.56      0.91      0.69        33
+           2       0.85      0.69      0.77        59
+
+    accuracy                           0.75       152
+   macro avg       0.76      0.77      0.75       152
+weighted avg       0.79      0.75      0.76       152
+
+Métricas por Classe:
+
+Derrota:
+  precision: 0.860
+  recall: 0.717
+  f1: 0.782
+  retorno_esperado: 2.440
+  Retorno Esperado: 2.44
+
+Empate:
+  precision: 0.556
+  recall: 0.909
+  f1: 0.690
+
+Vitória:
+  precision: 0.854
+  recall: 0.695
+  f1: 0.766
+  retorno_esperado: 1.135
+  Retorno Esperado: 1.14
+
+=== LIGHTGBM ===
+Acurácia: 0.737
+Precision Macro: 0.748
+Recall Macro: 0.763
+F1 Macro: 0.733
+
+Relatório de Classificação:
+              precision    recall  f1-score   support
+
+           0       0.85      0.67      0.75        60
+           1       0.54      0.91      0.67        33
+           2       0.86      0.71      0.78        59
+
+    accuracy                           0.74       152
+   macro avg       0.75      0.76      0.73       152
+weighted avg       0.78      0.74      0.74       152
+
+Métricas por Classe:
+
+Derrota:
+  precision: 0.851
+  recall: 0.667
+  f1: 0.748
+  retorno_esperado: 2.404
+  Retorno Esperado: 2.40
+
+Empate:
+  precision: 0.536
+  recall: 0.909
+  f1: 0.674
+
+Vitória:
+  precision: 0.857
+  recall: 0.712
+  f1: 0.778
+  retorno_esperado: 1.143
+  Retorno Esperado: 1.14
+
+=== MELHORES MODELOS ===
+accuracy: xgboost (0.750)
+precision_macro: xgboost (0.757)
+recall_macro: xgboost (0.774)
+f1_macro: xgboost (0.746)

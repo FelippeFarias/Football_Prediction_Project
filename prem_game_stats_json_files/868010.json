@@ -1,1 +1,168 @@
-{"Shots on Goal":{"home":"6","away":"1"},"Shots off Goal":{"home":"6","away":"4"},"Total Shots":{"home":"21","away":"13"},"Blocked Shots":{"home":"9","away":"8"},"Shots insidebox":{"home":"13","away":"9"},"Shots outsidebox":{"home":"8","away":"4"},"Fouls":{"home":"11","away":"13"},"Corner Kicks":{"home":"11","away":"4"},"Offsides":{"home":"3","away":"3"},"Ball Possession":{"home":"62%","away":"38%"},"Yellow Cards":{"home":"1","away":"4"},"Red Cards":{"home":null,"away":null},"Goalkeeper Saves":{"home":"0","away":"4"},"Total passes":{"home":"494","away":"296"},"Passes accurate":{"home":"401","away":"198"},"Passes %":{"home":"81%","away":"67%"},"expected_goals":{"home":"1.86","away":"0.80"}}
+{
+  "get": "fixtures/statistics",
+  "parameters": {
+    "fixture": "868010"
+  },
+  "errors": [],
+  "results": 2,
+  "paging": {
+    "current": 1,
+    "total": 1
+  },
+  "response": [
+    {
+      "team": {
+        "id": 63,
+        "name": "Leeds",
+        "logo": "https://media.api-sports.io/football/teams/63.png"
+      },
+      "statistics": [
+        {
+          "type": "Shots on Goal",
+          "value": 6
+        },
+        {
+          "type": "Shots off Goal",
+          "value": 6
+        },
+        {
+          "type": "Total Shots",
+          "value": 21
+        },
+        {
+          "type": "Blocked Shots",
+          "value": 9
+        },
+        {
+          "type": "Shots insidebox",
+          "value": 13
+        },
+        {
+          "type": "Shots outsidebox",
+          "value": 8
+        },
+        {
+          "type": "Fouls",
+          "value": 11
+        },
+        {
+          "type": "Corner Kicks",
+          "value": 11
+        },
+        {
+          "type": "Offsides",
+          "value": 3
+        },
+        {
+          "type": "Ball Possession",
+          "value": "62%"
+        },
+        {
+          "type": "Yellow Cards",
+          "value": 1
+        },
+        {
+          "type": "Red Cards",
+          "value": null
+        },
+        {
+          "type": "Goalkeeper Saves",
+          "value": 0
+        },
+        {
+          "type": "Total passes",
+          "value": 494
+        },
+        {
+          "type": "Passes accurate",
+          "value": 401
+        },
+        {
+          "type": "Passes %",
+          "value": "81%"
+        },
+        {
+          "type": "expected_goals",
+          "value": "1.86"
+        }
+      ]
+    },
+    {
+      "team": {
+        "id": 65,
+        "name": "Nottingham Forest",
+        "logo": "https://media.api-sports.io/football/teams/65.png"
+      },
+      "statistics": [
+        {
+          "type": "Shots on Goal",
+          "value": 1
+        },
+        {
+          "type": "Shots off Goal",
+          "value": 4
+        },
+        {
+          "type": "Total Shots",
+          "value": 13
+        },
+        {
+          "type": "Blocked Shots",
+          "value": 8
+        },
+        {
+          "type": "Shots insidebox",
+          "value": 9
+        },
+        {
+          "type": "Shots outsidebox",
+          "value": 4
+        },
+        {
+          "type": "Fouls",
+          "value": 13
+        },
+        {
+          "type": "Corner Kicks",
+          "value": 4
+        },
+        {
+          "type": "Offsides",
+          "value": 3
+        },
+        {
+          "type": "Ball Possession",
+          "value": "38%"
+        },
+        {
+          "type": "Yellow Cards",
+          "value": 4
+        },
+        {
+          "type": "Red Cards",
+          "value": null
+        },
+        {
+          "type": "Goalkeeper Saves",
+          "value": 4
+        },
+        {
+          "type": "Total passes",
+          "value": 296
+        },
+        {
+          "type": "Passes accurate",
+          "value": 198
+        },
+        {
+          "type": "Passes %",
+          "value": "67%"
+        },
+        {
+          "type": "expected_goals",
+          "value": "0.80"
+        }
+      ]
+    }
+  ]
+}

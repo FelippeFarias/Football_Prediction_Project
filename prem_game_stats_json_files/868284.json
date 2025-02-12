@@ -1,1 +1,168 @@
-{"Shots on Goal":{"home":"6","away":"1"},"Shots off Goal":{"home":"6","away":"2"},"Total Shots":{"home":"14","away":"7"},"Blocked Shots":{"home":"2","away":"4"},"Shots insidebox":{"home":"8","away":"5"},"Shots outsidebox":{"home":"6","away":"2"},"Fouls":{"home":"16","away":"7"},"Corner Kicks":{"home":"1","away":"4"},"Offsides":{"home":"7","away":"3"},"Ball Possession":{"home":"57%","away":"43%"},"Yellow Cards":{"home":"2","away":"0"},"Red Cards":{"home":null,"away":null},"Goalkeeper Saves":{"home":"1","away":"5"},"Total passes":{"home":"512","away":"369"},"Passes accurate":{"home":"436","away":"289"},"Passes %":{"home":"85%","away":"78%"},"expected_goals":{"home":"1.25","away":"0.56"}}
+{
+  "get": "fixtures/statistics",
+  "parameters": {
+    "fixture": "868284"
+  },
+  "errors": [],
+  "results": 2,
+  "paging": {
+    "current": 1,
+    "total": 1
+  },
+  "response": [
+    {
+      "team": {
+        "id": 33,
+        "name": "Manchester United",
+        "logo": "https://media.api-sports.io/football/teams/33.png"
+      },
+      "statistics": [
+        {
+          "type": "Shots on Goal",
+          "value": 6
+        },
+        {
+          "type": "Shots off Goal",
+          "value": 6
+        },
+        {
+          "type": "Total Shots",
+          "value": 14
+        },
+        {
+          "type": "Blocked Shots",
+          "value": 2
+        },
+        {
+          "type": "Shots insidebox",
+          "value": 8
+        },
+        {
+          "type": "Shots outsidebox",
+          "value": 6
+        },
+        {
+          "type": "Fouls",
+          "value": 16
+        },
+        {
+          "type": "Corner Kicks",
+          "value": 1
+        },
+        {
+          "type": "Offsides",
+          "value": 7
+        },
+        {
+          "type": "Ball Possession",
+          "value": "57%"
+        },
+        {
+          "type": "Yellow Cards",
+          "value": 2
+        },
+        {
+          "type": "Red Cards",
+          "value": null
+        },
+        {
+          "type": "Goalkeeper Saves",
+          "value": 1
+        },
+        {
+          "type": "Total passes",
+          "value": 512
+        },
+        {
+          "type": "Passes accurate",
+          "value": 436
+        },
+        {
+          "type": "Passes %",
+          "value": "85%"
+        },
+        {
+          "type": "expected_goals",
+          "value": "1.25"
+        }
+      ]
+    },
+    {
+      "team": {
+        "id": 66,
+        "name": "Aston Villa",
+        "logo": "https://media.api-sports.io/football/teams/66.png"
+      },
+      "statistics": [
+        {
+          "type": "Shots on Goal",
+          "value": 1
+        },
+        {
+          "type": "Shots off Goal",
+          "value": 2
+        },
+        {
+          "type": "Total Shots",
+          "value": 7
+        },
+        {
+          "type": "Blocked Shots",
+          "value": 4
+        },
+        {
+          "type": "Shots insidebox",
+          "value": 5
+        },
+        {
+          "type": "Shots outsidebox",
+          "value": 2
+        },
+        {
+          "type": "Fouls",
+          "value": 7
+        },
+        {
+          "type": "Corner Kicks",
+          "value": 4
+        },
+        {
+          "type": "Offsides",
+          "value": 3
+        },
+        {
+          "type": "Ball Possession",
+          "value": "43%"
+        },
+        {
+          "type": "Yellow Cards",
+          "value": 0
+        },
+        {
+          "type": "Red Cards",
+          "value": null
+        },
+        {
+          "type": "Goalkeeper Saves",
+          "value": 5
+        },
+        {
+          "type": "Total passes",
+          "value": 369
+        },
+        {
+          "type": "Passes accurate",
+          "value": 289
+        },
+        {
+          "type": "Passes %",
+          "value": "78%"
+        },
+        {
+          "type": "expected_goals",
+          "value": "0.56"
+        }
+      ]
+    }
+  ]
+}

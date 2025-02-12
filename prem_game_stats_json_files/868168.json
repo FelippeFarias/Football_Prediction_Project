@@ -1,1 +1,168 @@
-{"Shots on Goal":{"home":"1","away":"7"},"Shots off Goal":{"home":"2","away":"5"},"Total Shots":{"home":"6","away":"17"},"Blocked Shots":{"home":"3","away":"5"},"Shots insidebox":{"home":"5","away":"13"},"Shots outsidebox":{"home":"1","away":"4"},"Fouls":{"home":"10","away":"11"},"Corner Kicks":{"home":"1","away":"6"},"Offsides":{"home":"3","away":"2"},"Ball Possession":{"home":"26%","away":"74%"},"Yellow Cards":{"home":"4","away":"1"},"Red Cards":{"home":null,"away":null},"Goalkeeper Saves":{"home":"6","away":"0"},"Total passes":{"home":"240","away":"705"},"Passes accurate":{"home":"169","away":"634"},"Passes %":{"home":"70%","away":"90%"},"expected_goals":{"home":"1.08","away":"2.50"}}
+{
+  "get": "fixtures/statistics",
+  "parameters": {
+    "fixture": "868168"
+  },
+  "errors": [],
+  "results": 2,
+  "paging": {
+    "current": 1,
+    "total": 1
+  },
+  "response": [
+    {
+      "team": {
+        "id": 52,
+        "name": "Crystal Palace",
+        "logo": "https://media.api-sports.io/football/teams/52.png"
+      },
+      "statistics": [
+        {
+          "type": "Shots on Goal",
+          "value": 1
+        },
+        {
+          "type": "Shots off Goal",
+          "value": 2
+        },
+        {
+          "type": "Total Shots",
+          "value": 6
+        },
+        {
+          "type": "Blocked Shots",
+          "value": 3
+        },
+        {
+          "type": "Shots insidebox",
+          "value": 5
+        },
+        {
+          "type": "Shots outsidebox",
+          "value": 1
+        },
+        {
+          "type": "Fouls",
+          "value": 10
+        },
+        {
+          "type": "Corner Kicks",
+          "value": 1
+        },
+        {
+          "type": "Offsides",
+          "value": 3
+        },
+        {
+          "type": "Ball Possession",
+          "value": "26%"
+        },
+        {
+          "type": "Yellow Cards",
+          "value": 4
+        },
+        {
+          "type": "Red Cards",
+          "value": null
+        },
+        {
+          "type": "Goalkeeper Saves",
+          "value": 6
+        },
+        {
+          "type": "Total passes",
+          "value": 240
+        },
+        {
+          "type": "Passes accurate",
+          "value": 169
+        },
+        {
+          "type": "Passes %",
+          "value": "70%"
+        },
+        {
+          "type": "expected_goals",
+          "value": "1.08"
+        }
+      ]
+    },
+    {
+      "team": {
+        "id": 51,
+        "name": "Brighton",
+        "logo": "https://media.api-sports.io/football/teams/51.png"
+      },
+      "statistics": [
+        {
+          "type": "Shots on Goal",
+          "value": 7
+        },
+        {
+          "type": "Shots off Goal",
+          "value": 5
+        },
+        {
+          "type": "Total Shots",
+          "value": 17
+        },
+        {
+          "type": "Blocked Shots",
+          "value": 5
+        },
+        {
+          "type": "Shots insidebox",
+          "value": 13
+        },
+        {
+          "type": "Shots outsidebox",
+          "value": 4
+        },
+        {
+          "type": "Fouls",
+          "value": 11
+        },
+        {
+          "type": "Corner Kicks",
+          "value": 6
+        },
+        {
+          "type": "Offsides",
+          "value": 2
+        },
+        {
+          "type": "Ball Possession",
+          "value": "74%"
+        },
+        {
+          "type": "Yellow Cards",
+          "value": 1
+        },
+        {
+          "type": "Red Cards",
+          "value": null
+        },
+        {
+          "type": "Goalkeeper Saves",
+          "value": 0
+        },
+        {
+          "type": "Total passes",
+          "value": 705
+        },
+        {
+          "type": "Passes accurate",
+          "value": 634
+        },
+        {
+          "type": "Passes %",
+          "value": "90%"
+        },
+        {
+          "type": "expected_goals",
+          "value": "2.50"
+        }
+      ]
+    }
+  ]
+}

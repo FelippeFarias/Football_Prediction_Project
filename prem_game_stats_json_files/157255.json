@@ -1,1 +1,160 @@
-{"Shots on Goal":{"home":"6","away":"5"},"Shots off Goal":{"home":"5","away":"9"},"Total Shots":{"home":"16","away":"18"},"Blocked Shots":{"home":"5","away":"4"},"Shots insidebox":{"home":"8","away":"15"},"Shots outsidebox":{"home":"8","away":"3"},"Fouls":{"home":"10","away":"15"},"Corner Kicks":{"home":"1","away":"8"},"Offsides":{"home":"1","away":"3"},"Ball Possession":{"home":"40%","away":"60%"},"Yellow Cards":{"home":"3","away":"3"},"Red Cards":{"home":"1","away":"0"},"Goalkeeper Saves":{"home":"4","away":"4"},"Total passes":{"home":"304","away":"448"},"Passes accurate":{"home":"191","away":"340"},"Passes %":{"home":"63%","away":"76%"}}
+{
+  "get": "fixtures/statistics",
+  "parameters": {
+    "fixture": "157255"
+  },
+  "errors": [],
+  "results": 2,
+  "paging": {
+    "current": 1,
+    "total": 1
+  },
+  "response": [
+    {
+      "team": {
+        "id": 35,
+        "name": "Bournemouth",
+        "logo": "https://media.api-sports.io/football/teams/35.png"
+      },
+      "statistics": [
+        {
+          "type": "Shots on Goal",
+          "value": 6
+        },
+        {
+          "type": "Shots off Goal",
+          "value": 5
+        },
+        {
+          "type": "Total Shots",
+          "value": 16
+        },
+        {
+          "type": "Blocked Shots",
+          "value": 5
+        },
+        {
+          "type": "Shots insidebox",
+          "value": 8
+        },
+        {
+          "type": "Shots outsidebox",
+          "value": 8
+        },
+        {
+          "type": "Fouls",
+          "value": 10
+        },
+        {
+          "type": "Corner Kicks",
+          "value": 1
+        },
+        {
+          "type": "Offsides",
+          "value": 1
+        },
+        {
+          "type": "Ball Possession",
+          "value": "39%"
+        },
+        {
+          "type": "Yellow Cards",
+          "value": 3
+        },
+        {
+          "type": "Red Cards",
+          "value": 1
+        },
+        {
+          "type": "Goalkeeper Saves",
+          "value": 4
+        },
+        {
+          "type": "Total passes",
+          "value": 303
+        },
+        {
+          "type": "Passes accurate",
+          "value": 188
+        },
+        {
+          "type": "Passes %",
+          "value": "62%"
+        }
+      ]
+    },
+    {
+      "team": {
+        "id": 66,
+        "name": "Aston Villa",
+        "logo": "https://media.api-sports.io/football/teams/66.png"
+      },
+      "statistics": [
+        {
+          "type": "Shots on Goal",
+          "value": 5
+        },
+        {
+          "type": "Shots off Goal",
+          "value": 9
+        },
+        {
+          "type": "Total Shots",
+          "value": 18
+        },
+        {
+          "type": "Blocked Shots",
+          "value": 4
+        },
+        {
+          "type": "Shots insidebox",
+          "value": 15
+        },
+        {
+          "type": "Shots outsidebox",
+          "value": 3
+        },
+        {
+          "type": "Fouls",
+          "value": 15
+        },
+        {
+          "type": "Corner Kicks",
+          "value": 8
+        },
+        {
+          "type": "Offsides",
+          "value": 3
+        },
+        {
+          "type": "Ball Possession",
+          "value": "61%"
+        },
+        {
+          "type": "Yellow Cards",
+          "value": 3
+        },
+        {
+          "type": "Red Cards",
+          "value": 0
+        },
+        {
+          "type": "Goalkeeper Saves",
+          "value": 4
+        },
+        {
+          "type": "Total passes",
+          "value": 456
+        },
+        {
+          "type": "Passes accurate",
+          "value": 347
+        },
+        {
+          "type": "Passes %",
+          "value": "76%"
+        }
+      ]
+    }
+  ]
+}

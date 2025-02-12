@@ -1,1 +1,168 @@
-{"Shots on Goal":{"home":"6","away":"1"},"Shots off Goal":{"home":"8","away":"1"},"Total Shots":{"home":"27","away":"7"},"Blocked Shots":{"home":"13","away":"5"},"Shots insidebox":{"home":"19","away":"2"},"Shots outsidebox":{"home":"8","away":"5"},"Fouls":{"home":"10","away":"8"},"Corner Kicks":{"home":"7","away":"5"},"Offsides":{"home":"0","away":"2"},"Ball Possession":{"home":"69%","away":"31%"},"Yellow Cards":{"home":"1","away":"2"},"Red Cards":{"home":null,"away":null},"Goalkeeper Saves":{"home":"0","away":"3"},"Total passes":{"home":"618","away":"271"},"Passes accurate":{"home":"522","away":"185"},"Passes %":{"home":"84%","away":"68%"},"expected_goals":{"home":"2.93","away":"0.22"}}
+{
+  "get": "fixtures/statistics",
+  "parameters": {
+    "fixture": "1035306"
+  },
+  "errors": [],
+  "results": 2,
+  "paging": {
+    "current": 1,
+    "total": 1
+  },
+  "response": [
+    {
+      "team": {
+        "id": 55,
+        "name": "Brentford",
+        "logo": "https://media.api-sports.io/football/teams/55.png"
+      },
+      "statistics": [
+        {
+          "type": "Shots on Goal",
+          "value": 6
+        },
+        {
+          "type": "Shots off Goal",
+          "value": 9
+        },
+        {
+          "type": "Total Shots",
+          "value": 27
+        },
+        {
+          "type": "Blocked Shots",
+          "value": 12
+        },
+        {
+          "type": "Shots insidebox",
+          "value": 19
+        },
+        {
+          "type": "Shots outsidebox",
+          "value": 8
+        },
+        {
+          "type": "Fouls",
+          "value": 10
+        },
+        {
+          "type": "Corner Kicks",
+          "value": 7
+        },
+        {
+          "type": "Offsides",
+          "value": 0
+        },
+        {
+          "type": "Ball Possession",
+          "value": "69%"
+        },
+        {
+          "type": "Yellow Cards",
+          "value": 1
+        },
+        {
+          "type": "Red Cards",
+          "value": null
+        },
+        {
+          "type": "Goalkeeper Saves",
+          "value": 0
+        },
+        {
+          "type": "Total passes",
+          "value": 626
+        },
+        {
+          "type": "Passes accurate",
+          "value": 530
+        },
+        {
+          "type": "Passes %",
+          "value": "85%"
+        },
+        {
+          "type": "expected_goals",
+          "value": "3.47"
+        }
+      ]
+    },
+    {
+      "team": {
+        "id": 1359,
+        "name": "Luton",
+        "logo": "https://media.api-sports.io/football/teams/1359.png"
+      },
+      "statistics": [
+        {
+          "type": "Shots on Goal",
+          "value": 1
+        },
+        {
+          "type": "Shots off Goal",
+          "value": 1
+        },
+        {
+          "type": "Total Shots",
+          "value": 7
+        },
+        {
+          "type": "Blocked Shots",
+          "value": 5
+        },
+        {
+          "type": "Shots insidebox",
+          "value": 2
+        },
+        {
+          "type": "Shots outsidebox",
+          "value": 5
+        },
+        {
+          "type": "Fouls",
+          "value": 8
+        },
+        {
+          "type": "Corner Kicks",
+          "value": 5
+        },
+        {
+          "type": "Offsides",
+          "value": 2
+        },
+        {
+          "type": "Ball Possession",
+          "value": "31%"
+        },
+        {
+          "type": "Yellow Cards",
+          "value": 2
+        },
+        {
+          "type": "Red Cards",
+          "value": null
+        },
+        {
+          "type": "Goalkeeper Saves",
+          "value": 3
+        },
+        {
+          "type": "Total passes",
+          "value": 277
+        },
+        {
+          "type": "Passes accurate",
+          "value": 191
+        },
+        {
+          "type": "Passes %",
+          "value": "69%"
+        },
+        {
+          "type": "expected_goals",
+          "value": "0.23"
+        }
+      ]
+    }
+  ]
+}

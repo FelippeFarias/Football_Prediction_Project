@@ -1,1 +1,168 @@
-{"Shots on Goal":{"home":"4","away":"4"},"Shots off Goal":{"home":"3","away":"4"},"Total Shots":{"home":"10","away":"17"},"Blocked Shots":{"home":"3","away":"9"},"Shots insidebox":{"home":"6","away":"8"},"Shots outsidebox":{"home":"4","away":"9"},"Fouls":{"home":"12","away":"9"},"Corner Kicks":{"home":"7","away":"8"},"Offsides":{"home":"0","away":"2"},"Ball Possession":{"home":"47%","away":"53%"},"Yellow Cards":{"home":"2","away":"0"},"Red Cards":{"home":"1","away":"0"},"Goalkeeper Saves":{"home":"4","away":"4"},"Total passes":{"home":"389","away":"444"},"Passes accurate":{"home":"304","away":"373"},"Passes %":{"home":"78%","away":"84%"},"expected_goals":{"home":"0.86","away":"1.11"}}
+{
+  "get": "fixtures/statistics",
+  "parameters": {
+    "fixture": "868212"
+  },
+  "errors": [],
+  "results": 2,
+  "paging": {
+    "current": 1,
+    "total": 1
+  },
+  "response": [
+    {
+      "team": {
+        "id": 33,
+        "name": "Manchester United",
+        "logo": "https://media.api-sports.io/football/teams/33.png"
+      },
+      "statistics": [
+        {
+          "type": "Shots on Goal",
+          "value": 4
+        },
+        {
+          "type": "Shots off Goal",
+          "value": 3
+        },
+        {
+          "type": "Total Shots",
+          "value": 10
+        },
+        {
+          "type": "Blocked Shots",
+          "value": 3
+        },
+        {
+          "type": "Shots insidebox",
+          "value": 6
+        },
+        {
+          "type": "Shots outsidebox",
+          "value": 4
+        },
+        {
+          "type": "Fouls",
+          "value": 12
+        },
+        {
+          "type": "Corner Kicks",
+          "value": 7
+        },
+        {
+          "type": "Offsides",
+          "value": 0
+        },
+        {
+          "type": "Ball Possession",
+          "value": "47%"
+        },
+        {
+          "type": "Yellow Cards",
+          "value": 2
+        },
+        {
+          "type": "Red Cards",
+          "value": 1
+        },
+        {
+          "type": "Goalkeeper Saves",
+          "value": 4
+        },
+        {
+          "type": "Total passes",
+          "value": 389
+        },
+        {
+          "type": "Passes accurate",
+          "value": 304
+        },
+        {
+          "type": "Passes %",
+          "value": "78%"
+        },
+        {
+          "type": "expected_goals",
+          "value": "0.86"
+        }
+      ]
+    },
+    {
+      "team": {
+        "id": 41,
+        "name": "Southampton",
+        "logo": "https://media.api-sports.io/football/teams/41.png"
+      },
+      "statistics": [
+        {
+          "type": "Shots on Goal",
+          "value": 4
+        },
+        {
+          "type": "Shots off Goal",
+          "value": 4
+        },
+        {
+          "type": "Total Shots",
+          "value": 17
+        },
+        {
+          "type": "Blocked Shots",
+          "value": 9
+        },
+        {
+          "type": "Shots insidebox",
+          "value": 8
+        },
+        {
+          "type": "Shots outsidebox",
+          "value": 9
+        },
+        {
+          "type": "Fouls",
+          "value": 9
+        },
+        {
+          "type": "Corner Kicks",
+          "value": 8
+        },
+        {
+          "type": "Offsides",
+          "value": 2
+        },
+        {
+          "type": "Ball Possession",
+          "value": "53%"
+        },
+        {
+          "type": "Yellow Cards",
+          "value": 0
+        },
+        {
+          "type": "Red Cards",
+          "value": 0
+        },
+        {
+          "type": "Goalkeeper Saves",
+          "value": 4
+        },
+        {
+          "type": "Total passes",
+          "value": 444
+        },
+        {
+          "type": "Passes accurate",
+          "value": 373
+        },
+        {
+          "type": "Passes %",
+          "value": "84%"
+        },
+        {
+          "type": "expected_goals",
+          "value": "1.11"
+        }
+      ]
+    }
+  ]
+}

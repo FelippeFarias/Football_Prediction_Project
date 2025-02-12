@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Previsões Premier League</title>
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+	<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+	<style>
+		body {
+			background-color: #f8f9fa;
+			font-family: 'Arial', sans-serif;
+		}
+		.navbar {
+			background-color: #37003c !important;
+		}
+		.card {
+			border-radius: 15px;
+			box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+			margin-bottom: 20px;
+			transition: transform 0.2s;
+		}
+		.card:hover {
+			transform: translateY(-5px);
+		}
+		.team-logo {
+			width: 50px;
+			height: 50px;
+			object-fit: contain;
+		}
+		.prediction-container {
+			position: relative;
+			height: 30px;
+			background: #f0f0f0;
+			border-radius: 15px;
+			overflow: hidden;
+			margin: 15px 0;
+		}
+		.prediction-segment {
+			position: absolute;
+			height: 100%;
+			top: 0;
+		}
+		.home-win {
+			left: 0;
+			background-color: #28a745;
+		}
+		.draw {
+			background-color: #ffc107;
+		}
+		.away-win {
+			right: 0;
+			background-color: #dc3545;
+		}
+		.prediction-label {
+			position: absolute;
+			width: 100%;
+			text-align: center;
+			color: #fff;
+			font-weight: bold;
+			text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+			line-height: 30px;
+			font-size: 0.9rem;
+		}
+		.game-date {
+			color: #6c757d;
+			font-size: 0.9rem;
+		}
+		.venue {
+			font-size: 0.8rem;
+			color: #495057;
+		}
+		.stats-container {
+			margin-top: 15px;
+			padding-top: 15px;
+			border-top: 1px solid #dee2e6;
+		}
+		.stats-row {
+			display: flex;
+			justify-content: space-between;
+			margin-bottom: 8px;
+			font-size: 0.9rem;
+		}
+		.stats-label {
+			color: #6c757d;
+		}
+		.stats-value {
+			font-weight: bold;
+		}
+	</style>
+</head>
+<body>
+	<nav class="navbar navbar-expand-lg navbar-dark mb-4">
+		<div class="container">
+			<a class="navbar-brand" href="/">
+				<i class="fas fa-futbol fa-2x me-2"></i>
+				Previsões Premier League
+			</a>
+		</div>
+	</nav>
+
+	<div class="container">
+		<div class="row">
+			{% for prediction in predictions %}
+			<div class="col-md-6 col-lg-4">
+				<div class="card">
+					<div class="card-body">
+						<div class="d-flex justify-content-between align-items-center mb-3">
+							<div class="text-center">
+								<img src="{{ prediction['Home Team Logo'] }}" alt="{{ prediction['Home Team'] }}" class="team-logo">
+								<div>{{ prediction['Home Team'] }}</div>
+							</div>
+							<div class="text-center">
+								<div class="game-date">{{ prediction['Game Date'] }}</div>
+								<div class="h4 mb-0">VS</div>
+								<div class="venue">{{ prediction['Venue'] }}</div>
+							</div>
+							<div class="text-center">
+								<img src="{{ prediction['Away Team Logo'] }}" alt="{{ prediction['Away Team'] }}" class="team-logo">
+								<div>{{ prediction['Away Team'] }}</div>
+							</div>
+						</div>
+
+						<div class="prediction-container">
+							<div class="prediction-segment home-win" style="width: {{ prediction['Home Win'] }}%">
+								<span class="prediction-label">{{ "%.1f"|format(prediction['Home Win']) }}%</span>
+							</div>
+							<div class="prediction-segment draw" 
+								 style="left: {{ prediction['Home Win'] }}%; width: {{ prediction['Draw'] }}%">
+								<span class="prediction-label">{{ "%.1f"|format(prediction['Draw']) }}%</span>
+							</div>
+							<div class="prediction-segment away-win" 
+								 style="width: {{ prediction['Away Win'] }}%">
+								<span class="prediction-label">{{ "%.1f"|format(prediction['Away Win']) }}%</span>
+							</div>
+						</div>
+
+						<div class="stats-container">
+							<div class="row">
+								<div class="col-6">
+									<div class="stats-row">
+										<span class="stats-label">Faltas</span>
+										<span class="stats-value">{{ prediction.get('Expected Fouls', '?') }}</span>
+									</div>
+									<div class="stats-row">
+										<span class="stats-label">Cartões Amarelos</span>
+										<span class="stats-value">{{ prediction.get('Expected Yellow Cards', '?') }}</span>
+									</div>
+								</div>
+								<div class="col-6">
+									<div class="stats-row">
+										<span class="stats-label">Escanteios</span>
+										<span class="stats-value">{{ prediction.get('Expected Corners', '?') }}</span>
+									</div>
+									<div class="stats-row">
+										<span class="stats-label">Posse de Bola</span>
+										<span class="stats-value">{{ prediction.get('Expected Possession', '?') }}%</span>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			{% endfor %}
+		</div>
+	</div>
+
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
+
+

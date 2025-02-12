@@ -82,7 +82,7 @@ def req_prem_fixtures_id(season_code, year=YEAR_str):
     premier_league_fixtures_sliced = slice_api(premier_league_fixtures_raw, 33, 2)
 
     #saving the clean data as a json file
-    save_api_output(f'{year}_premier_league_fixtures', premier_league_fixtures_sliced, json_data_path = '/home/matthaythornthwaite/Football_Prediction_Project/prem_clean_fixtures_and_dataframes/')
+    save_api_output(f'{year}_premier_league_fixtures', premier_league_fixtures_sliced, json_data_path='prem_game_stats_json_files/')
 
     #loading the json file as a DataFrame
     premier_league_fixtures_df = read_json_as_pd_df(f'{year}_premier_league_fixtures.json', json_data_path='/home/matthaythornthwaite/Football_Prediction_Project/prem_clean_fixtures_and_dataframes/')

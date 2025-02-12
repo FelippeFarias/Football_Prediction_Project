@@ -1,0 +1,80 @@
+Avaliação do Modelo - Janela de 10 Jogos
+Data: 2025-02-12 07:44:18
+Modelo utilizado: random_forest_model_10_20250211_223441.pkl
+
+=== Resultados da Validação ===
+Acurácia Global: 0.969
+
+Relatório de Classificação:
+              precision    recall  f1-score   support
+
+           0       0.96      0.96      0.96       843
+           1       1.00      1.00      1.00       534
+           2       0.96      0.96      0.96       843
+
+    accuracy                           0.97      2220
+   macro avg       0.97      0.97      0.97      2220
+weighted avg       0.97      0.97      0.97      2220
+
+
+Métricas por Classe:
+
+Derrota:
+  precision: 0.956
+  recall: 0.963
+  f1: 0.960
+  retorno_esperado: 2.826
+  Retorno Esperado: 2.83
+
+Empate:
+  precision: 1.000
+  recall: 1.000
+  f1: 1.000
+  retorno_esperado: 2.500
+  Retorno Esperado: 2.50
+
+Vitória:
+  precision: 0.963
+  recall: 0.956
+  f1: 0.960
+  retorno_esperado: 1.407
+  Retorno Esperado: 1.41
+
+
+=== Resultados do Teste ===
+Acurácia Global: 0.864
+
+Relatório de Classificação:
+              precision    recall  f1-score   support
+
+           0       0.83      0.81      0.82       843
+           1       1.00      1.00      1.00       534
+           2       0.81      0.84      0.82       843
+
+    accuracy                           0.86      2220
+   macro avg       0.88      0.88      0.88      2220
+weighted avg       0.86      0.86      0.86      2220
+
+
+Métricas por Classe:
+
+Derrota:
+  precision: 0.832
+  recall: 0.805
+  f1: 0.819
+  retorno_esperado: 2.328
+  Retorno Esperado: 2.33
+
+Empate:
+  precision: 1.000
+  recall: 1.000
+  f1: 1.000
+  retorno_esperado: 2.500
+  Retorno Esperado: 2.50
+
+Vitória:
+  precision: 0.811
+  recall: 0.837
+  f1: 0.824
+  retorno_esperado: 1.029
+  Retorno Esperado: 1.03

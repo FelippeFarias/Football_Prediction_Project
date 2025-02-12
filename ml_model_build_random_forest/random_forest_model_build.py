@@ -1,280 +1,390 @@
 # -*- coding: utf-8 -*-
 """
-Created on Sun May 10 15:59:55 2020
-
+Created on Wed Jun 24 13:57:52 2020
 @author: mhayt
 """
-
 
 print('\n\n ---------------- START ---------------- \n')
 
 #-------------------------------- API-FOOTBALL --------------------------------
 
-#!/usr/bin/python
-from os.path import dirname, realpath, sep, pardir
-import sys
-sys.path.append(dirname(realpath(__file__)) + sep + pardir + sep)
-
-import time
-start=time.time()
-
-from ml_functions.ml_model_eval import pred_proba_plot, plot_cross_val_confusion_matrix, plot_learning_curve
-from ml_functions.data_processing import scale_df
+import pandas as pd
 import pickle
 import numpy as np
+from sklearn.ensemble import RandomForestClassifier, VotingClassifier
+from sklearn.model_selection import train_test_split, cross_val_score, learning_curve, GridSearchCV, StratifiedKFold
+from sklearn.metrics import confusion_matrix, classification_report, roc_curve, auc, precision_recall_curve, average_precision_score, accuracy_score, precision_score, recall_score, f1_score
+from sklearn.preprocessing import StandardScaler, LabelEncoder
+from imblearn.over_sampling import SMOTE, ADASYN
+from imblearn.combine import SMOTETomek, SMOTEENN
+from imblearn.pipeline import Pipeline
 import matplotlib.pyplot as plt
-from sklearn.ensemble import RandomForestClassifier
-from sklearn.model_selection import train_test_split, GridSearchCV
-from sklearn.metrics import classification_report, confusion_matrix, plot_confusion_matrix, accuracy_score
-from sklearn.model_selection import StratifiedKFold, cross_val_score, cross_val_predict
-import pandas as pd
+import seaborn as sns
+from datetime import datetime
+import os
+import logging
+import xgboost as xgb
+from sklearn.svm import SVC
+import joblib
+from typing import Tuple
 
-plt.close('all')
+# Configure logging
+logging.basicConfig(
+    level=logging.INFO,
+    format='%(asctime)s - %(levelname)s - %(message)s'
+)
 
+#----------------------------- LOAD DATA -------------------------
 
-#------------------------------- INPUT VARIABLES ------------------------------
-
-df_5_saved_name = '2019_2020_2021_2022_prem_df_for_ml_5_v2.txt'
-df_10_saved_name = '2019_2020_2021_2022_prem_df_for_ml_10_v2.txt'
-
-grid_search = False
-
-pred_prob_plot_df10 = False
-save_pred_prob_plot_df10 = False
-pred_prob_plot_df5 = False
-save_pred_prob_plot_df5 = False
-
-save_conf_matrix_df10 = False
-save_conf_matrix_df5 = False
-
-save_learning_curve_df10 = False
-save_learning_curve_df5 = False
-
-create_final_model = True
-
-
-#------------------------------- ML MODEL BUILD -------------------------------
-
-#importing the data and creating the feature dataframe and target series
-
-with open(f'../prem_clean_fixtures_and_dataframes/{df_5_saved_name}', 'rb') as myFile:
-    df_ml_5 = pickle.load(myFile)
-
-with open(f'../prem_clean_fixtures_and_dataframes/{df_10_saved_name}', 'rb') as myFile:
-    df_ml_10 = pickle.load(myFile)
-    
-    
-#scaling dataframe to make all features to have zero mean and unit vector.
-df_ml_10 = scale_df(df_ml_10, list(range(14)), [14,15,16])
-df_ml_5 = scale_df(df_ml_5, list(range(14)), [14,15,16])
-
-x_10 = df_ml_10.drop(['Fixture ID', 'Team Result Indicator', 'Opponent Result Indicator'], axis=1)
-y_10 = df_ml_10['Team Result Indicator']
-
-x_5 = df_ml_5.drop(['Fixture ID', 'Team Result Indicator', 'Opponent Result Indicator'], axis=1)
-y_5 = df_ml_5['Team Result Indicator']
-
-
-#------------------------------- RANDOM FOREST --------------------------------
-
-
-def rand_forest_train(df, print_result=True, print_result_label=''):
-
-    #create features matrix
-    x = df.drop(['Fixture ID', 'Team Result Indicator', 'Opponent Result Indicator'], axis=1)
-    y = df['Team Result Indicator']
-    
-    #instantiate the random forest class
-    clf = RandomForestClassifier(max_depth=4, max_features=4, n_estimators=120)
-    
-    #split into training data and test data
-    x_train, x_test, y_train, y_test = train_test_split(x, y, test_size=0.2)
-    
-    #train the model
-    clf.fit(x_train, y_train)
-    
-    if print_result:
-        print(print_result_label)
-        #training data
-        train_data_score = round(clf.score(x_train, y_train) * 100, 1)
-        print(f'Training data score = {train_data_score}%')
+def load_data(window_size=10):
+    try:
+        # Encontrar o arquivo mais recente
+        df_files = [f for f in os.listdir('prem_clean_fixtures_and_dataframes') if f.startswith('prem_df_for_ml_')]
+        if not df_files:
+            raise FileNotFoundError("No dataframe files found")
         
-        #test data
-        test_data_score = round(clf.score(x_test, y_test) * 100, 1)
-        print(f'Test data score = {test_data_score}% \n')
+        # Procurar arquivo específico para o tamanho da janela
+        df_file = f'prem_df_for_ml_{window_size}_v2.txt'
+        if df_file not in df_files:
+            raise FileNotFoundError(f"No dataframe file found for window size {window_size}")
+        
+        with open(f'prem_clean_fixtures_and_dataframes/{df_file}', 'rb') as myFile:
+            df = pickle.load(myFile)
+            
+        logging.info(f"Successfully loaded {window_size}-game window dataframe")
+        return df
+    except Exception as e:
+        logging.error(f"Error loading data: {str(e)}")
+        raise
+
+#---------------------------- RANDOM FOREST BUILD ---------------------------
+
+def prepare_data(df: pd.DataFrame) -> Tuple[np.ndarray, np.ndarray, list, StandardScaler, LabelEncoder]:
+    """Prepara os dados para treinamento"""
+    try:
+        # Remover colunas não necessárias para o modelo
+        feature_cols = [col for col in df.columns if col not in ['Fixture ID', 'Result Indicator', 'Team', 'Game Date']]
+        
+        # Converter colunas para numérico
+        X = df[feature_cols].apply(pd.to_numeric, errors='coerce')
+        y = df['Result Indicator'].values
+        
+        # Preencher valores NaN com 0
+        X = X.fillna(0)
+        
+        # Normalização e encoding
+        scaler = StandardScaler()
+        le = LabelEncoder()
+        
+        X = scaler.fit_transform(X)
+        y = le.fit_transform(y)
+        
+        return X, y, feature_cols, scaler, le
+    except Exception as e:
+        logging.error(f"Erro ao preparar dados: {str(e)}")
+        raise
+
+def create_ensemble():
+    """Cria um ensemble de modelos"""
+    # Random Forest
+    rf = RandomForestClassifier(random_state=42, n_jobs=-1)
     
-    return clf, x_train, x_test, y_train, y_test
-
-
-ml_10_rand_forest, x10_train, x10_test, y10_train, y10_test = rand_forest_train(df_ml_10, print_result_label='DF_ML_10')
-ml_5_rand_forest, x5_train, x5_test, y5_train, y5_test = rand_forest_train(df_ml_5, print_result_label='DF_ML_5')
-
-
-# ---------- ENSEMBLE MODELLING ----------
-
-#In this section we will combine the results of using the same algorithm but with different input data used to train the model. The features are still broadly the same but have been averaged over a different number of games df_ml_10 is 10 games, df_ml_5 is 5 games. 
-
-#reducing fixtures in df_ml_5 to contain only the fixtures within df_ml_10 and training that new dataset
-df_ml_5_dropto10 = df_ml_5.drop(list(range(0,50)))
-ml_5_to10_rand_forest, x5_to10_train, x5_to10_test, y5_to10_train, y5_to10_test = rand_forest_train(df_ml_5_dropto10, print_result=False)
-
-#making predictions using the two df inputs independantly
-y_pred_ml10 = ml_10_rand_forest.predict(x10_test)
-y_pred_ml5to10 = ml_5_to10_rand_forest.predict(x10_test)
-
-#making probability predictions on each of the datasets independantly
-pred_proba_ml10 = ml_10_rand_forest.predict_proba(x10_test)
-pred_proba_ml5_10 = ml_5_to10_rand_forest.predict_proba(x10_test)
-
-#combining independant probabilities and creating combined class prediction
-pred_proba_ml5and10 = (np.array(pred_proba_ml10) + np.array(pred_proba_ml5_10)) / 2.0
-y_pred_ml5and10 = np.argmax(pred_proba_ml5and10, axis=1)
-
-#accuracy score variables
-y_pred_ml10_accuracy = round(accuracy_score(y10_test, y_pred_ml10), 3) * 100
-y_pred_ml5to10_accuracy = round(accuracy_score(y10_test, y_pred_ml5to10), 3) * 100
-y_pred_ml5and10_accuracy = round(accuracy_score(y10_test, y_pred_ml5and10), 3) * 100
-
-print('ENSEMBLE MODEL TESTING')
-print(f'Accuracy of df_10 alone = {y_pred_ml10_accuracy}%')
-print(confusion_matrix(y10_test, y_pred_ml10), '\n')
-print(f'Accuracy of df_5 alone = {y_pred_ml5to10_accuracy}%')
-print(confusion_matrix(y10_test, y_pred_ml5to10), '\n')
-print(f'Accuracy of df_5 and df_10 combined = {y_pred_ml5and10_accuracy}%')
-print(confusion_matrix(y10_test, y_pred_ml5and10), '\n\n')
-
-
-# ---------- GRID SEARCH ----------
-
-if grid_search:
-    param_grid_grad = [{'n_estimators':list(range(50,200,50)),
-                        'max_depth':list(range(1,5,1)),
-                        'max_features':list(range(2,5,1))}]
-    param_grid_grad = [{'n_estimators':list(range(10,200,10))}]
+    # XGBoost
+    xgb_model = xgb.XGBClassifier(
+        objective='multi:softprob',
+        random_state=42,
+        n_jobs=-1
+    )
     
-    #random forest gridsearch 
-    grid_search_grad = GridSearchCV(ml_10_rand_forest, 
-                                    param_grid_grad, 
-                                    cv=5, 
-                                    scoring = 'accuracy', 
-                                    return_train_score = True)
-    grid_search_grad.fit(x_10, y_10)
+    # SVM
+    svm = SVC(probability=True, random_state=42)
     
-    #Output best Cross Validation score and parameters from grid search
-    print('\n', 'Gradient Best Params: ' , grid_search_grad.best_params_)
-    print('Gradient Best Score: ' , grid_search_grad.best_score_ , '\n')
-
-
-#------------------------------- MODEL EVALUATION -----------------------------
-
-#cross validation
-skf = StratifiedKFold(n_splits=5, shuffle=True)
-
-cv_score_av = round(np.mean(cross_val_score(ml_10_rand_forest, x_10, y_10, cv=skf))*100,1)
-print('Cross-Validation Accuracy Score ML10: ', cv_score_av, '%\n')
-
-cv_score_av = round(np.mean(cross_val_score(ml_5_rand_forest, x_5, y_5, cv=skf))*100,1)
-print('Cross-Validation Accuracy Score ML5: ', cv_score_av, '%\n')
-
-
-# ---------- PREDICTION PROBABILITY PLOTS ----------
-
-if pred_prob_plot_df10:
-    fig = pred_proba_plot(ml_10_rand_forest, 
-                          x_10, 
-                          y_10, 
-                          no_iter=50, 
-                          no_bins=36, 
-                          x_min=0.3, 
-                          classifier='Random Forest (ml_10)')
-    if save_pred_prob_plot_df10:
-        fig.savefig('figures/ml_10_random_forest_pred_proba.png')
-
-if pred_prob_plot_df5:
-    fig = pred_proba_plot(ml_5_rand_forest, 
-                          x_5, 
-                          y_5, 
-                          no_iter=50, 
-                          no_bins=35, 
-                          x_min=0.3, 
-                          classifier='Random Forest (ml_5)')
-    if save_pred_prob_plot_df5:
-        fig.savefig('figures/ml_5_random_forest_pred_proba.png')
-
-
-# ---------- CONFUSION MATRIX PLOTS ----------
-
-#modified to take cross-val results.
-
-plot_cross_val_confusion_matrix(ml_10_rand_forest, 
-                                x_10, 
-                                y_10, 
-                                display_labels=('team loses', 'draw', 'team wins'), 
-                                title='Random Forest Confusion Matrix ML10', 
-                                cv=skf)
-if save_conf_matrix_df10:
-    plt.savefig('figures\ml_10_confusion_matrix_cross_val_random_forest.png')
-
-plot_cross_val_confusion_matrix(ml_5_rand_forest, 
-                                x_5, 
-                                y_5, 
-                                display_labels=('team loses', 'draw', 'team wins'), 
-                                title='Random Forest Confusion Matrix ML5', 
-                                cv=skf)
-if save_conf_matrix_df5:
-    plt.savefig('figures\ml_5_confusion_matrix_cross_val_random_forest.png')
-
-
-# ---------- LEARNING CURVE PLOTS ----------
-
-plot_learning_curve(ml_10_rand_forest, 
-                    x_10, 
-                    y_10, 
-                    training_set_size=20, 
-                    x_max=600, 
-                    title='Learning Curve - Random Forest DF_10')
-if save_learning_curve_df10:
-    plt.savefig('figures\ml_10_random_forest_learning_curve.png')
-
-plot_learning_curve(ml_5_rand_forest, 
-                    x_5, 
-                    y_5, 
-                    training_set_size=20, 
-                    x_max=600, 
-                    title='Learning Curve - Random Forest DF_5')
-if save_learning_curve_df5:
-    plt.savefig('figures\ml_5_random_forest_learning_curve.png')
-
-
-# ---------- FEATURE IMPORTANCE ----------
-
-fi_ml_10 = pd.DataFrame({'feature': list(x10_train.columns),'importance': ml_10_rand_forest.feature_importances_}).sort_values('importance', ascending = False)
-
-fi_ml_5 = pd.DataFrame({'feature': list(x5_train.columns),'importance': ml_5_rand_forest.feature_importances_}).sort_values('importance', ascending = False)
-
-
-#--------------------------------- FINAL MODEL --------------------------------
-
-#in this section we will take the learnings from the hyperparameter testing above and train a final model using 100% of the data. This model may then be used for predictions going forward.
-
-if create_final_model:
+    # Criar ensemble
+    ensemble = VotingClassifier(
+        estimators=[
+            ('rf', rf),
+            ('xgb', xgb_model),
+            ('svm', svm)
+        ],
+        voting='soft'
+    )
     
-    #intantiating and training the df_5 network
-    ml_5_rf = RandomForestClassifier(max_depth=4, max_features=4, n_estimators=120)
-    ml_5_rf.fit(x_5, y_5)
+    return ensemble
+
+def optimize_hyperparameters(X_train, y_train):
+    """Otimiza hiperparâmetros usando GridSearchCV com técnicas avançadas"""
+    # Random Forest base
+    rf = RandomForestClassifier(
+        n_estimators=300,
+        random_state=42,
+        n_jobs=-1,
+        class_weight='balanced'
+    )
     
-    #intantiating and training the df_10 network
-    ml_10_rf = RandomForestClassifier(max_depth=4, max_features=4, n_estimators=120)
-    ml_10_rf.fit(x_10, y_10)
+    # XGBoost base
+    xgb_model = xgb.XGBClassifier(
+        n_estimators=200,
+        learning_rate=0.1,
+        max_depth=6,
+        objective='multi:softprob',
+        random_state=42,
+        n_jobs=-1
+    )
     
-    with open('ml_models/random_forest_model_5.pk1', 'wb') as myFile:
-        pickle.dump(ml_5_rf, myFile)
+    # Criar ensemble
+    ensemble = VotingClassifier(
+        estimators=[
+            ('rf', rf),
+            ('xgb', xgb_model)
+        ],
+        voting='soft'
+    )
+    
+    # Parâmetros para otimização
+    param_grid = {
+        'rf__max_depth': [20, 30, None],
+        'rf__min_samples_split': [2, 5],
+        'rf__max_features': ['sqrt', 'log2'],
+        
+        'xgb__subsample': [0.8, 0.9],
+        'xgb__colsample_bytree': [0.8, 0.9]
+    }
+    
+    # Grid Search com validação cruzada estratificada
+    grid_search = GridSearchCV(
+        estimator=ensemble,
+        param_grid=param_grid,
+        cv=StratifiedKFold(n_splits=5, shuffle=True, random_state=42),
+        n_jobs=-1,
+        scoring='f1_weighted',
+        verbose=1
+    )
+    
+    # SMOTE para balanceamento
+    smote = SMOTE(random_state=42)
+    X_train_resampled, y_train_resampled = smote.fit_resample(X_train, y_train)
+    
+    grid_search.fit(X_train_resampled, y_train_resampled)
+    logging.info(f"Best parameters: {grid_search.best_params_}")
+    
+    return grid_search.best_estimator_
 
-    with open('ml_models/random_forest_model_10.pk1', 'wb') as myFile:
-        pickle.dump(ml_10_rf, myFile)
+def evaluate_model(model, X_test, y_test, window_size):
+    """Avalia o modelo com métricas específicas para apostas"""
+    # Fazer previsões
+    y_pred = model.predict(X_test)
+    y_pred_proba = model.predict_proba(X_test)
+    
+    # Calcular métricas básicas
+    accuracy = accuracy_score(y_test, y_pred)
+    class_report = classification_report(y_test, y_pred)
+    
+    logging.info(f"\nResultados para janela de {window_size} jogos:")
+    logging.info(f"Acurácia: {accuracy:.3f}")
+    logging.info(f"\nRelatório de classificação:\n{class_report}")
+    
+    # Métricas específicas para apostas
+    for i, result in enumerate(['Derrota', 'Empate', 'Vitória']):
+        precision = precision_score(y_test, y_pred, labels=[i], average=None)[0]
+        recall = recall_score(y_test, y_pred, labels=[i], average=None)[0]
+        f1 = f1_score(y_test, y_pred, labels=[i], average=None)[0]
+        
+        logging.info(f"\nMétricas para {result}:")
+        logging.info(f"Precisão: {precision:.3f}")
+        logging.info(f"Recall: {recall:.3f}")
+        logging.info(f"F1-Score: {f1:.3f}")
+        
+        # Calcular retorno potencial baseado em odds médias
+        if precision > 0.6:  # Apenas mostrar oportunidades com alta precisão
+            if result == 'Vitória':
+                odds_media = 2.5
+            elif result == 'Empate':
+                odds_media = 3.5
+            else:
+                odds_media = 4.0
+                
+            retorno_esperado = (precision * odds_media) - 1
+            logging.info(f"Retorno esperado com odds {odds_media}: {retorno_esperado:.2f}")
+    
+    # Plotar curvas de precisão-recall
+    plt.figure(figsize=(10, 6))
+    for i, result in enumerate(['Derrota', 'Empate', 'Vitória']):
+        precision, recall, _ = precision_recall_curve(y_test == i, y_pred_proba[:, i])
+        avg_precision = average_precision_score(y_test == i, y_pred_proba[:, i])
+        plt.plot(recall, precision, label=f'{result} (AP = {avg_precision:.2f})')
+    
+    plt.xlabel('Recall')
+    plt.ylabel('Precisão')
+    plt.title(f'Curvas de Precisão-Recall (Janela de {window_size} jogos)')
+    plt.legend()
+    plt.grid(True)
+    plt.savefig(f'figures/precision_recall_{window_size}_{datetime.now().strftime("%Y%m%d_%H%M%S")}.png')
+    plt.close()
+    
+    return model
 
+def plot_results(evaluation_results, window_size):
+    """Plota resultados detalhados com foco em métricas para apostas"""
+    os.makedirs('ml_model_build_random_forest/figures', exist_ok=True)
+    timestamp = datetime.now().strftime('%Y%m%d_%H%M%S')
+    
+    # Confusion Matrix
+    plt.figure(figsize=(10,7))
+    sns.heatmap(
+        evaluation_results['confusion_matrix'],
+        annot=True,
+        fmt='d',
+        cmap='Blues',
+        xticklabels=['Derrota', 'Empate', 'Vitória'],
+        yticklabels=['Derrota', 'Empate', 'Vitória']
+    )
+    plt.title(f'Matriz de Confusão - Janela de {window_size} Jogos')
+    plt.ylabel('Valor Real')
+    plt.xlabel('Previsão')
+    plt.savefig(f'ml_model_build_random_forest/figures/confusion_matrix_{window_size}_{timestamp}.png')
+    plt.close()
+    
+    # ROC Curves
+    plt.figure(figsize=(10,7))
+    colors = ['blue', 'red', 'green']
+    labels = ['Derrota', 'Empate', 'Vitória']
+    
+    for i, (label, color) in enumerate(zip(labels, colors)):
+        plt.plot(
+            evaluation_results['roc_data'][0][i],
+            evaluation_results['roc_data'][1][i],
+            color=color,
+            label=f'{label} (AUC = {evaluation_results["roc_data"][2][i]:.2f})'
+        )
+    
+    plt.plot([0, 1], [0, 1], 'k--')
+    plt.xlabel('Taxa de Falsos Positivos')
+    plt.ylabel('Taxa de Verdadeiros Positivos')
+    plt.title(f'Curvas ROC - Janela de {window_size} Jogos')
+    plt.legend(loc='lower right')
+    plt.savefig(f'ml_model_build_random_forest/figures/roc_curves_{window_size}_{timestamp}.png')
+    plt.close()
+    
+    # Precision-Recall Curves
+    plt.figure(figsize=(10,7))
+    for i, (label, color) in enumerate(zip(labels, colors)):
+        plt.plot(
+            evaluation_results['pr_data'][1][i],
+            evaluation_results['pr_data'][0][i],
+            color=color,
+            label=f'{label} (AP = {evaluation_results["pr_data"][2][i]:.2f})'
+        )
+    
+    plt.xlabel('Recall')
+    plt.ylabel('Precision')
+    plt.title(f'Curvas Precision-Recall - Janela de {window_size} Jogos')
+    plt.legend(loc='lower left')
+    plt.savefig(f'ml_model_build_random_forest/figures/pr_curves_{window_size}_{timestamp}.png')
+    plt.close()
 
-# ----------------------------------- END -------------------------------------
+def save_model(model, window_size):
+    """Salva o modelo treinado"""
+    os.makedirs('ml_model_build_random_forest/ml_models', exist_ok=True)
+    timestamp = datetime.now().strftime('%Y%m%d_%H%M%S')
+    model_path = f'ml_model_build_random_forest/ml_models/random_forest_model_{window_size}_{timestamp}.pkl'
+    with open(model_path, 'wb') as file:
+        pickle.dump(model, file)
+    logging.info(f"Model saved to {model_path}")
 
-print('\n', 'Script runtime:', round(((time.time()-start)/60), 2), 'minutes')
-print(' ----------------- END ----------------- \n')
+def plot_feature_importance(model, feature_names, window_size):
+    """Plota a importância das features do modelo Random Forest"""
+    # Definir diretório raiz do projeto
+    PROJECT_ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
+    
+    # Criar diretório para figuras se não existir
+    os.makedirs(os.path.join(PROJECT_ROOT, 'ml_model_build_random_forest', 'figures'), exist_ok=True)
+    
+    feature_importance = pd.DataFrame({
+        'feature': feature_names,
+        'importance': model.feature_importances_
+    }).sort_values('importance', ascending=False)
+    
+    logging.info(f"\nTop 10 Features Mais Importantes (Janela de {window_size} jogos):")
+    logging.info(feature_importance.head(10))
+    
+    plt.figure(figsize=(12, 6))
+    sns.barplot(x='importance', y='feature', data=feature_importance.head(15))
+    plt.title(f'15 Features Mais Importantes - Janela de {window_size} Jogos')
+    plt.xlabel('Importância')
+    plt.ylabel('Feature')
+    plt.tight_layout()
+    
+    # Salvar figura usando o caminho completo
+    timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+    fig_path = os.path.join(PROJECT_ROOT, 'ml_model_build_random_forest', 'figures', 
+                           f'feature_importance_{window_size}_{timestamp}.png')
+    plt.savefig(fig_path)
+    plt.close()
+    
+    logging.info(f"Gráfico de importância das features salvo em: {fig_path}")
+
+def main():
+    """Função principal para treinamento e avaliação do modelo"""
+    logging.basicConfig(level=logging.INFO)
+    
+    # Definir diretório raiz do projeto
+    PROJECT_ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
+    
+    # Criar diretórios necessários
+    os.makedirs(os.path.join(PROJECT_ROOT, 'ml_model_build_random_forest', 'ml_models'), exist_ok=True)
+    os.makedirs(os.path.join(PROJECT_ROOT, 'ml_model_build_random_forest', 'figures'), exist_ok=True)
+    
+    # Carregar e preparar dados para janela de 5 jogos
+    logging.info("\nProcessando janela de 5 jogos...")
+    data_file = os.path.join(PROJECT_ROOT, 'prem_clean_fixtures_and_dataframes', 'prem_df_for_ml_5_v2.txt')
+    with open(data_file, 'rb') as myFile:
+        df_5 = pickle.load(myFile)
+    
+    X_5, y_5, feature_cols_5, scaler_5, le_5 = prepare_data(df_5)
+    X_train_5, X_test_5, y_train_5, y_test_5 = train_test_split(
+        X_5, y_5, test_size=0.2, random_state=42, stratify=y_5)
+    
+    # Treinar e otimizar modelo para 5 jogos
+    model_5 = optimize_hyperparameters(X_train_5, y_train_5)
+    evaluate_model(model_5, X_test_5, y_test_5, window_size=5)
+    
+    # Salvar modelo de 5 jogos
+    timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+    model_path_5 = os.path.join(PROJECT_ROOT, 'ml_model_build_random_forest', 'ml_models', f'random_forest_model_5_{timestamp}.pkl')
+    joblib.dump(model_5, model_path_5)
+    logging.info(f"Modelo de 5 jogos salvo em: {model_path_5}")
+    
+    # Carregar e preparar dados para janela de 10 jogos
+    logging.info("\nProcessando janela de 10 jogos...")
+    data_file_10 = os.path.join(PROJECT_ROOT, 'prem_clean_fixtures_and_dataframes', 'prem_df_for_ml_10_v2.txt')
+    with open(data_file_10, 'rb') as myFile:
+        df_10 = pickle.load(myFile)
+    
+    X_10, y_10, feature_cols_10, scaler_10, le_10 = prepare_data(df_10)
+    X_train_10, X_test_10, y_train_10, y_test_10 = train_test_split(
+        X_10, y_10, test_size=0.2, random_state=42, stratify=y_10
+    )
+    
+    # Treinar e otimizar modelo para 10 jogos
+    model_10 = optimize_hyperparameters(X_train_10, y_train_10)
+    evaluate_model(model_10, X_test_10, y_test_10, window_size=10)
+    
+    # Salvar modelo de 10 jogos
+    model_path_10 = os.path.join(PROJECT_ROOT, 'ml_model_build_random_forest', 'ml_models', f'random_forest_model_10_{timestamp}.pkl')
+    joblib.dump(model_10, model_path_10)
+    logging.info(f"Modelo de 10 jogos salvo em: {model_path_10}")
+    
+    # Plotar importância das features para ambos os modelos
+    if hasattr(model_5, 'named_estimators_'):
+        rf_model_5 = model_5.named_estimators_['rf']
+        plot_feature_importance(rf_model_5, feature_cols_5, window_size=5)
+        
+    if hasattr(model_10, 'named_estimators_'):
+        rf_model_10 = model_10.named_estimators_['rf']
+        plot_feature_importance(rf_model_10, feature_cols_10, window_size=10)
+    
+    logging.info("\nTreinamento e avaliação concluídos com sucesso!")
+
+if __name__ == "__main__":
+    main()
+    print('\n ----------------- END ----------------- \n')
